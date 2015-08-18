@@ -23,6 +23,9 @@
   
   MMLayer *layerThaichote = [_mapView layerName:LAYER_NAME_THAICHOTE];
   [_mapView setBaseLayer:layerThaichote];
+  
+  MMLayer *layerPoiTransparent = [_mapView layerName:LAYER_NAME_POI_TRANSPARENT];
+  [_mapView addOverlayLayer:layerPoiTransparent];
 }
 
 - (void)didReceiveMemoryWarning {
