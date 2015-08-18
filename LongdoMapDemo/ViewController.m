@@ -21,11 +21,11 @@
   _mapView.mapViewDelegate = self;
   _mapView = [_mapView initMapWithKey:@"LONGDO_MAP_DEMO_API_KEY"];
   
-  MMLayer *layerThaichote = [_mapView layerName:LAYER_NAME_THAICHOTE];
-  [_mapView setBaseLayer:layerThaichote];
+  MMLayer *layerGray = [_mapView layerName:LAYER_NAME_GRAY];
+  [_mapView setBaseLayer:layerGray];
   
-  MMLayer *layerPoiTransparent = [_mapView layerName:LAYER_NAME_POI_TRANSPARENT];
-  [_mapView addOverlayLayer:layerPoiTransparent];
+  MMLayer *layerTraffic= [_mapView layerName:LAYER_NAME_TRAFFIC];
+  [_mapView addOverlayLayer:layerTraffic];
 }
 
 - (void)didReceiveMemoryWarning {
