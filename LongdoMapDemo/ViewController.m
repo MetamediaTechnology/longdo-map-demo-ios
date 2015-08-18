@@ -21,11 +21,6 @@
   _mapView.mapViewDelegate = self;
   _mapView = [_mapView initMapWithKey:@"LONGDO_MAP_DEMO_API_KEY"];
   
-  MMLayer *layerGray = [_mapView layerName:LAYER_NAME_GRAY];
-  [_mapView setBaseLayer:layerGray];
-  
-  MMLayer *layerTraffic= [_mapView layerName:LAYER_NAME_TRAFFIC];
-  [_mapView addOverlayLayer:layerTraffic];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,6 +28,34 @@
   // Dispose of any resources that can be recreated.
 }
 
+
+
+- (IBAction)showNormalLayer:(id)sender {
+  [_mapView removeAllOverlayLayers];
+  
+  MMLayer *layerNormal = [_mapView layerName:LAYER_NAME_NORMAL];
+  [_mapView setBaseLayer:layerNormal];
+}
+
+- (IBAction)showTrafficLayer:(id)sender {
+  [_mapView removeAllOverlayLayers];
+  
+  MMLayer *layerGray = [_mapView layerName:LAYER_NAME_GRAY];
+  [_mapView setBaseLayer:layerGray];
+  
+  MMLayer *layerTraffic= [_mapView layerName:LAYER_NAME_TRAFFIC];
+  [_mapView addOverlayLayer:layerTraffic];
+}
+
+- (IBAction)showSatelliteLayer:(id)sender {
+  [_mapView removeAllOverlayLayers];
+  
+  MMLayer *layerThaichote = [_mapView layerName:LAYER_NAME_THAICHOTE];
+  [_mapView setBaseLayer:layerThaichote];
+  
+  MMLayer *layerPoiTransparent = [_mapView layerName:LAYER_NAME_POI_TRANSPARENT];
+  [_mapView addOverlayLayer:layerPoiTransparent];
+}
 
 // Map View Callbacks
 

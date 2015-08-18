@@ -13,7 +13,14 @@
   
   IBOutlet MMMapView *_mapView;
   
-} 
+}
+
+
+- (IBAction)showNormalLayer:(id)sender;
+
+- (IBAction)showTrafficLayer:(id)sender;
+
+- (IBAction)showSatelliteLayer:(id)sender;
 
 @end  
 
