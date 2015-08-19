@@ -78,7 +78,7 @@
 
 // Click
 - (void)mapView:(MMMapView *)mapView clickOnMarker:(MMMarker *)marker {
-  
+  [_mapView removeMarker:marker];
 }
 
 - (void)mapView:(MMMapView *)mapView clickOnLongdoTag:(NSDictionary *)data {
