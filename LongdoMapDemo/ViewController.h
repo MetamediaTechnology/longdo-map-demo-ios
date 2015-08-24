@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMMapView.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <MMMapViewDelegate> {
+  
+  IBOutlet MMMapView *_mapView;
+  
+} 
 
-
-@end
+@end  
 
