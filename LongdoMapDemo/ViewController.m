@@ -21,13 +21,6 @@
   _mapView.mapViewDelegate = self;
   _mapView = [_mapView initMapWithKey:@"LONGDO_MAP_DEMO_API_KEY"];
   
-  int displayDensity = (int)[UIScreen mainScreen].scale;
-  NSString *iconUrl = [NSString stringWithFormat:@"http://api.longdo.com/map/images/icons_%dx/bts.png", displayDensity];
-  MMLocation location = MMLocationMake(13.723767, 100.529332);
-  MMMarker *marker = [MMMarker markerWithImageUrl:iconUrl andLocation:location];
-  [_mapView addMarker:marker];
-  
-  
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,6 +57,17 @@
   [_mapView addOverlayLayer:layerPoiTransparent];
 }
 
+
+- (void)addUrlMarkerAtLocation:(MMLocation)location {
+  NSString *pinUrl = @"http://map.longdo.com/mmmap/images/pin_mark_rotate.gif";
+  MMMarker *marker = [MMMarker markerWithImageUrl:pinUrl
+                                      andLocation:location];
+  
+  [marker setOffset:CGPointMake(0.3f, -0.5f)];
+  [marker effectDrop:true];
+  [_mapView addMarker:marker];
+}
+
 // Map View Callbacks
 
 // Map Status
@@ -86,7 +90,7 @@
 }
 
 - (void)mapView:(MMMapView *)mapView clickedAtLocation:(MMLocation)location {
-  
+  [self addUrlMarkerAtLocation:location];
 }
 
 
