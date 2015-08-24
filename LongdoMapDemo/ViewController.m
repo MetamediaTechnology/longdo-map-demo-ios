@@ -21,10 +21,10 @@
   _mapView.mapViewDelegate = self;
   _mapView = [_mapView initMapWithKey:@"LONGDO_MAP_DEMO_API_KEY"];
   
-  
-  UIImage *icon = [UIImage imageNamed:@"MarkerBuilding"];
-  MMLocation location = MMLocationMake(13.722634, 100.529313);
-  MMMarker *marker = [MMMarker markerWithImage:icon andLocation:location];
+  int displayDensity = (int)[UIScreen mainScreen].scale;
+  NSString *iconUrl = [NSString stringWithFormat:@"http://api.longdo.com/map/images/icons_%dx/bts.png", displayDensity];
+  MMLocation location = MMLocationMake(13.723767, 100.529332);
+  MMMarker *marker = [MMMarker markerWithImageUrl:iconUrl andLocation:location];
   [_mapView addMarker:marker];
   
   
