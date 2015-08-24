@@ -21,6 +21,8 @@
   _mapView.mapViewDelegate = self;
   _mapView = [_mapView initMapWithKey:@"LONGDO_MAP_DEMO_API_KEY"];
   
+  MMLongdoTag* tagHospital = [MMLongdoTag tagWithName:@"hospital"];
+  [_mapView showLongdoTags:@[tagHospital]];
 }
 
 - (void)didReceiveMemoryWarning {
