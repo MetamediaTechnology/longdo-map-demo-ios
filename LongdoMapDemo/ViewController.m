@@ -21,6 +21,8 @@
   _mapView.mapViewDelegate = self;
   _mapView = [_mapView initMapWithKey:@"LONGDO_MAP_DEMO_API_KEY"];
   
+  MMLayer *layerThaichote = [_mapView layerName:LAYER_NAME_THAICHOTE];
+  [_mapView setBaseLayer:layerThaichote];
 }
 
 - (void)didReceiveMemoryWarning {
