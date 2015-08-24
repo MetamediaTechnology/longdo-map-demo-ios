@@ -8,6 +8,7 @@ Longdo Map SDK Demo for iOS is a sample project of how to develop geoinformatics
 2. [การเริ่มต้นใช้งาน Longdo Map SDK บน iOS](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%B4%E0%B9%88%E0%B8%A1%E0%B8%95%E0%B9%89%E0%B8%99%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%87%E0%B8%B2%E0%B8%99-Longdo-Map-SDK-%E0%B8%9A%E0%B8%99-iOS)
 3. [การแสดง Layers ของแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%AA%E0%B8%94%E0%B8%87-Layers-%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88)
 4. [การแสดงหมุดบนแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%AA%E0%B8%94%E0%B8%87%E0%B8%AB%E0%B8%A1%E0%B8%B8%E0%B8%94%E0%B8%9A%E0%B8%99%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88)
+5. [การแสดง Longdo Tags บนแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%AA%E0%B8%94%E0%B8%87-Longdo-Tags-%E0%B8%9A%E0%B8%99%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88)
 
 ## Bugs and feature requests
 
