@@ -22,5 +22,12 @@
 
 - (IBAction)showSatelliteLayer:(id)sender;
 
+
+- (IBAction)toggleTagHospital:(id)sender;
+
+- (IBAction)toggleTagGasStation:(id)sender;
+
+- (IBAction)toggleTagBank:(id)sender;
+
 @end  
 

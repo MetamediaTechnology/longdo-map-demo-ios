@@ -8,7 +8,15 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () {
+  bool isShowTagHospital;
+  bool isShowTagGasStation;
+  bool isShowTagBank;
+  
+  MMLongdoTag* tagHospital;
+  MMLongdoTag* tagGasStation;
+  MMLongdoTag* tagBank;
+}
 
 @end
 
@@ -21,16 +29,16 @@
   _mapView.mapViewDelegate = self;
   _mapView = [_mapView initMapWithKey:@"LONGDO_MAP_DEMO_API_KEY"];
   
-  MMLongdoTag* tagHospital = [MMLongdoTag tagWithName:@"hospital"];
-  [_mapView showLongdoTags:@[tagHospital]];
+  // Initialize Longdo Tags
+  tagHospital = [MMLongdoTag tagWithName:@"hospital"];
+  tagGasStation = [MMLongdoTag tagWithName:@"gas_station"];
+  tagBank = [MMLongdoTag tagWithName:@"bank"];
 }
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
 }
-
-
 
 - (IBAction)showNormalLayer:(id)sender {
   [_mapView removeAllOverlayLayers];
@@ -60,6 +68,21 @@
 }
 
 
+- (IBAction)toggleTagHospital:(id)sender {
+  isShowTagHospital = !isShowTagHospital;
+  [self displayLongdoTags];
+}
+
+- (IBAction)toggleTagGasStation:(id)sender {
+  isShowTagGasStation = !isShowTagGasStation;
+  [self displayLongdoTags];
+}
+
+- (IBAction)toggleTagBank:(id)sender {
+  isShowTagBank = !isShowTagBank;
+  [self displayLongdoTags];
+}
+
 - (void)addUrlMarkerAtLocation:(MMLocation)location {
   NSString *pinUrl = @"http://map.longdo.com/mmmap/images/pin_mark_rotate.gif";
   MMMarker *marker = [MMMarker markerWithImageUrl:pinUrl
@@ -68,6 +91,23 @@
   [marker setOffset:CGPointMake(0.3f, -0.5f)];
   [marker effectDrop:true];
   [_mapView addMarker:marker];
+}
+
+
+- (void)displayLongdoTags {
+  NSMutableArray *longdoTags = [NSMutableArray array];
+  
+  if (isShowTagHospital) {
+    [longdoTags addObject:tagHospital];
+  }
+  if (isShowTagGasStation) {
+    [longdoTags addObject:tagGasStation];
+  }
+  if (isShowTagBank) {
+    [longdoTags addObject:tagBank];
+  }
+  
+  [_mapView showLongdoTags:longdoTags];
 }
 
 // Map View Callbacks
