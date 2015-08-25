@@ -17,17 +17,14 @@
 
 
 - (IBAction)showNormalLayer:(id)sender;
-
 - (IBAction)showTrafficLayer:(id)sender;
-
 - (IBAction)showSatelliteLayer:(id)sender;
 
-
 - (IBAction)toggleTagHospital:(id)sender;
-
 - (IBAction)toggleTagGasStation:(id)sender;
-
 - (IBAction)toggleTagBank:(id)sender;
 
+- (IBAction)zoomIn:(id)sender;
+- (IBAction)zoomOut:(id)sender;
 @end  
 

@@ -83,6 +83,16 @@
   [self displayLongdoTags];
 }
 
+
+
+- (IBAction)zoomIn:(id)sender {
+  [_mapView zoomIn];
+}
+
+- (IBAction)zoomOut:(id)sender {
+  [_mapView zoomOut];
+}
+
 - (void)addUrlMarkerAtLocation:(MMLocation)location {
   NSString *pinUrl = @"http://map.longdo.com/mmmap/images/pin_mark_rotate.gif";
   MMMarker *marker = [MMMarker markerWithImageUrl:pinUrl
