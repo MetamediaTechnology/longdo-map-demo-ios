@@ -26,5 +26,10 @@
 
 - (IBAction)zoomIn:(id)sender;
 - (IBAction)zoomOut:(id)sender;
+
+- (IBAction)moveToBangkok:(id)sender;
+- (IBAction)moveToAmpawa:(id)sender;
+- (IBAction)moveToHuaHin:(id)sender;
+
 @end  
 

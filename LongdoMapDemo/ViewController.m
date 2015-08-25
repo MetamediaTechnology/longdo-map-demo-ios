@@ -16,6 +16,10 @@
   MMLongdoTag* tagHospital;
   MMLongdoTag* tagGasStation;
   MMLongdoTag* tagBank;
+  
+  MMMapState bangkok;
+  MMMapState ampawa;
+  MMMapState huahin;
 }
 
 @end
@@ -33,6 +37,11 @@
   tagHospital = [MMLongdoTag tagWithName:@"hospital"];
   tagGasStation = [MMLongdoTag tagWithName:@"gas_station"];
   tagBank = [MMLongdoTag tagWithName:@"bank"];
+  
+  // Initialize place locations, define locations and zooms
+  bangkok = MMMapStateMake(MMLocationMake(13.714861, 100.568558), 11);
+  ampawa  = MMMapStateMake(MMLocationMake(13.423046,  99.960507), 13);
+  huahin  = MMMapStateMake(MMLocationMake(12.562645,  99.950870), 12);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,7 +93,6 @@
 }
 
 
-
 - (IBAction)zoomIn:(id)sender {
   [_mapView zoomIn];
 }
@@ -92,6 +100,24 @@
 - (IBAction)zoomOut:(id)sender {
   [_mapView zoomOut];
 }
+
+
+
+- (IBAction)moveToBangkok:(id)sender {
+  [_mapView setLocation:bangkok.location withAnimation:YES];
+  [_mapView setZoom:bangkok.zoom withAnimation:YES];
+}
+
+- (IBAction)moveToAmpawa:(id)sender {
+  [_mapView setLocation:ampawa.location withAnimation:YES];
+  [_mapView setZoom:ampawa.zoom withAnimation:YES];
+}
+
+- (IBAction)moveToHuaHin:(id)sender {
+  [_mapView setLocation:huahin.location withAnimation:YES];
+  [_mapView setZoom:huahin.zoom withAnimation:YES];
+}
+
 
 - (void)addUrlMarkerAtLocation:(MMLocation)location {
   NSString *pinUrl = @"http://map.longdo.com/mmmap/images/pin_mark_rotate.gif";
@@ -128,7 +154,6 @@
 }
 
 - (void)mapView:(MMMapView *)mapView mapState:(MMMapState)mapState {
-  
 }
 
 
