@@ -15,7 +15,14 @@ Longdo Map SDK Demo for iOS is a sample project of how to develop geoinformatics
 
 Have a bug or a feature request? Please feel free to contact us at [info@mm.co.th](info@mm.co.th).
 
-## Documentation
+## Longdo Map SDK Reference
+
+* [MMMapView](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/MMMapView)
+* [MMLayer](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/MMLayer)
+* [MMMarker](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/MMMarker)
+* [MMLongdoTag](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/MMLongdoTag)
+* [MMScaleBar](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/MMScaleBar)
+
 
 Comming soon..
 
