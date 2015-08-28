@@ -23,9 +23,6 @@ Have a bug or a feature request? Please feel free to contact us at [info@mm.co.t
 * [MMLongdoTag](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/MMLongdoTag)
 * [MMScaleBar](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/MMScaleBar)
 
-
-Comming soon..
-
 ## Copyright and license
 
 Code copyright 2012-2015 Metamedia Technology Co., Ltd. Code released under [Apache 2.0 license](https://github.com/MetamediaTechnology/longdo-map-demo-ios/blob/master/LICENSE).
