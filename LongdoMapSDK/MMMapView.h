@@ -330,7 +330,7 @@ static MMMapState MMMapStateMake(MMLocation location, int zoom);
  Show longdo tags on the map.
  @param array of `MMLongdoTag *`.
  */
-- (void)showLongdoTags:(NSArray *)longdoTags;
+- (void)showLongdoTags:(NSArray *)longdoTags withLanguage:(NSString *)language;
 
 /**
  Remove longdo tags from the map.

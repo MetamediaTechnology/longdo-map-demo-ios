@@ -143,7 +143,7 @@
     [longdoTags addObject:tagBank];
   }
   
-  [_mapView showLongdoTags:longdoTags];
+  [_mapView showLongdoTags:longdoTags withLanguage:@"th"];
 }
 
 // Map View Callbacks
