@@ -31,7 +31,7 @@
   // Do any additional setup after loading the view, typically from a nib.
   
   _mapView.mapViewDelegate = self;
-  _mapView = [_mapView initMapWithKey:@"LONGDO_MAP_DEMO_API_KEY"];
+  _mapView = [_mapView initMapWithKey:@"fortestonlydonotuseinproduction!"];
   
   // Initialize Longdo Tags
   tagHospital = [MMLongdoTag tagWithName:@"hospital"];
