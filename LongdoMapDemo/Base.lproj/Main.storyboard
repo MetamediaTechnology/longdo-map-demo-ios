@@ -227,7 +227,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="_mapView" destination="5qr-TR-Top" id="XvL-fw-siQ"/>
+                        <outlet property="_mapView" destination="5qr-TR-Top" id="xWf-Fi-6X0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
