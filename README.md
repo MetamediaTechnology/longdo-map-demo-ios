@@ -11,21 +11,6 @@ Longdo Map SDK Demo for iOS is a sample project of how to develop geoinformatics
 5. [การแสดง Longdo Tags บนแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%AA%E0%B8%94%E0%B8%87-Longdo-Tags-%E0%B8%9A%E0%B8%99%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88)
 6. [การควบคุมเลื่อนพิกัดและระดับการซูมของแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B8%A7%E0%B8%9A%E0%B8%84%E0%B8%B8%E0%B8%A1%E0%B9%80%E0%B8%A5%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%9E%E0%B8%B4%E0%B8%81%E0%B8%B1%E0%B8%94%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A3%E0%B8%B0%E0%B8%94%E0%B8%B1%E0%B8%9A%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%8B%E0%B8%B9%E0%B8%A1%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88)
 
-## iOS 9 Support
-
-For compiling with iOS SDK 9.0, add following line to your project's plist.
-
-	<key>NSExceptionDomains</key>
-	<dict>
-		<key>mstraffic1.longdo.com</key>
-		<dict>
-			<key>NSIncludesSubdomains</key>
-			<true/>
-			<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-			<true/>
-		</dict>
-	</dict>
-
 ## Bugs and feature requests
 
 Have a bug or a feature request? Please feel free to contact us at [info@mm.co.th](info@mm.co.th).
