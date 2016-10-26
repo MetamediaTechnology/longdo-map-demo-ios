@@ -66,10 +66,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map?.addLongdoOverlay(LongdoMode.POI_TRANSPARENT)
     }
     
-    @IBAction func setTerrainMap() {
+    @IBAction func setOpenStreetMap() {
         eventTimer?.invalidate()
         map?.removeOverlays((map?.overlays)!)
-        map?.addLongdoOverlay(LongdoMode.TERRAIN)
+        map?.addCustomOverlay(withURL: "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png")
     }
     
     @IBAction func showShop() {
@@ -125,6 +125,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if overlay is LongdoTileOverlay {
             return LongdoTileOverlayRenderer(tileOverlay: overlay as! LongdoTileOverlay)
         }
+//        if overlay is MKCircle {
+//            let circle = MKCircleRenderer(overlay: overlay)
+//            circle.strokeColor = UIColor.red
+//            circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
+//            circle.lineWidth = 1
+//            return circle
+//        }
         return MKPolylineRenderer()
     }
     
@@ -133,6 +140,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             return
         }
         let activePin = MKPointAnnotation()
+//        let circle = MKCircle(center: (view.annotation?.coordinate)!, radius: 100000)
+//        map?.add(circle)
         if view.annotation is PinAnnotation {
             let pin = view.annotation as! PinAnnotation
             activePin.title = pin.name

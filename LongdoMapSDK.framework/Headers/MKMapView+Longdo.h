@@ -39,7 +39,8 @@ typedef NS_ENUM(NSInteger, LongdoMode) {
     THAICHOTE, // Thaichote satellite base layer
     POI_TRANSPARENT, // Standard+POI non-base layer
     TRAFFIC, // Traffic non-base layer with auto-refresh
-    TAG // Longdo tag layer
+    TAG, // Longdo tag layer
+    CUSTOM // Custom Layer
 };
 
 typedef NS_ENUM(NSInteger, LongdoLanguage) {
@@ -63,11 +64,13 @@ typedef NS_ENUM(NSInteger, LongdoLanguage) {
     NSString *apikey;
     LongdoLanguage language;
     NSString *modeName;
+    NSString *urlLayer;
 }
 
 @property (nonatomic, assign) LongdoMode mode;
 
 - (id)initWithMode:(LongdoMode)mode withKey:(NSString *)key andLanguage:(LongdoLanguage)lang;
+- (void)setCustomUrl:(NSString *)urlString;
 
 @end
 
@@ -109,6 +112,12 @@ typedef NS_ENUM(NSInteger, LongdoLanguage) {
  @param overlayName overlay layer to be added.
  */
 - (void)addLongdoOverlay:(LongdoMode)overlayName;
+
+/**
+ Add custom overlay layer to map view.
+ @param urlString URL of layer to be added. (replace x,y position and zoom with {x}, {y}, {z})
+ */
+- (void)addCustomOverlayWithURL:(NSString *)urlString;
 
 /**
  Remove overlay layer from map view.
