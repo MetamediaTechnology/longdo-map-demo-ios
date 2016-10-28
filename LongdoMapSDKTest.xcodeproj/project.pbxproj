@@ -1,0 +1,461 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		07BB41DA1D93F5BE00D6B81E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BB41D91D93F5BE00D6B81E /* AppDelegate.swift */; };
+		07BB41DC1D93F5BE00D6B81E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BB41DB1D93F5BE00D6B81E /* ViewController.swift */; };
+		07BB41DF1D93F5BE00D6B81E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07BB41DD1D93F5BE00D6B81E /* Main.storyboard */; };
+		07BB41E11D93F5BE00D6B81E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07BB41E01D93F5BE00D6B81E /* Assets.xcassets */; };
+		07BB41E41D93F5BE00D6B81E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07BB41E21D93F5BE00D6B81E /* LaunchScreen.storyboard */; };
+		07BB41EF1D93F5BE00D6B81E /* LongdoMapSDKTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BB41EE1D93F5BE00D6B81E /* LongdoMapSDKTestUITests.swift */; };
+		07DFE33D1D95215500BAB056 /* LongdoMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07DFE33C1D95215500BAB056 /* LongdoMapSDK.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		07BB41EB1D93F5BE00D6B81E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07BB41CE1D93F5BE00D6B81E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 07BB41D51D93F5BE00D6B81E;
+			remoteInfo = LongdoMapSDKTest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		07BB41D61D93F5BE00D6B81E /* LongdoMapSDKTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LongdoMapSDKTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		07BB41D91D93F5BE00D6B81E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		07BB41DB1D93F5BE00D6B81E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		07BB41DE1D93F5BE00D6B81E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		07BB41E01D93F5BE00D6B81E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		07BB41E31D93F5BE00D6B81E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		07BB41E51D93F5BE00D6B81E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07BB41EA1D93F5BE00D6B81E /* LongdoMapSDKTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LongdoMapSDKTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		07BB41EE1D93F5BE00D6B81E /* LongdoMapSDKTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongdoMapSDKTestUITests.swift; sourceTree = "<group>"; };
+		07BB41F01D93F5BE00D6B81E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07DFE33C1D95215500BAB056 /* LongdoMapSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LongdoMapSDK.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		07BB41D31D93F5BE00D6B81E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07DFE33D1D95215500BAB056 /* LongdoMapSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		07BB41E71D93F5BE00D6B81E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		07BB41CD1D93F5BE00D6B81E = {
+			isa = PBXGroup;
+			children = (
+				07DFE33C1D95215500BAB056 /* LongdoMapSDK.framework */,
+				07BB41D81D93F5BE00D6B81E /* LongdoMapSDKTest */,
+				07BB41ED1D93F5BE00D6B81E /* LongdoMapSDKTestUITests */,
+				07BB41D71D93F5BE00D6B81E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		07BB41D71D93F5BE00D6B81E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07BB41D61D93F5BE00D6B81E /* LongdoMapSDKTest.app */,
+				07BB41EA1D93F5BE00D6B81E /* LongdoMapSDKTestUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		07BB41D81D93F5BE00D6B81E /* LongdoMapSDKTest */ = {
+			isa = PBXGroup;
+			children = (
+				07BB41D91D93F5BE00D6B81E /* AppDelegate.swift */,
+				07BB41DB1D93F5BE00D6B81E /* ViewController.swift */,
+				07BB41DD1D93F5BE00D6B81E /* Main.storyboard */,
+				07BB41E01D93F5BE00D6B81E /* Assets.xcassets */,
+				07BB41E21D93F5BE00D6B81E /* LaunchScreen.storyboard */,
+				07BB41E51D93F5BE00D6B81E /* Info.plist */,
+			);
+			path = LongdoMapSDKTest;
+			sourceTree = "<group>";
+		};
+		07BB41ED1D93F5BE00D6B81E /* LongdoMapSDKTestUITests */ = {
+			isa = PBXGroup;
+			children = (
+				07BB41EE1D93F5BE00D6B81E /* LongdoMapSDKTestUITests.swift */,
+				07BB41F01D93F5BE00D6B81E /* Info.plist */,
+			);
+			path = LongdoMapSDKTestUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		07BB41D51D93F5BE00D6B81E /* LongdoMapSDKTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07BB41F31D93F5BE00D6B81E /* Build configuration list for PBXNativeTarget "LongdoMapSDKTest" */;
+			buildPhases = (
+				07BB41D21D93F5BE00D6B81E /* Sources */,
+				07BB41D31D93F5BE00D6B81E /* Frameworks */,
+				07BB41D41D93F5BE00D6B81E /* Resources */,
+				07DFE33B1D94F67500BAB056 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LongdoMapSDKTest;
+			productName = LongdoMapSDKTest;
+			productReference = 07BB41D61D93F5BE00D6B81E /* LongdoMapSDKTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		07BB41E91D93F5BE00D6B81E /* LongdoMapSDKTestUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07BB41F61D93F5BE00D6B81E /* Build configuration list for PBXNativeTarget "LongdoMapSDKTestUITests" */;
+			buildPhases = (
+				07BB41E61D93F5BE00D6B81E /* Sources */,
+				07BB41E71D93F5BE00D6B81E /* Frameworks */,
+				07BB41E81D93F5BE00D6B81E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				07BB41EC1D93F5BE00D6B81E /* PBXTargetDependency */,
+			);
+			name = LongdoMapSDKTestUITests;
+			productName = LongdoMapSDKTestUITests;
+			productReference = 07BB41EA1D93F5BE00D6B81E /* LongdoMapSDKTestUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		07BB41CE1D93F5BE00D6B81E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "Metamedia Technology";
+				TargetAttributes = {
+					07BB41D51D93F5BE00D6B81E = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = W4M3Z527M9;
+						ProvisioningStyle = Automatic;
+					};
+					07BB41E91D93F5BE00D6B81E = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = W4M3Z527M9;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 07BB41D51D93F5BE00D6B81E;
+					};
+				};
+			};
+			buildConfigurationList = 07BB41D11D93F5BE00D6B81E /* Build configuration list for PBXProject "LongdoMapSDKTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 07BB41CD1D93F5BE00D6B81E;
+			productRefGroup = 07BB41D71D93F5BE00D6B81E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				07BB41D51D93F5BE00D6B81E /* LongdoMapSDKTest */,
+				07BB41E91D93F5BE00D6B81E /* LongdoMapSDKTestUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		07BB41D41D93F5BE00D6B81E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07BB41E41D93F5BE00D6B81E /* LaunchScreen.storyboard in Resources */,
+				07BB41E11D93F5BE00D6B81E /* Assets.xcassets in Resources */,
+				07BB41DF1D93F5BE00D6B81E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		07BB41E81D93F5BE00D6B81E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		07DFE33B1D94F67500BAB056 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/LongdoMapSDK.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		07BB41D21D93F5BE00D6B81E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07BB41DC1D93F5BE00D6B81E /* ViewController.swift in Sources */,
+				07BB41DA1D93F5BE00D6B81E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		07BB41E61D93F5BE00D6B81E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07BB41EF1D93F5BE00D6B81E /* LongdoMapSDKTestUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		07BB41EC1D93F5BE00D6B81E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 07BB41D51D93F5BE00D6B81E /* LongdoMapSDKTest */;
+			targetProxy = 07BB41EB1D93F5BE00D6B81E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		07BB41DD1D93F5BE00D6B81E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07BB41DE1D93F5BE00D6B81E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		07BB41E21D93F5BE00D6B81E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07BB41E31D93F5BE00D6B81E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		07BB41F11D93F5BE00D6B81E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		07BB41F21D93F5BE00D6B81E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		07BB41F41D93F5BE00D6B81E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = W4M3Z527M9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = LongdoMapSDKTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = th.co.mm.testFramework;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		07BB41F51D93F5BE00D6B81E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = W4M3Z527M9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = LongdoMapSDKTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = th.co.mm.testFramework;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		07BB41F71D93F5BE00D6B81E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = W4M3Z527M9;
+				INFOPLIST_FILE = LongdoMapSDKTestUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = th.co.mm.LongdoMapSDKTestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = LongdoMapSDKTest;
+			};
+			name = Debug;
+		};
+		07BB41F81D93F5BE00D6B81E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = W4M3Z527M9;
+				INFOPLIST_FILE = LongdoMapSDKTestUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = th.co.mm.LongdoMapSDKTestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = LongdoMapSDKTest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		07BB41D11D93F5BE00D6B81E /* Build configuration list for PBXProject "LongdoMapSDKTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07BB41F11D93F5BE00D6B81E /* Debug */,
+				07BB41F21D93F5BE00D6B81E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		07BB41F31D93F5BE00D6B81E /* Build configuration list for PBXNativeTarget "LongdoMapSDKTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07BB41F41D93F5BE00D6B81E /* Debug */,
+				07BB41F51D93F5BE00D6B81E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		07BB41F61D93F5BE00D6B81E /* Build configuration list for PBXNativeTarget "LongdoMapSDKTestUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07BB41F71D93F5BE00D6B81E /* Debug */,
+				07BB41F81D93F5BE00D6B81E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 07BB41CE1D93F5BE00D6B81E /* Project object */;
+}
