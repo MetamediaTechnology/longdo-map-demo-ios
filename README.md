@@ -4,40 +4,22 @@ Longdo Map SDK Demo for iOS is a sample project of how to develop geoinformatics
 
 ## Tutorials
 
-<<<<<<< Updated upstream
 1. [การขอ API Key สำหรับการใช้งาน Longdo Map](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/การขอ-API-Key-สำหรับการใช้งาน-Longdo-Map)
-2. [การเริ่มต้นใช้งาน Longdo Map SDK บน iOS](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/การเริ่มต้นใช้งาน-Longdo-Map-SDK-2.x-บน-iOS)
-3. [การแสดง Layers ของแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B2.x%5D-การแสดง-Layers-ของแผนที่)
-4. [การแสดงหมุดบนแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B2.x%5D-การแสดงหมุดบนแผนที่)
-5. [การแสดง Longdo Tags บนแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B2.x%5D-การแสดง-Longdo-Tags-บนแผนที่)
-6. [การควบคุมเลื่อนพิกัดและระดับการซูมของแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B2.x%5D-การควบคุมเลื่อนพิกัดและระดับการซูมของแผนที่)
-=======
-1. [การเริ่มต้นใช้งาน Longdo Map SDK บน iOS](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/การเริ่มต้นใช้งาน-Longdo-Map-SDK-3.x-บน-iOS)
-2. [การแสดง Layers ของแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การแสดง-Layers-ของแผนที่)
-3. [การแสดง Longdo Tags บนแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การแสดง-Longdo-Tags-บนแผนที่)
-4. [การค้นหาสถานที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การค้นหาสถานที่)
-5. [การควบคุมระดับการซูมของแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การควบคุมระดับการซูมของแผนที่)
->>>>>>> Stashed changes
+2. [การเริ่มต้นใช้งาน Longdo Map SDK บน iOS](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/การเริ่มต้นใช้งาน-Longdo-Map-SDK-3.x-บน-iOS)
+3. [การแสดง Layers ของแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การแสดง-Layers-ของแผนที่)
+4. [การแสดง Longdo Tags บนแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การแสดง-Longdo-Tags-บนแผนที่)
+5. [การค้นหาสถานที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การค้นหาสถานที่)
+6. [การควบคุมระดับการซูมของแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การควบคุมระดับการซูมของแผนที่)
 
 ## Bugs and feature requests
 
 Have a bug or a feature request? Please feel free to contact us at [info@mm.co.th](info@mm.co.th).
 
 ## Longdo Map SDK Reference
-<<<<<<< Updated upstream
-* [Structs](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B2.x%5D-Structs)
-* [MMMapView](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B2.x%5D-MMMapView)
-* [MMLayer](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B2.x%5D-MMLayer)
-* [MMMarker](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B2.x%5D-MMMarker)
-* [MMLongdoTag](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B2.x%5D-MMLongdoTag)
-* [MMScaleBar](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B2.x%5D-MMScaleBar)
-=======
-
 - [LongdoMapView](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-LongdoMapView)
 - [Annotation](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-Annotation)
 - [Protocol](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-LongdoSearchDelegate)
 - [Constants](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-Constants)
->>>>>>> Stashed changes
 
 ## Copyright and license
 
