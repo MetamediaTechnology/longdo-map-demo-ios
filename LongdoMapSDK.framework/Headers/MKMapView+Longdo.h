@@ -9,21 +9,21 @@
 @import MapKit;
 #import "Annotation.h"
 
-@protocol LongdoTagDelegate <NSObject>
+@protocol LMTagDelegate <NSObject>
 
-- (void)tagData:(NSArray<TagAnnotation *> *)poi;
+- (void)tagData:(NSArray<LMTagAnnotation *> *)poi;
 - (void)removeTagFromZoom:(NSInteger)zoom;
 
 @end
 
-@protocol LongdoSearchDelegate <NSObject>
+@protocol LMSearchDelegate <NSObject>
 
-- (void)searchData:(NSArray<PinAnnotation *> *)poi;
+- (void)searchData:(NSArray<LMPinAnnotation *> *)poi;
 - (void)suggestData:(NSArray<NSString *> *)keyword;
 
 @end
 
-typedef NS_ENUM(NSInteger, LongdoMode) {
+typedef NS_ENUM(NSInteger, LMMode) {
     BASE, // Hillshade base layer
     GISTDA_SPOT5, // SPOT5 satellite base layer
     GRAY, // Gray-ish base layer
@@ -43,12 +43,12 @@ typedef NS_ENUM(NSInteger, LongdoMode) {
     CUSTOM // Custom Layer
 };
 
-typedef NS_ENUM(NSInteger, LongdoLanguage) {
+typedef NS_ENUM(NSInteger, LMLanguage) {
     THAI,
     ENGLISH
 };
 
-@interface LongdoTileOverlayRenderer : MKTileOverlayRenderer {
+@interface LMTileOverlayRenderer : MKTileOverlayRenderer {
     NSInteger oldZoom;
     NSMutableArray *pathOnMap;
 }
@@ -56,31 +56,31 @@ typedef NS_ENUM(NSInteger, LongdoLanguage) {
 @property (nonatomic, strong) NSArray *tag;
 @property (nonatomic, assign) NSString *language;
 @property (nonatomic, strong) NSString *apikey;
-@property (nonatomic, assign) id <LongdoTagDelegate> delegate;
+@property (nonatomic, assign) id <LMTagDelegate> delegate;
 
 @end
 
-@interface LongdoTileOverlay : MKTileOverlay {
+@interface LMTileOverlay : MKTileOverlay {
     NSString *apikey;
-    LongdoLanguage language;
+    LMLanguage language;
     NSString *modeName;
     NSString *urlLayer;
 }
 
-@property (nonatomic, assign) LongdoMode mode;
+@property (nonatomic, assign) LMMode mode;
 
-- (id)initWithMode:(LongdoMode)mode withKey:(NSString *)key andLanguage:(LongdoLanguage)lang;
+- (id)initWithMode:(LMMode)mode withKey:(NSString *)key andLanguage:(LMLanguage)lang;
 - (void)setCustomUrl:(NSString *)urlString;
 
 @end
 
-@interface LongdoMapView : MKMapView <LongdoTagDelegate, MKMapViewDelegate> {
-    LongdoTileOverlayRenderer *tagOverlay;
+@interface LongdoMapView : MKMapView <LMTagDelegate, MKMapViewDelegate> {
+    LMTileOverlayRenderer *tagOverlay;
     NSString *apikey;
 }
 
-@property (nonatomic, assign) id <LongdoSearchDelegate> searchDelegate;
-@property (nonatomic, assign) LongdoLanguage language;
+@property (nonatomic, assign) id <LMSearchDelegate> searchDelegate;
+@property (nonatomic, assign) LMLanguage language;
 
 /**
  Initializes a `LongdoMapView` object with Longdo Map API Key.
@@ -111,7 +111,7 @@ typedef NS_ENUM(NSInteger, LongdoLanguage) {
  Add overlay layer to map view.
  @param overlayName overlay layer to be added.
  */
-- (void)addLongdoOverlay:(LongdoMode)overlayName;
+- (void)addLMOverlay:(LMMode)overlayName;
 
 /**
  Add custom overlay layer to map view.
@@ -123,7 +123,7 @@ typedef NS_ENUM(NSInteger, LongdoLanguage) {
  Remove overlay layer from map view.
  @param overlayName overlay layer to be removed.
  */
-- (void)removeLongdoOverlay:(LongdoMode)overlayName;
+- (void)removeLMOverlay:(LMMode)overlayName;
 
 /**
  Show longdo tags on the map.
@@ -139,8 +139,9 @@ typedef NS_ENUM(NSInteger, LongdoLanguage) {
 /**
  Search with Longdo map poi
  @param keyword word to search with Longdo
+ @param location center of location to search with Longdo
  */
-- (void)searchWithKeyword:(NSString *)keyword;
+- (void)searchWithKeyword:(NSString *)keyword andCoordinate:(CLLocationCoordinate2D)location;
 
 /**
  Suggest with Longdo map poi

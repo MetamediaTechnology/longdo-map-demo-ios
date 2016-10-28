@@ -10,7 +10,7 @@
 @import CoreLocation;
 #import <Foundation/Foundation.h>
 
-@interface PinAnnotation : NSObject <MKAnnotation>
+@interface LMPinAnnotation : NSObject <MKAnnotation>
 
 @property (nonatomic, strong) NSString *poiid;
 @property (nonatomic, strong) NSString *name;
@@ -20,7 +20,7 @@
 
 @end
 
-@interface TagAnnotation : NSObject <MKAnnotation>
+@interface LMTagAnnotation : NSObject <MKAnnotation>
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *poiid;
