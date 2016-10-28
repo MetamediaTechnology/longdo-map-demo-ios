@@ -4,18 +4,18 @@ Longdo Map SDK Demo for iOS is a sample project of how to develop geoinformatics
 
 ## Tutorials
 
-1. [การเริ่มต้นใช้งาน Longdo Map SDK บน iOS](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/การเริ่มต้นใช้งาน-Longdo-Map-SDK-3.x-บน-iOS)
-2. [การแสดง Layers ของแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การแสดง-Layers-ของแผนที่)
-3. [การแสดง Longdo Tags บนแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การแสดง-Longdo-Tags-บนแผนที่)
-4. [การค้นหาสถานที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การค้นหาสถานที่)
-5. [การควบคุมระดับการซูมของแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การควบคุมระดับการซูมของแผนที่)
+1. [การขอ API Key สำหรับการใช้งาน Longdo Map](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/การขอ-API-Key-สำหรับการใช้งาน-Longdo-Map)
+2. [การเริ่มต้นใช้งาน Longdo Map SDK บน iOS](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/การเริ่มต้นใช้งาน-Longdo-Map-SDK-3.x-บน-iOS)
+3. [การแสดง Layers ของแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การแสดง-Layers-ของแผนที่)
+4. [การแสดง Longdo Tags บนแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การแสดง-Longdo-Tags-บนแผนที่)
+5. [การค้นหาสถานที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การค้นหาสถานที่)
+6. [การควบคุมระดับการซูมของแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การควบคุมระดับการซูมของแผนที่)
 
 ## Bugs and feature requests
 
 Have a bug or a feature request? Please feel free to contact us at [info@mm.co.th](info@mm.co.th).
 
 ## Longdo Map SDK Reference
-
 - [LongdoMapView](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-LongdoMapView)
 - [Annotation](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-Annotation)
 - [Protocol](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-LongdoSearchDelegate)
