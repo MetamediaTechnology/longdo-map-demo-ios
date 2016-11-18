@@ -23,26 +23,55 @@
 
 @end
 
+/*!
+ @enum LMMode
+ 
+ @discussion The LMMode enum defines constants that
+ can be used to specify the type of map view.
+ */
 typedef NS_ENUM(NSInteger, LMMode) {
-    BASE, // Hillshade base layer
-    GISTDA_SPOT5, // SPOT5 satellite base layer
-    GRAY, // Gray-ish base layer
-    HYDRO, // Basic base layer
-    MAPQUEST, // MapQuest-OSM base layer
-    NORMAL, // Standard base layer
-    OPENCYCLE, // Open Cycle base layer
-    OSM, // Open Street Map base layer
-    POI, // Standard+POI base layer
-    POLITICAL, // Political base layer
-    POLITICAL_NOLABEL, // Political base layer (No label)
-    TERRAIN, // Bluemarble terrain base layer
-    THAICHOTE, // Thaichote satellite base layer
-    POI_TRANSPARENT, // Standard+POI non-base layer
-    TRAFFIC, // Traffic non-base layer with auto-refresh
-    TAG, // Longdo tag layer
-    CUSTOM // Custom Layer
+    ///Hillshade base layer.
+    BASE,
+    ///SPOT5 satellite base layer.
+    GISTDA_SPOT5,
+    ///Gray-ish base layer.
+    GRAY,
+    ///Basic base layer.
+    HYDRO,
+    ///MapQuest-OSM base layer.
+    MAPQUEST,
+    ///Standard base layer.
+    NORMAL,
+    ///Open Cycle base layer.
+    OPENCYCLE,
+    ///Open Street Map base layer.
+    OSM,
+    ///Standard+POI base layer.
+    POI,
+    ///Political base layer.
+    POLITICAL,
+    ///Political base layer (No label).
+    POLITICAL_NOLABEL,
+    ///Bluemarble terrain base layer.
+    TERRAIN,
+    ///Thaichote satellite base layer.
+    THAICHOTE,
+    ///Standard+POI non-base layer.
+    POI_TRANSPARENT,
+    ///Traffic non-base layer with auto-refresh.
+    TRAFFIC,
+    ///Longdo tag layer.
+    TAG,
+    ///Custom Layer.
+    CUSTOM
 };
 
+/*!
+ @enum LMLanguage
+ 
+ @discussion The LMLanguage enum defines constants that
+ can be used to specify language of map view.
+ */
 typedef NS_ENUM(NSInteger, LMLanguage) {
     THAI,
     ENGLISH

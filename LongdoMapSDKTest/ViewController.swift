@@ -48,7 +48,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     @IBAction func setNormalMap() {
         eventTimer?.invalidate()
-        map.removeOverlays((map.overlays))
+        map.removeOverlays(map.overlays)
         map.addLMOverlay(LMMode.POI)
     }
     
