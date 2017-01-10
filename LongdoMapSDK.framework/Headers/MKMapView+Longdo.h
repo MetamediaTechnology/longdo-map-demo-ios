@@ -60,6 +60,8 @@ typedef NS_ENUM(NSInteger, LMMode) {
     POI_TRANSPARENT,
     ///Traffic non-base layer with auto-refresh.
     TRAFFIC,
+    ///Blank layer.
+    BLANK,
     ///Longdo tag layer.
     TAG,
     ///Custom Layer.
