@@ -31,7 +31,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.showsScale = true
         map.searchDelegate = self
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -61,7 +61,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     @IBAction func setSatelliteMap() {
         eventTimer?.invalidate()
-        map.removeOverlays(map.overlays)
+//        map.removeOverlays(map.overlays)
         map.addLMOverlay(LMMode.THAICHOTE)
         map.addLMOverlay(LMMode.POI_TRANSPARENT)
     }
@@ -120,10 +120,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         return annView
     }
-
+    
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is LMTileOverlay {
-            return LMTileOverlayRenderer(tileOverlay: overlay as! LMTileOverlay)
+            let tile = LMTileOverlayRenderer(tileOverlay: overlay as! LMTileOverlay)
+            if ((overlay as! LMTileOverlay).mode == LMMode.THAICHOTE) {
+                tile.alpha = 0.5
+            }
+            return tile
         }
 //        if overlay is MKCircle {
 //            let circle = MKCircleRenderer(overlay: overlay)
@@ -156,6 +160,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         else {
             return
         }
+        
         activePin.coordinate = (view.annotation?.coordinate)!
         for annotation in map.annotations {
             if annotation is MKPointAnnotation {
