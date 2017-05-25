@@ -18,6 +18,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBOutlet weak var map: LongdoMapView!
     @IBOutlet weak var loader: UIActivityIndicatorView!
     var eventTimer: Timer? = nil
+    var currentMode: LMMode = .NORMAL
+    var isRevert: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,12 +28,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.setKey(APIKEY)
         map.language = LMLanguage.THAI
         map.setRegion(MKCoordinateRegionMake(CLLocationCoordinate2DMake(13.756674, 100.501853), (map.coordinateSpan(withZoomLevel: 7))), animated: false)
-        map.addLMOverlay(LMMode.POI)
+        map.addLMOverlay(LMMode.NORMAL)
         map.showsUserLocation = true
         map.showsScale = true
         map.searchDelegate = self
+        map.userTrackingMode = MKUserTrackingMode.followWithHeading;
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -49,7 +52,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBAction func setNormalMap() {
         eventTimer?.invalidate()
         map.removeOverlays(map.overlays)
-        map.addLMOverlay(LMMode.POI)
+        map.addLMOverlay(LMMode.NORMAL)
+        currentMode = .NORMAL
+//        map.addLMOverlay(LMMode.OFFLINE)
     }
     
     @IBAction func setTrafficMap() {
@@ -57,19 +62,22 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.addLMOverlay(LMMode.GRAY)
         eventTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(ViewController.getEvent), userInfo: nil, repeats: true)
         map.addLMOverlay(LMMode.TRAFFIC)
+        currentMode = .TRAFFIC
     }
     
     @IBAction func setSatelliteMap() {
         eventTimer?.invalidate()
-//        map.removeOverlays(map.overlays)
+        map.removeOverlays(map.overlays)
         map.addLMOverlay(LMMode.THAICHOTE)
         map.addLMOverlay(LMMode.POI_TRANSPARENT)
+        currentMode = .THAICHOTE
     }
     
     @IBAction func setOpenStreetMap() {
         eventTimer?.invalidate()
         map.removeOverlays(map.overlays)
         map.addCustomOverlay(withURL: "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png")
+        currentMode = .CUSTOM
     }
     
     @IBAction func showShop() {
@@ -109,7 +117,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             (annView as! MKPinAnnotationView).animatesDrop = true
         }
         else if annotation is LMTagAnnotation {
-            annView.image = (annotation as! LMTagAnnotation).icon
+            let img = UIImageView(image: (annotation as! LMTagAnnotation).icon)
+            img.alpha = 0.5
+            img.frame = CGRect(x: img.frame.size.width / -2, y: img.frame.size.height / -2, width: img.frame.size.width, height: img.frame.size.height)
+            annView.addSubview(img)
         }
         else {
             annView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
@@ -120,14 +131,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         return annView
     }
-    
+
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is LMTileOverlay {
-            let tile = LMTileOverlayRenderer(tileOverlay: overlay as! LMTileOverlay)
-            if ((overlay as! LMTileOverlay).mode == LMMode.THAICHOTE) {
-                tile.alpha = 0.5
-            }
-            return tile
+            let renderer = LMTileOverlayRenderer(tileOverlay: overlay as! LMTileOverlay)
+//            if (overlay as! LMTileOverlay).mode == .OFFLINE {
+//                renderer.alpha = 0.5
+//            }
+            return renderer
         }
 //        if overlay is MKCircle {
 //            let circle = MKCircleRenderer(overlay: overlay)
@@ -160,7 +171,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         else {
             return
         }
-        
         activePin.coordinate = (view.annotation?.coordinate)!
         for annotation in map.annotations {
             if annotation is MKPointAnnotation {
@@ -172,6 +182,29 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.selectAnnotation(activePin, animated: true)
     }
     
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        if mapView.camera.heading >= 90 && mapView.camera.heading < 270 {
+            isRevert = true
+        }
+        else {
+            isRevert = false
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        if currentMode == .NORMAL {
+            if !isRevert && mapView.camera.heading >= 90 && mapView.camera.heading < 270 {
+                map.removeOverlays(map.overlays)
+                map.addLMOverlay(LMMode.NORMALR)
+                isRevert = true
+            }
+            else if isRevert && (mapView.camera.heading < 90 || mapView.camera.heading >= 270) {
+                map.removeOverlays(map.overlays)
+                map.addLMOverlay(LMMode.NORMAL)
+                isRevert = false
+            }
+        }
+    }
     //MARK:- Search Delegate
     func searchData(_ poi: [LMPinAnnotation]!) {
         map.addAnnotations(poi)

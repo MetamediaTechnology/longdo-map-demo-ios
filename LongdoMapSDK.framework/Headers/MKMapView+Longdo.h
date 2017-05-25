@@ -42,6 +42,8 @@ typedef NS_ENUM(NSInteger, LMMode) {
     MAPQUEST,
     ///Standard base layer.
     NORMAL,
+    ///Revert standard base layer.
+    NORMALR,
     ///Open Cycle base layer.
     OPENCYCLE,
     ///Open Street Map base layer.
@@ -60,6 +62,8 @@ typedef NS_ENUM(NSInteger, LMMode) {
     POI_TRANSPARENT,
     ///Traffic non-base layer with auto-refresh.
     TRAFFIC,
+    ///Offline layer. (For used, contact company sales.)
+    OFFLINE,
     ///Blank layer.
     BLANK,
     ///Longdo tag layer.
