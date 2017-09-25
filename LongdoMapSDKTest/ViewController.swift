@@ -76,7 +76,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBAction func setOpenStreetMap() {
         eventTimer?.invalidate()
         map.removeOverlays(map.overlays)
-        map.addCustomOverlay(withURL: "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png")
+        map.addCustomOverlay(withURL: "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png", withBoundingBox: false)
         currentMode = .CUSTOM
     }
     
@@ -99,7 +99,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.removeAllTags()
     }
     
-    func getEvent() {
+    @objc func getEvent() {
         map.removeLMOverlay(LMMode.TRAFFIC)
         map.addLMOverlay(LMMode.TRAFFIC)
     }

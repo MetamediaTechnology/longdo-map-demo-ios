@@ -58,18 +58,22 @@ typedef NS_ENUM(NSInteger, LMMode) {
     TERRAIN,
     ///Thaichote satellite base layer.
     THAICHOTE,
+    ///Thaichote satellite base layer.
+    THAICHOTE_HTTP,
     ///Standard+POI non-base layer.
     POI_TRANSPARENT,
     ///Traffic non-base layer with auto-refresh.
     TRAFFIC,
-    ///Offline layer. (For used, contact company sales.)
+    ///Offline layer. (Please contact company sales.)
     OFFLINE,
     ///Blank layer.
     BLANK,
     ///Longdo tag layer.
     TAG,
     ///Custom Layer.
-    CUSTOM
+    CUSTOM,
+    ///Custom layer with bounding box.
+    CUSTOM_BB
 };
 
 /*!
@@ -150,9 +154,10 @@ typedef NS_ENUM(NSInteger, LMLanguage) {
 
 /**
  Add custom overlay layer to map view.
- @param urlString URL of layer to be added. (replace x,y position and zoom with {x}, {y}, {z})
+ @param urlString URL of layer to be added. (replace x,y position and zoom with {x}, {y}, {z} or bounding box with {w}, {s}, {e}, {n})
+ @param isBB URL contains bounding box or normal tile.
  */
-- (void)addCustomOverlayWithURL:(NSString *)urlString;
+- (void)addCustomOverlayWithURL:(NSString *)urlString withBoundingBox:(BOOL)isBB;
 
 /**
  Remove overlay layer from map view.
