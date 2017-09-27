@@ -71,9 +71,22 @@ typedef NS_ENUM(NSInteger, LMMode) {
     ///Longdo tag layer.
     TAG,
     ///Custom Layer.
-    CUSTOM,
-    ///Custom layer with bounding box.
-    CUSTOM_BB
+    CUSTOM
+};
+
+/*!
+@enum LMTileFormat
+
+@discussion The LMTileFormat enum defines constants that
+can be used to specify the type of custom map tile format.
+*/
+typedef NS_ENUM(NSInteger, LMTileFormat) {
+    ///Web Map Service Format
+    WMS,
+    ///Tile Map Service Format
+    TMS,
+    ///Bounding Box Format
+    BBOX
 };
 
 /*!
@@ -102,6 +115,7 @@ typedef NS_ENUM(NSInteger, LMLanguage) {
 @interface LMTileOverlay : MKTileOverlay {
     NSString *apikey;
     LMLanguage language;
+    LMTileFormat tileFormat;
     NSString *modeName;
     NSString *urlLayer;
 }
@@ -110,6 +124,7 @@ typedef NS_ENUM(NSInteger, LMLanguage) {
 
 - (id)initWithMode:(LMMode)mode withKey:(NSString *)key andLanguage:(LMLanguage)lang;
 - (void)setCustomUrl:(NSString *)urlString;
+- (void)setTileFormat:(LMTileFormat)format;
 
 @end
 
@@ -155,9 +170,9 @@ typedef NS_ENUM(NSInteger, LMLanguage) {
 /**
  Add custom overlay layer to map view.
  @param urlString URL of layer to be added. (replace x,y position and zoom with {x}, {y}, {z} or bounding box with {w}, {s}, {e}, {n})
- @param isBB URL contains bounding box or normal tile.
+ @param tileFormat Tile format type.
  */
-- (void)addCustomOverlayWithURL:(NSString *)urlString withBoundingBox:(BOOL)isBB;
+- (void)addCustomOverlayWithURL:(NSString *)urlString andFormat:(LMTileFormat)tileFormat;
 
 /**
  Remove overlay layer from map view.

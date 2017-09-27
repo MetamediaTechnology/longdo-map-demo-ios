@@ -76,7 +76,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBAction func setOpenStreetMap() {
         eventTimer?.invalidate()
         map.removeOverlays(map.overlays)
-        map.addCustomOverlay(withURL: "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png", withBoundingBox: false)
+        map.addCustomOverlay(withURL: "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png", andFormat: .WMS)
         currentMode = .CUSTOM
     }
     
