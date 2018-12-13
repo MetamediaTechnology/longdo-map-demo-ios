@@ -24,4 +24,4 @@ Have a bug or a feature request? Please feel free to contact us at [info@mm.co.t
 
 ## Copyright and license
 
-Code copyright 2012-2016 Metamedia Technology Co., Ltd. Code released under [Apache 2.0 license](https://github.com/MetamediaTechnology/longdo-map-demo-ios/blob/master/LICENSE).
+Longdo Map SDK copyright 2012-2018 Metamedia Technology Co., Ltd. Demo code released under [Apache 2.0 license](https://github.com/MetamediaTechnology/longdo-map-demo-ios/blob/master/LICENSE).
