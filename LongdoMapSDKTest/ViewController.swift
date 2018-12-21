@@ -32,7 +32,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.showsUserLocation = true
         map.showsScale = true
         map.searchDelegate = self
-        map.userTrackingMode = MKUserTrackingMode.followWithHeading;
+        map.userTrackingMode = MKUserTrackingMode.followWithHeading
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,6 +52,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBAction func setNormalMap() {
         eventTimer?.invalidate()
         map.removeOverlays(map.overlays)
+        map.removeCameras()
+        map.removeEvents()
         map.addLMOverlay(LMMode.NORMAL)
         currentMode = .NORMAL
 //        map.addLMOverlay(LMMode.OFFLINE)
@@ -63,11 +65,15 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         eventTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(ViewController.getEvent), userInfo: nil, repeats: true)
         map.addLMOverlay(LMMode.TRAFFIC)
         currentMode = .TRAFFIC
+        map.showEvents()
+        map.showCameras()
     }
     
     @IBAction func setSatelliteMap() {
         eventTimer?.invalidate()
         map.removeOverlays(map.overlays)
+        map.removeCameras()
+        map.removeEvents()
         map.addLMOverlay(LMMode.THAICHOTE)
         map.addLMOverlay(LMMode.POI_TRANSPARENT)
         currentMode = .THAICHOTE
@@ -76,7 +82,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBAction func setOpenStreetMap() {
         eventTimer?.invalidate()
         map.removeOverlays(map.overlays)
-        map.addCustomOverlay(withURL: "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png", andFormat: .WMS)
+        map.removeCameras()
+        map.removeEvents()
+        map.addCustomOverlay(withURL: "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png", andFormat: .WMS, withReferer: "")
         currentMode = .CUSTOM
     }
     
@@ -106,48 +114,29 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     //MARK:- Map Delegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var annView = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
-        if annotation is MKUserLocation {
-            return nil
+        let annView = map.mapView(mapView, viewFor: annotation)
+        //Developer customize here
+        if annotation is LMPinAnnotation {
+            let ann = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
+            ann.pinTintColor = UIColor.purple
+            return ann
         }
-        else if annotation is LMPinAnnotation {
-            annView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
-            (annView as! MKPinAnnotationView).pinTintColor = UIColor.cyan
-            annView.layer.zPosition = CGFloat(750) - CGFloat((annotation as! LMPinAnnotation).coordinate.latitude)
-            (annView as! MKPinAnnotationView).animatesDrop = true
-        }
-        else if annotation is LMTagAnnotation {
-            let img = UIImageView(image: (annotation as! LMTagAnnotation).icon)
-            img.alpha = 0.5
-            img.frame = CGRect(x: img.frame.size.width / -2, y: img.frame.size.height / -2, width: img.frame.size.width, height: img.frame.size.height)
-            annView.addSubview(img)
-        }
-        else {
-            annView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
-            (annView as! MKPinAnnotationView).pinTintColor = UIColor.red
-            (annView as! MKPinAnnotationView).animatesDrop = true
-            annView.layer.zPosition = 999
-            annView.canShowCallout = true
-        }
+        //Developer customize here
         return annView
     }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is LMTileOverlay {
-            let renderer = LMTileOverlayRenderer(tileOverlay: overlay as! LMTileOverlay)
-//            if (overlay as! LMTileOverlay).mode == .OFFLINE {
-//                renderer.alpha = 0.5
-//            }
-            return renderer
+        let overlayRenderer = map.mapView(mapView, rendererFor: overlay)
+        //Developer customize here
+        if overlay is MKCircle {
+            let circle = MKCircleRenderer(overlay: overlay)
+            circle.strokeColor = UIColor.red
+            circle.fillColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5)
+            circle.lineWidth = 1
+            return circle
         }
-//        if overlay is MKCircle {
-//            let circle = MKCircleRenderer(overlay: overlay)
-//            circle.strokeColor = UIColor.red
-//            circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
-//            circle.lineWidth = 1
-//            return circle
-//        }
-        return MKPolylineRenderer()
+        //Developer customize here
+        return overlayRenderer
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -167,6 +156,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             let pin = view.annotation as! LMTagAnnotation
             activePin.title = pin.name
             print(pin.poiid)
+        }
+        else if view.annotation is LMEventAnnotation {
+            let pin = view.annotation as! LMEventAnnotation
+            activePin.title = pin.eventTitle
+            print(pin.eventDescription)
+        }
+        else if view.annotation is LMCameraAnnotation {
+            let pin = view.annotation as! LMCameraAnnotation
+            activePin.title = pin.cameraTitle
+            print(pin.url)
         }
         else {
             return
