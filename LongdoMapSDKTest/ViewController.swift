@@ -191,6 +191,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        map.mapView(mapView, regionDidChangeAnimated: animated) //in beta!!
         if currentMode == .NORMAL {
             if !isRevert && mapView.camera.heading >= 90 && mapView.camera.heading < 270 {
                 map.removeOverlays(map.overlays)
