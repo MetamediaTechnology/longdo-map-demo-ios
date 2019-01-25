@@ -80,3 +80,9 @@ typedef NS_ENUM(NSInteger, LMEventType) {
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
 @end
+
+@interface LMUserAnnotation : UIView
+
+@property (strong, nonatomic) UIImageView *heading;
+
+@end

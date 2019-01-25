@@ -8,6 +8,7 @@
 
 @import MapKit;
 #import "Annotation.h"
+#import "LocationController.h"
 
 @protocol LMTagDelegate <NSObject>
 
@@ -19,14 +20,14 @@
 @protocol LMSearchDelegate <NSObject>
 
 /**
- Callback from searchWithKeyword function
- @param poi point of interest results from search keyword.
+ Callback from searchWithKeyword function.
+ @param poi Point of interest results from search keyword.
  */
 - (void)searchData:(NSArray<LMPinAnnotation *> *)poi;
 
 /**
- Callback from suggestWithKeyword function
- @param keyword suggest name of point of interest results from search keyword.
+ Callback from suggestWithKeyword function.
+ @param keyword Suggest name of point of interest results from search keyword.
  */
 - (void)suggestData:(NSArray<NSString *> *)keyword;
 
@@ -96,16 +97,16 @@ typedef NS_ENUM(NSInteger, LMMode) {
 can be used to specify the type of custom map tile format.
 */
 typedef NS_ENUM(NSInteger, LMTileFormat) {
-    ///If not use custom format
+    ///If not use custom format.
     LONGDO,
-    ///Web Map Service format
+    ///Web Map Service format.
     WMS,
     WMTS = WMS,
-    ///Tile Map Service format
+    ///Tile Map Service format.
     TMS,
-    ///JSON of point format
+    ///JSON of point format.
     JSON,
-    ///Bounding box format with specific SRS
+    ///Bounding box format with specific SRS.
     BBOX4326,
     BBOX3857
 };
@@ -117,8 +118,20 @@ typedef NS_ENUM(NSInteger, LMTileFormat) {
  can be used to specify language of map view.
  */
 typedef NS_ENUM(NSInteger, LMLanguage) {
-    THAI,
+    THAI = 1,
     ENGLISH
+};
+
+/*!
+ @enum LMUserAnnotationType
+ 
+ @discussion The LMUserAnnotationType enum defines appearance of user location's annotation.
+ */
+typedef NS_ENUM(NSInteger, LMUserAnnotationType) {
+    ///Longdo Map Style
+    LONGDO_PIN = 1,
+    ///Apple MapKit Style
+    NATIVE_PIN
 };
 
 /*!
@@ -154,6 +167,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
 }
 
 @property (nonatomic, assign) LMCache cache;
+@property (nonatomic, assign) LMLanguage language;
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *mode;
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *tileFormat;
 @property (nonatomic, strong) NSMutableArray<NSString *> *urlLayer;
@@ -165,15 +179,19 @@ typedef NS_ENUM(NSInteger, LMCache) {
 
 @end
 
-@interface LongdoMapView : MKMapView <LMTagDelegate, LMTileDataDelegate, MKMapViewDelegate> {
+@interface LongdoMapView : MKMapView <LMTagDelegate, LMTileDataDelegate, MKMapViewDelegate, LocationControllerDelegate> {
     LMTileOverlayRenderer *tagOverlay;
     NSString *apikey;
     LMCache cache;
+    double currentHeading;
 }
 
 @property (nonatomic, assign) id <LMSearchDelegate> searchDelegate;
 @property (nonatomic, assign) id <LMTileDataDelegate> dataDelegate;
+/// The language of map view.
 @property (nonatomic, assign) LMLanguage language;
+/// An appearance of user location's annotation.
+@property (nonatomic, assign) LMUserAnnotationType userAnnotationType;
 
 /**
  Initializes a `LongdoMapView` object with Longdo Map API Key.
@@ -183,7 +201,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
 
 /**
 Enable cache for map.
- @param cached set how to cache.
+ @param cached Set how to cache.
  */
 - (void)setCache:(LMCache)cached;
 
@@ -195,20 +213,20 @@ Enable cache for map.
 
 /**
  Set map current zoom.
- @param zoomLevel the zoom of the map.
+ @param zoomLevel The zoom of the map.
  */
 - (void)setZoomLevel:(CGFloat)zoomLevel;
 
 /**
  Get map span with specific zoom.
- @param zoomLevel the zoom of the map.
+ @param zoomLevel The zoom of the map.
  @return Span of the map with specific zoom.
  */
 - (MKCoordinateSpan)coordinateSpanWithZoomLevel:(CGFloat)zoomLevel;
 
 /**
  Add overlay layer to map view.
- @param overlayName overlay layer to be added.
+ @param overlayName Overlay layer to be added.
  */
 - (void)addLMOverlay:(LMMode)overlayName;
 
@@ -222,8 +240,8 @@ Enable cache for map.
 
 /**
  Add overlay layers to map view.
- @param overlayNames set of overlay layer to be added.
- @param urlStrings set of URL of layer to be added. (if not using bounding box, replace x,y position and zoom with {x}, {y}, {z})
+ @param overlayNames Set of overlay layer to be added.
+ @param urlStrings Set of URL of layer to be added. (if not using bounding box, replace x,y position and zoom with {x}, {y}, {z})
  @param tileFormats Tile set of format type.
  @param refer Tile referer set (if no referer, send empty string).
  */
@@ -231,13 +249,13 @@ Enable cache for map.
 
 /**
  Remove overlay layer from map view.
- @param overlayName overlay layer that include in overlay to be removed.
+ @param overlayName Overlay layer that include in overlay to be removed.
  */
 - (void)removeLMOverlay:(LMMode)overlayName;
 
 /**
  Show longdo tags on the map.
- @param tag array of tag name.
+ @param tag Array of tag name.
  */
 - (void)showTags:(NSArray *)tag;
 
@@ -254,59 +272,59 @@ Enable cache for map.
 
 /**
  Convert WGS 84 value to UTM value.
- @param coordinate value in WGS 84 format.
- @param hasZone show UTM zone in return value.
+ @param coordinate Value in WGS 84 format.
+ @param hasZone Show UTM zone in return value.
  @return Value in UTM format.
  */
 - (NSString *)UTMFrom:(CLLocationCoordinate2D)coordinate withZone:(BOOL)hasZone;
 
 /**
  Convert UTM value to WGS 84 value.
- @param utmString value in UTM format.
+ @param utmString Value in UTM format.
  @return Value in WGS 84 format.
  */
 - (CLLocationCoordinate2D)coordinateFromUTM:(NSString *)utmString;
 
 /**
- Search with Longdo map poi
- @param keyword word to search with Longdo
- @param location center of location to search with Longdo
+ Search with Longdo map poi.
+ @param keyword Word to search with Longdo.
+ @param location Center of location to search with Longdo.
  */
 - (void)searchWithKeyword:(NSString *)keyword andCoordinate:(CLLocationCoordinate2D)location;
 
 /**
- Search with Longdo map poi
- @param keyword word to search with Longdo
- @param location center of location to search with Longdo
- @param span span with unit in deg, m or km
- @param offset offset of the first result returned
- @param limit number of results returned
+ Search with Longdo map poi.
+ @param keyword The word to search with Longdo.
+ @param location The center of location to search with Longdo.
+ @param span The span with unit in deg, m or km.
+ @param offset The offset of the first result returned.
+ @param limit Number of results returned.
  */
 - (void)searchWithKeyword:(NSString *)keyword coordinate:(CLLocationCoordinate2D)location span:(NSString *)span offset:(NSInteger)offset andLimit:(NSInteger)limit;
 
 /**
- Suggest with Longdo map poi
- @param keyword word to suggest with Longdo
+ Suggest with Longdo map poi.
+ @param keyword The word for suggest with Longdo.
  */
 - (void)suggestWithKeyword:(NSString *)keyword;
 
 /**
- Show event pins and data on Longdo map
+ Show event pins and data on Longdo map.
  */
 - (void)showEvents;
 
 /**
- Show camera pins and data on Longdo map
+ Show camera pins and data on Longdo map.
  */
 - (void)showCameras;
 
 /**
- Remove event pins on Longdo map
+ Remove event pins on Longdo map.
  */
 - (void)removeEvents;
 
 /**
- Remove camera pins on Longdo map
+ Remove camera pins on Longdo map.
  */
 - (void)removeCameras;
 

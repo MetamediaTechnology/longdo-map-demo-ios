@@ -33,6 +33,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.showsScale = true
         map.searchDelegate = self
         map.userTrackingMode = MKUserTrackingMode.followWithHeading
+        map.userAnnotationType = .LONGDO_PIN
     }
 
     override func didReceiveMemoryWarning() {
