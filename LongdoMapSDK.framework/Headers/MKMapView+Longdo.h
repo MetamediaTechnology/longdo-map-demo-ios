@@ -152,6 +152,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
 
 @property (nonatomic, strong) NSArray *tag;
 @property (nonatomic, assign) NSString *language;
+@property (nonatomic, assign) NSURL *boxDomain;
 @property (nonatomic, strong) NSString *apikey;
 @property (nonatomic, assign) id <LMTagDelegate> tagDelegate;
 
@@ -159,6 +160,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
 
 @interface LMTileOverlay : MKTileOverlay {
     NSString *apikey;
+    NSURL *boxDomain;
     LMLanguage language;
     NSString *docDir;
     NSFileManager *fileManager;
@@ -174,7 +176,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
 @property (nonatomic, assign) id <LMTileDataDelegate> dataDelegate;
 @property (nonatomic, strong) NSMutableArray<NSString *> *referer;
 
-- (id)initWithMode:(NSArray<NSNumber *> *)mapMode withKey:(NSString *)key andLanguage:(LMLanguage)lang;
+- (id)initWithMode:(NSArray<NSNumber *> *)mapMode key:(NSString *)key domain:(NSURL *)domain andLanguage:(LMLanguage)lang;
 - (void)setCustomUrl:(NSArray<NSString *> *)urlString withTileFormat:(NSArray<NSNumber *> *)format andReferer:(NSArray<NSString *> *)refer;
 
 @end
@@ -192,6 +194,8 @@ typedef NS_ENUM(NSInteger, LMCache) {
 @property (nonatomic, assign) LMLanguage language;
 /// An appearance of user location's annotation.
 @property (nonatomic, assign) LMUserAnnotationType userAnnotationType;
+/// URL Path of User's Longdo Box.
+@property (nonatomic, strong) NSURL* boxDomain;
 
 /**
  Initializes a `LongdoMapView` object with Longdo Map API Key.

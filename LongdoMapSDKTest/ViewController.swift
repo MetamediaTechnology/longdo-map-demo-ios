@@ -25,7 +25,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         super.viewDidLoad()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        map.setKey(APIKEY)
+        map.setKey(APIKEY) //Don't need if use Longdo Box
+//        map.boxDomain = URL(string: "https://yourdomain.com")
         map.language = LMLanguage.THAI
         map.setRegion(MKCoordinateRegionMake(CLLocationCoordinate2DMake(13.756674, 100.501853), (map.coordinateSpan(withZoomLevel: 7))), animated: false)
         map.addLMOverlay(LMMode.NORMAL)
@@ -192,7 +193,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        map.mapView(mapView, regionDidChangeAnimated: animated) //in beta!!
+        map.mapView(mapView, regionDidChangeAnimated: animated)
         if currentMode == .NORMAL {
             if !isRevert && mapView.camera.heading >= 90 && mapView.camera.heading < 270 {
                 map.removeOverlays(map.overlays)
