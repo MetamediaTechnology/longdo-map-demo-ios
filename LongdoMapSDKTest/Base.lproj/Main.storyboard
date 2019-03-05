@@ -260,14 +260,12 @@
                                         <constraint firstItem="nA3-My-hcj" firstAttribute="leading" secondItem="5aK-V1-5BQ" secondAttribute="trailing" constant="12" id="yRT-4Z-tD3"/>
                                     </constraints>
                                 </view>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="oBh-wg-tnR"/>
-                                </constraints>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="f62-u4-9XN" secondAttribute="bottom" constant="15" id="4r2-Vf-OCW"/>
                             <constraint firstAttribute="trailing" secondItem="kdf-Mi-coW" secondAttribute="trailing" id="PNZ-I0-d1t"/>
                             <constraint firstItem="vcS-5Z-6ih" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Sow-af-tRK"/>
                             <constraint firstAttribute="trailing" secondItem="vcS-5Z-6ih" secondAttribute="trailing" id="aPP-xl-eec"/>
@@ -275,8 +273,8 @@
                             <constraint firstItem="kdf-Mi-coW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="170" id="hZ1-Ua-lAs"/>
                             <constraint firstAttribute="trailing" secondItem="Uvc-Iw-zBU" secondAttribute="trailing" id="hoE-GW-e5v"/>
                             <constraint firstItem="vcS-5Z-6ih" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="iqv-n6-YxB"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Uvc-Iw-zBU" secondAttribute="bottom" id="khn-0W-VQP"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="vcS-5Z-6ih" secondAttribute="bottom" id="s6O-VB-ySL"/>
+                            <constraint firstAttribute="bottom" secondItem="Uvc-Iw-zBU" secondAttribute="bottom" id="khn-0W-VQP"/>
+                            <constraint firstAttribute="bottom" secondItem="vcS-5Z-6ih" secondAttribute="bottom" id="s6O-VB-ySL"/>
                             <constraint firstItem="kdf-Mi-coW" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="tQ6-ab-Bup"/>
                         </constraints>
                     </view>

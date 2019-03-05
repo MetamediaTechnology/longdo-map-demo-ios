@@ -6,6 +6,8 @@
 //  Copyright © พ.ศ. 2558 Metamedia Technology. All rights reserved.
 //
 
+@import AVKit;
+@import AVFoundation;
 @import MapKit;
 #import "Annotation.h"
 #import "LocationController.h"
@@ -13,7 +15,7 @@
 @protocol LMTagDelegate <NSObject>
 
 - (void)tagData:(NSArray<LMTagAnnotation *> *)poi;
-- (void)removeTagFromZoom:(NSInteger)zoom;
+- (void)removeOldTagFromZoom:(NSInteger)zoom;
 
 @end
 
@@ -183,6 +185,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
 
 @interface LongdoMapView : MKMapView <LMTagDelegate, LMTileDataDelegate, MKMapViewDelegate, LocationControllerDelegate> {
     LMTileOverlayRenderer *tagOverlay;
+    UIButton *legalLabel;
     NSString *apikey;
     LMCache cache;
     double currentHeading;
@@ -196,6 +199,8 @@ typedef NS_ENUM(NSInteger, LMCache) {
 @property (nonatomic, assign) LMUserAnnotationType userAnnotationType;
 /// URL Path of User's Longdo Box.
 @property (nonatomic, strong) NSURL* boxDomain;
+/// Crosshair on center of Map.
+@property (nonatomic, strong) UIImageView* crosshair;
 
 /**
  Initializes a `LongdoMapView` object with Longdo Map API Key.
@@ -331,5 +336,10 @@ Enable cache for map.
  Remove camera pins on Longdo map.
  */
 - (void)removeCameras;
+  
+/**
+ Get vdo view from camera annotation data.
+ */
+- (UIView *)getVDOViewFromCameraData:(LMCameraAnnotation *)camera;
 
 @end

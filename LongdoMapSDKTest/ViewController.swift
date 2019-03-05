@@ -27,13 +27,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager.requestWhenInUseAuthorization()
         map.setKey(APIKEY) //Don't need if use Longdo Box
 //        map.boxDomain = URL(string: "https://yourdomain.com")
-        map.language = LMLanguage.THAI
+        map.language = .THAI
         map.setRegion(MKCoordinateRegionMake(CLLocationCoordinate2DMake(13.756674, 100.501853), (map.coordinateSpan(withZoomLevel: 7))), animated: false)
         map.addLMOverlay(LMMode.NORMAL)
         map.showsUserLocation = true
         map.showsScale = true
         map.searchDelegate = self
-        map.userTrackingMode = MKUserTrackingMode.followWithHeading
+        map.userTrackingMode = .followWithHeading
         map.userAnnotationType = .LONGDO_PIN
     }
 
@@ -44,10 +44,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     //MARK:- Action
     @IBAction func zoomIn() {
+        map.userTrackingMode = .none
         map.setZoomLevel(map.getZoomLevel() + 1)
     }
     
     @IBAction func zoomOut() {
+        map.userTrackingMode = .none
         map.setZoomLevel(map.getZoomLevel() - 1)
     }
     
@@ -145,6 +147,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if view.isHidden {
             return
         }
+        map.mapView(mapView, didSelect: view)
         let activePin = MKPointAnnotation()
 //        let circle = MKCircle(center: (view.annotation?.coordinate)!, radius: 100000)
 //        map.add(circle)

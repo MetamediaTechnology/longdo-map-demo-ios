@@ -33,6 +33,18 @@ typedef NS_ENUM(NSInteger, LMEventType) {
     FIRE = 15
 };
 
+/*!
+ @enum LMCameraFormat
+ 
+ @discussion The LMCameraFormat enum defines constants that
+ can be used to specify the format of camera on the map.
+ */
+typedef NS_ENUM(NSInteger, LMCameraFormat) {
+    GIF,
+    MJPEG,
+    M3U8
+};
+
 @interface LMPinAnnotation : NSObject <MKAnnotation>
 
 @property (nonatomic, strong) NSString *poiid;
@@ -76,7 +88,9 @@ typedef NS_ENUM(NSInteger, LMEventType) {
 @property (strong, nonatomic) NSDate *lastUpdate;
 @property (strong, nonatomic) NSString *organization;
 @property (strong, nonatomic) NSString *sponsorText;
+@property (strong, nonatomic) NSURL *sponsorImageURL;
 @property (strong, nonatomic) NSURL *url;
+@property (nonatomic, assign) LMCameraFormat format;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
 @end
