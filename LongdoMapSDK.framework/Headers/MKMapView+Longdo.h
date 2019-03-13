@@ -318,6 +318,11 @@ Enable cache for map.
 - (void)suggestWithKeyword:(NSString *)keyword;
 
 /**
+ Manually update crosshair to center of the map when map's frame changed.
+ */
+- (void)updateCrosshair;
+
+/**
  Show event pins and data on Longdo map.
  */
 - (void)showEvents;
