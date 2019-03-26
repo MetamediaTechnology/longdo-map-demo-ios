@@ -42,6 +42,18 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        map.updateCrosshair()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: nil, completion: { _ in
+            self.map.updateCrosshair()
+        })
+    }
+    
     //MARK:- Action
     @IBAction func zoomIn() {
         map.userTrackingMode = .none
@@ -119,12 +131,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     //MARK:- Map Delegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annView = map.mapView(mapView, viewFor: annotation)
-        //Developer customize here
-        if annotation is LMPinAnnotation {
-            let ann = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
-            ann.pinTintColor = UIColor.purple
-            return ann
-        }
         //Developer customize here
         return annView
     }

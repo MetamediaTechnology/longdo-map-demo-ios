@@ -202,6 +202,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
 /// Crosshair on center of Map.
 @property (nonatomic, strong) UIImageView* crosshair;
 
+#pragma mark - Set Map
 /**
  Initializes a `LongdoMapView` object with Longdo Map API Key.
  @param key Longdo Map API Key.
@@ -213,6 +214,11 @@ Enable cache for map.
  @param cached Set how to cache.
  */
 - (void)setCache:(LMCache)cached;
+
+/**
+ Manually update crosshair to center of the map when map's frame changed.
+ */
+- (void)updateCrosshair;
 
 /**
  Get map current zoom.
@@ -233,6 +239,13 @@ Enable cache for map.
  */
 - (MKCoordinateSpan)coordinateSpanWithZoomLevel:(CGFloat)zoomLevel;
 
+/**
+ Remove map tile caches from device.
+ @return Clear cache success.
+ */
+- (BOOL)clearAllCaches;
+
+#pragma mark - Set Layer
 /**
  Add overlay layer to map view.
  @param overlayName Overlay layer to be added.
@@ -273,12 +286,7 @@ Enable cache for map.
  */
 - (void)removeAllTags;
 
-/**
- Remove map tile caches from device.
- @return Clear cache success.
- */
-- (BOOL)clearAllCaches;
-
+#pragma mark - Calculate
 /**
  Convert WGS 84 value to UTM value.
  @param coordinate Value in WGS 84 format.
@@ -294,6 +302,7 @@ Enable cache for map.
  */
 - (CLLocationCoordinate2D)coordinateFromUTM:(NSString *)utmString;
 
+#pragma mark - Search
 /**
  Search with Longdo map poi.
  @param keyword Word to search with Longdo.
@@ -317,11 +326,7 @@ Enable cache for map.
  */
 - (void)suggestWithKeyword:(NSString *)keyword;
 
-/**
- Manually update crosshair to center of the map when map's frame changed.
- */
-- (void)updateCrosshair;
-
+#pragma mark - Traffic
 /**
  Show event pins and data on Longdo map.
  */
