@@ -88,7 +88,9 @@ typedef NS_ENUM(NSInteger, LMMode) {
     BLANK,
     ///Longdo tag layer.
     TAG,
-    ///Custom Layer.
+    ///Longdo layer by name specific in `sourceLayer`.
+    BY_NAME,
+    ///Custom layer.
     CUSTOM
 };
 
@@ -160,6 +162,31 @@ typedef NS_ENUM(NSInteger, LMCache) {
 
 @end
 
+@interface LMLayer : NSObject
+
+/// Type of Longdo overlay layer.
+@property (nonatomic, assign) LMMode mode;
+/// Tile format of overlay if use custom overlay.
+@property (nonatomic, assign) LMTileFormat tileFormat;
+/// URL of overlay layer if use `CUSTOM` overlay or name of layer if use `BY_NAME` overlay.
+@property (nonatomic, strong) NSString *sourceLayer;
+/// Referer URL of overlay layer if use custom overlay.
+@property (nonatomic, strong) NSString *referer;
+/// Alpha value of overlay layer between 0.0 - 1.0.
+@property (nonatomic, assign) CGFloat alpha;
+/// Minimum zoom of map that layer will be appeared.
+@property (nonatomic, assign) NSInteger minZoom;
+/// Maximum zoom of map that layer will be appeared.
+@property (nonatomic, assign) NSInteger maxZoom;
+
+/**
+ Initializes `LMLayer` with Longdo overlay type.
+ @param mode Overlay layer type.
+ */
+- (id)initWithMode:(LMMode)mode;
+
+@end
+
 @interface LMTileOverlay : MKTileOverlay {
     NSString *apikey;
     NSURL *boxDomain;
@@ -172,6 +199,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
 
 @property (nonatomic, assign) LMCache cache;
 @property (nonatomic, assign) LMLanguage language;
+@property (nonatomic, assign) CGFloat alpha;
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *mode;
 @property (nonatomic, strong) NSMutableArray<NSNumber *> *tileFormat;
 @property (nonatomic, strong) NSMutableArray<NSString *> *urlLayer;
@@ -201,6 +229,10 @@ typedef NS_ENUM(NSInteger, LMCache) {
 @property (nonatomic, strong) NSURL* boxDomain;
 /// Crosshair on center of Map.
 @property (nonatomic, strong) UIImageView* crosshair;
+/// Custom user location image on map. (Best size at 32x40 px)
+@property (nonatomic, strong) UIImage* userLocationImage;
+/// Custom user location arrow on map. (Best canvas size at 70x70 px)
+@property (nonatomic, strong) UIImage* userLocationArrow;
 
 #pragma mark - Set Map
 /**
@@ -249,16 +281,24 @@ Enable cache for map.
 /**
  Add overlay layer to map view.
  @param overlayName Overlay layer to be added.
+ @deprecated This method is deprecated starting in version 3.10
  */
-- (void)addLMOverlay:(LMMode)overlayName;
+- (void)addLMOverlay:(LMMode)overlayName DEPRECATED_MSG_ATTRIBUTE("Use addLMLayer: instead.");
+
+/**
+ Add overlay layer to map view.
+ @param layer Overlay layer to be added.
+ */
+- (void)addLMLayer:(LMLayer *)layer;
 
 /**
  Add custom overlay layer to map view.
  @param urlString URL of layer to be added. (if not using bounding box, replace x,y position and zoom with {x}, {y}, {z})
  @param tileFormat Tile format type.
  @param refer Tile referer (if no referer, send empty string).
+ @deprecated This method is deprecated starting in version 3.10
  */
-- (void)addCustomOverlayWithURL:(NSString *)urlString andFormat:(LMTileFormat)tileFormat withReferer:(NSString *)refer;
+- (void)addCustomOverlayWithURL:(NSString *)urlString andFormat:(LMTileFormat)tileFormat withReferer:(NSString *)refer DEPRECATED_MSG_ATTRIBUTE("Use addLMLayer: instead.");
 
 /**
  Add overlay layers to map view.
@@ -266,14 +306,27 @@ Enable cache for map.
  @param urlStrings Set of URL of layer to be added. (if not using bounding box, replace x,y position and zoom with {x}, {y}, {z})
  @param tileFormats Tile set of format type.
  @param refer Tile referer set (if no referer, send empty string).
+ @deprecated This method is deprecated starting in version 3.10
  */
-- (void)addLMOverlays:(NSArray<NSNumber *>*)overlayNames WithURL:(NSArray<NSString *>*)urlStrings andFormat:(NSArray<NSNumber *>*)tileFormats withReferer:(NSArray<NSString *>*)refer;
+- (void)addLMOverlays:(NSArray<NSNumber *>*)overlayNames WithURL:(NSArray<NSString *>*)urlStrings andFormat:(NSArray<NSNumber *>*)tileFormats withReferer:(NSArray<NSString *>*)refer DEPRECATED_MSG_ATTRIBUTE("Use addLMLayers: instead.");
+
+/**
+ Add multiple overlay layers to map view.
+ @param layers Array of overlay layers to be added.
+ */
+- (void)addLMLayers:(NSArray<LMLayer *>*)layers;
 
 /**
  Remove overlay layer from map view.
  @param overlayName Overlay layer that include in overlay to be removed.
  */
 - (void)removeLMOverlay:(LMMode)overlayName;
+
+/**
+ Remove overlay layer from map view.
+ @param sourceLayer Layer from URL that need to be removed.
+ */
+- (void)removeSourceLayer:(NSString *)sourceLayer;
 
 /**
  Show longdo tags on the map.
@@ -301,6 +354,13 @@ Enable cache for map.
  @return Value in WGS 84 format.
  */
 - (CLLocationCoordinate2D)coordinateFromUTM:(NSString *)utmString;
+
+/**
+ Get area size in metres from `MKPolygon`.
+ @param polygon Polygon for calculate area size.
+ @return Size of polygon area.
+ */
+- (double)areaOfPolygon:(MKPolygon *)polygon;
 
 #pragma mark - Search
 /**

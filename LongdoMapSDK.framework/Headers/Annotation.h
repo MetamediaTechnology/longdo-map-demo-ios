@@ -99,5 +99,6 @@ typedef NS_ENUM(NSInteger, LMCameraFormat) {
 @interface LMUserAnnotation : UIView
 
 @property (strong, nonatomic) UIImageView *heading;
+@property (strong, nonatomic) UIImageView *pin;
 
 @end

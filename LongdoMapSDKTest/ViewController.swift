@@ -29,12 +29,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 //        map.boxDomain = URL(string: "https://yourdomain.com")
         map.language = .THAI
         map.setRegion(MKCoordinateRegionMake(CLLocationCoordinate2DMake(13.756674, 100.501853), (map.coordinateSpan(withZoomLevel: 7))), animated: false)
-        map.addLMOverlay(LMMode.NORMAL)
+        map.add(LMLayer(mode: .NORMAL))
         map.showsUserLocation = true
         map.showsScale = true
         map.searchDelegate = self
         map.userTrackingMode = .followWithHeading
         map.userAnnotationType = .LONGDO_PIN
+        map.userLocationImage = UIImage(named: "ic_current_location")
+        map.userLocationArrow = UIImage(named: "heading")
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,16 +72,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.removeOverlays(map.overlays)
         map.removeCameras()
         map.removeEvents()
-        map.addLMOverlay(LMMode.NORMAL)
+        map.add(LMLayer(mode: .NORMAL))
         currentMode = .NORMAL
 //        map.addLMOverlay(LMMode.OFFLINE)
     }
     
     @IBAction func setTrafficMap() {
         map.removeOverlays(map.overlays)
-        map.addLMOverlay(LMMode.GRAY)
+        map.add(LMLayer(mode: .GRAY))
         eventTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(ViewController.getEvent), userInfo: nil, repeats: true)
-        map.addLMOverlay(LMMode.TRAFFIC)
+        map.add(LMLayer(mode: .TRAFFIC))
         currentMode = .TRAFFIC
         map.showEvents()
         map.showCameras()
@@ -90,8 +92,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.removeOverlays(map.overlays)
         map.removeCameras()
         map.removeEvents()
-        map.addLMOverlay(LMMode.THAICHOTE)
-        map.addLMOverlay(LMMode.POI_TRANSPARENT)
+        map.add(LMLayer(mode: .THAICHOTE))
+        map.add(LMLayer(mode: .POI_TRANSPARENT))
         currentMode = .THAICHOTE
     }
     
@@ -100,7 +102,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.removeOverlays(map.overlays)
         map.removeCameras()
         map.removeEvents()
-        map.addCustomOverlay(withURL: "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png", andFormat: .WMS, withReferer: "")
+        let layer = LMLayer(mode: .CUSTOM)
+        layer?.sourceLayer = "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        layer?.tileFormat = .WMS
+        map.add(layer)
         currentMode = .CUSTOM
     }
     
@@ -125,7 +130,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     @objc func getEvent() {
         map.removeLMOverlay(LMMode.TRAFFIC)
-        map.addLMOverlay(LMMode.TRAFFIC)
+        map.add(LMLayer(mode: .TRAFFIC))
     }
     
     //MARK:- Map Delegate
@@ -206,12 +211,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if currentMode == .NORMAL {
             if !isRevert && mapView.camera.heading >= 90 && mapView.camera.heading < 270 {
                 map.removeOverlays(map.overlays)
-                map.addLMOverlay(LMMode.NORMALR)
+                map.add(LMLayer(mode: .NORMALR))
                 isRevert = true
             }
             else if isRevert && (mapView.camera.heading < 90 || mapView.camera.heading >= 270) {
                 map.removeOverlays(map.overlays)
-                map.addLMOverlay(LMMode.NORMAL)
+                map.add(LMLayer(mode: .NORMAL))
                 isRevert = false
             }
         }
