@@ -158,7 +158,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
 @property (nonatomic, assign) NSString *language;
 @property (nonatomic, assign) NSURL *boxDomain;
 @property (nonatomic, strong) NSString *apikey;
-@property (nonatomic, assign) id <LMTagDelegate> tagDelegate;
+@property (nonatomic, weak) id <LMTagDelegate> tagDelegate;
 
 @end
 
@@ -312,7 +312,7 @@ Enable cache for map.
 
 /**
  Add multiple overlay layers to map view.
- @param layers Array of overlay layers to be added.
+ @param layers Array of overlay layers to be added from bottom to top.
  */
 - (void)addLMLayers:(NSArray<LMLayer *>*)layers;
 
