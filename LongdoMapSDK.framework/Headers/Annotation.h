@@ -52,7 +52,7 @@ typedef NS_ENUM(NSInteger, LMCameraFormat) {
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
-@property (strong, nonatomic) UIImage *icon;
+@property (strong, nonatomic) UIImage *icon; /*deprecated*/
 @property (nonatomic, strong) NSObject *userData;
 @property (nonatomic, strong) NSString *type;
 
@@ -73,7 +73,8 @@ typedef NS_ENUM(NSInteger, LMCameraFormat) {
 @property (strong, nonatomic) NSString *eventId;
 @property (strong, nonatomic) NSString *eventTitle;
 @property (strong, nonatomic) NSString *eventDescription;
-@property (strong, nonatomic) UIImage *icon;
+@property (strong, nonatomic) UIImage *icon; /*deprecated*/
+@property (strong, nonatomic) NSString *iconName;
 @property (strong, nonatomic) NSDate *start;
 @property (strong, nonatomic) NSDate *stop;
 @property (strong, nonatomic) NSString *contributor;
@@ -86,7 +87,7 @@ typedef NS_ENUM(NSInteger, LMCameraFormat) {
 
 @property (strong, nonatomic) NSString *cameraId;
 @property (strong, nonatomic) NSString *cameraTitle;
-@property (strong, nonatomic) UIImage *icon;
+@property (strong, nonatomic) UIImage *icon; /*deprecated*/
 @property (strong, nonatomic) NSDate *lastUpdate;
 @property (strong, nonatomic) NSString *organization;
 @property (strong, nonatomic) NSString *sponsorText;
