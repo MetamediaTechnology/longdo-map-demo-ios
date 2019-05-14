@@ -30,7 +30,8 @@ typedef NS_ENUM(NSInteger, LMEventType) {
     WARNING = 12,
     EVENT = 13,
     SALE = 14,
-    FIRE = 15
+    FIRE = 15,
+    COMPLAINT = 16
 };
 
 /*!
