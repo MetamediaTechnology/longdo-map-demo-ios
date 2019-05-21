@@ -149,10 +149,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
     ALWAYLOAD
 };
 
-@interface LMTileOverlayRenderer : MKTileOverlayRenderer {
-    NSInteger oldZoom;
-    NSMutableArray *pathOnMap;
-}
+@interface LMTileOverlayRenderer : MKTileOverlayRenderer
 
 @property (nonatomic, strong) NSArray *tag;
 @property (nonatomic, assign) NSString *language;
@@ -187,15 +184,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
 
 @end
 
-@interface LMTileOverlay : MKTileOverlay {
-    NSString *apikey;
-    NSURL *boxDomain;
-    LMLanguage language;
-    NSString *docDir;
-    NSFileManager *fileManager;
-    NSUserDefaults *defaults;
-    NSMutableArray *tileList;
-}
+@interface LMTileOverlay : MKTileOverlay
 
 @property (nonatomic, assign) LMCache cache;
 @property (nonatomic, assign) LMLanguage language;
@@ -211,18 +200,14 @@ typedef NS_ENUM(NSInteger, LMCache) {
 
 @end
 
-@interface LongdoMapView : MKMapView <LMTagDelegate, LMTileDataDelegate, MKMapViewDelegate, LocationControllerDelegate> {
-    LMTileOverlayRenderer *tagOverlay;
-    UIButton *legalLabel;
-    NSString *apikey;
-    LMCache cache;
-    double currentHeading;
-}
+@interface LongdoMapView : MKMapView <LMTagDelegate, LMTileDataDelegate, MKMapViewDelegate, LocationControllerDelegate>
 
 @property (nonatomic, assign) id <LMSearchDelegate> searchDelegate;
 @property (nonatomic, assign) id <LMTileDataDelegate> dataDelegate;
 /// The language of map view.
 @property (nonatomic, assign) LMLanguage language;
+/// Zoom level of map view.
+@property (nonatomic, assign) CGFloat zoomLevel;
 /// An appearance of user location's annotation.
 @property (nonatomic, assign) LMUserAnnotationType userAnnotationType;
 /// URL Path of User's Longdo Box.
@@ -230,9 +215,13 @@ typedef NS_ENUM(NSInteger, LMCache) {
 /// Crosshair on center of Map.
 @property (nonatomic, strong) UIImageView* crosshair;
 /// Custom user location image on map. (Best size at 32x40 px)
-@property (nonatomic, strong) UIImage* userLocationImage;
+@property (nonatomic, strong) IBInspectable UIImage* userLocationImage;
 /// Custom user location arrow on map. (Best canvas size at 70x70 px)
-@property (nonatomic, strong) UIImage* userLocationArrow;
+@property (nonatomic, strong) IBInspectable UIImage* userLocationArrow;
+/// A Boolean indicating whether the map shows traffic events.
+@property (nonatomic, assign) IBInspectable BOOL showsEvents;
+/// A Boolean indicating whether the map shows traffic cameras.
+@property (nonatomic, assign) IBInspectable BOOL showsCameras;
 
 #pragma mark - Set Map
 /**
@@ -251,18 +240,6 @@ Enable cache for map.
  Manually update crosshair to center of the map when map's frame changed.
  */
 - (void)updateCrosshair;
-
-/**
- Get map current zoom.
- @return Map current zoom.
- */
-- (CGFloat)getZoomLevel;
-
-/**
- Set map current zoom.
- @param zoomLevel The zoom of the map.
- */
-- (void)setZoomLevel:(CGFloat)zoomLevel;
 
 /**
  Get map span with specific zoom.
@@ -390,22 +367,22 @@ Enable cache for map.
 /**
  Show event pins and data on Longdo map.
  */
-- (void)showEvents;
+- (void)showEvents DEPRECATED_MSG_ATTRIBUTE("Use showsEvents = true instead.");
 
 /**
  Show camera pins and data on Longdo map.
  */
-- (void)showCameras;
+- (void)showCameras DEPRECATED_MSG_ATTRIBUTE("Use showsCameras = true instead.");
 
 /**
  Remove event pins on Longdo map.
  */
-- (void)removeEvents;
+- (void)removeEvents DEPRECATED_MSG_ATTRIBUTE("Use showsEvents = false instead.");
 
 /**
  Remove camera pins on Longdo map.
  */
-- (void)removeCameras;
+- (void)removeCameras DEPRECATED_MSG_ATTRIBUTE("Use showsCameras = false instead.");
   
 /**
  Get vdo view from camera annotation data.

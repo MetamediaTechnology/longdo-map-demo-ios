@@ -59,19 +59,19 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     //MARK:- Action
     @IBAction func zoomIn() {
         map.userTrackingMode = .none
-        map.setZoomLevel(map.getZoomLevel() + 1)
+        map.zoomLevel += 1
     }
     
     @IBAction func zoomOut() {
         map.userTrackingMode = .none
-        map.setZoomLevel(map.getZoomLevel() - 1)
+        map.zoomLevel -= 1
     }
     
     @IBAction func setNormalMap() {
         eventTimer?.invalidate()
         map.removeOverlays(map.overlays)
-        map.removeCameras()
-        map.removeEvents()
+        map.showsCameras = false
+        map.showsEvents = false
         map.add(LMLayer(mode: .NORMAL))
         currentMode = .NORMAL
 //        map.addLMOverlay(LMMode.OFFLINE)
@@ -80,18 +80,17 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBAction func setTrafficMap() {
         map.removeOverlays(map.overlays)
         map.add(LMLayer(mode: .GRAY))
-        eventTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(ViewController.getEvent), userInfo: nil, repeats: true)
         map.add(LMLayer(mode: .TRAFFIC))
         currentMode = .TRAFFIC
-        map.showEvents()
-        map.showCameras()
+        map.showsCameras = true
+        map.showsEvents = true
     }
     
     @IBAction func setSatelliteMap() {
         eventTimer?.invalidate()
         map.removeOverlays(map.overlays)
-        map.removeCameras()
-        map.removeEvents()
+        map.showsCameras = false
+        map.showsEvents = false
         map.add(LMLayer(mode: .THAICHOTE))
         map.add(LMLayer(mode: .POI_TRANSPARENT))
         currentMode = .THAICHOTE
@@ -100,8 +99,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBAction func setOpenStreetMap() {
         eventTimer?.invalidate()
         map.removeOverlays(map.overlays)
-        map.removeCameras()
-        map.removeEvents()
+        map.showsCameras = false
+        map.showsEvents = false
         let layer = LMLayer(mode: .CUSTOM)
         layer?.sourceLayer = "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
         layer?.tileFormat = .WMS
@@ -126,11 +125,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     @IBAction func clearTag() {
         map.removeAllTags()
-    }
-    
-    @objc func getEvent() {
-        map.removeLMOverlay(LMMode.TRAFFIC)
-        map.add(LMLayer(mode: .TRAFFIC))
     }
     
     //MARK:- Map Delegate
