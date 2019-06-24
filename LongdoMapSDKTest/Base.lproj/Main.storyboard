@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -228,9 +228,23 @@
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="01f-GG-ZWC">
+                                            <rect key="frame" x="8" y="8" width="68" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="68" id="6YI-lQ-vwh"/>
+                                                <constraint firstAttribute="height" constant="30" id="a0a-IJ-XdW"/>
+                                            </constraints>
+                                            <state key="normal" title="Language">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="toggleLanguage" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vee-gK-OsC"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="o3A-B1-bQA" firstAttribute="leading" secondItem="EqZ-Xk-wcF" secondAttribute="trailing" constant="12" id="29N-dx-osQ"/>
+                                        <constraint firstItem="01f-GG-ZWC" firstAttribute="top" secondItem="a62-9s-Vdg" secondAttribute="top" constant="8" id="3IU-QQ-0MV"/>
                                         <constraint firstItem="f62-u4-9XN" firstAttribute="top" secondItem="5aK-V1-5BQ" secondAttribute="bottom" constant="18" id="4if-YK-wnn"/>
                                         <constraint firstItem="sgw-NZ-h5R" firstAttribute="top" secondItem="a62-9s-Vdg" secondAttribute="top" constant="12" id="5uS-8m-GGg"/>
                                         <constraint firstItem="Yxj-qM-qSR" firstAttribute="leading" secondItem="sgw-NZ-h5R" secondAttribute="trailing" constant="16" id="6fU-uX-vxn"/>
@@ -238,6 +252,7 @@
                                         <constraint firstItem="EqZ-Xk-wcF" firstAttribute="centerY" secondItem="zeM-gI-kcJ" secondAttribute="centerY" id="7Ll-rE-S11"/>
                                         <constraint firstItem="sgw-NZ-h5R" firstAttribute="centerY" secondItem="7Pc-xZ-1RV" secondAttribute="centerY" id="CWz-a8-DKc"/>
                                         <constraint firstItem="okX-1e-byh" firstAttribute="centerY" secondItem="CaM-81-xEu" secondAttribute="centerY" id="Dbm-5O-94f"/>
+                                        <constraint firstItem="01f-GG-ZWC" firstAttribute="leading" secondItem="a62-9s-Vdg" secondAttribute="leading" constant="8" id="I5b-Ic-RJZ"/>
                                         <constraint firstItem="f62-u4-9XN" firstAttribute="centerX" secondItem="a62-9s-Vdg" secondAttribute="centerX" id="KhG-0y-2sK"/>
                                         <constraint firstItem="nA3-My-hcj" firstAttribute="centerY" secondItem="CaM-81-xEu" secondAttribute="centerY" id="Mm0-eR-vRO"/>
                                         <constraint firstItem="Yxj-qM-qSR" firstAttribute="centerY" secondItem="7Pc-xZ-1RV" secondAttribute="centerY" id="Nd4-fj-ioW"/>

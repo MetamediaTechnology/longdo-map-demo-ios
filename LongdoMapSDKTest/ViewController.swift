@@ -127,6 +127,15 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.removeAllTags()
     }
     
+    @IBAction func toggleLanguage() {
+        if map.language == .THAI {
+            map.language = .ENGLISH
+        }
+        else {
+            map.language = .THAI
+        }
+    }
+    
     //MARK:- Map Delegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annView = map.mapView(mapView, viewFor: annotation)

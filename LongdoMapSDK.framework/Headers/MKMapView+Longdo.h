@@ -243,10 +243,10 @@ Enable cache for map.
 
 /**
  Get map span with specific zoom.
- @param zoomLevel The zoom of the map.
+ @param zoom The zoom of the map.
  @return Span of the map with specific zoom.
  */
-- (MKCoordinateSpan)coordinateSpanWithZoomLevel:(CGFloat)zoomLevel;
+- (MKCoordinateSpan)coordinateSpanWithZoomLevel:(CGFloat)zoom;
 
 /**
  Remove map tile caches from device.
