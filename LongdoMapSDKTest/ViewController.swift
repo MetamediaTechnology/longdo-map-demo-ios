@@ -9,7 +9,7 @@
 import UIKit
 import LongdoMapSDK
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, LMSearchDelegate, UISearchBarDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate {
     
     //MARK:- Initial
     let APIKEY = "16a3c9373e8911c2e4736d92431f7113"
@@ -28,11 +28,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.setKey(APIKEY) //Don't need if use Longdo Box
 //        map.boxDomain = URL(string: "https://yourdomain.com")
         map.language = .THAI
-        map.setRegion(MKCoordinateRegionMake(CLLocationCoordinate2DMake(13.756674, 100.501853), (map.coordinateSpan(withZoomLevel: 7))), animated: false)
+        map.setRegion(MKCoordinateRegion.init(center: CLLocationCoordinate2DMake(13.756674, 100.501853), span: (map.coordinateSpan(withZoomLevel: 7))), animated: false)
         map.add(LMLayer(mode: .NORMAL))
         map.showsUserLocation = true
         map.showsScale = true
-        map.searchDelegate = self
         map.userTrackingMode = .followWithHeading
         map.userAnnotationType = .LONGDO_PIN
         map.userLocationImage = UIImage(named: "ic_current_location")
@@ -69,7 +68,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     @IBAction func setNormalMap() {
         eventTimer?.invalidate()
-        map.removeOverlays(map.overlays)
+        map.removeOverlays(map.overlays) //if don't need to remove line or any geometry, use removeLMOverlay: or removeSourceLayer: to remove specified layer instead.
         map.showsCameras = false
         map.showsEvents = false
         map.add(LMLayer(mode: .NORMAL))
@@ -109,17 +108,19 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     @IBAction func showShop() {
-        map.removeAllTags()
-        map.showTags(["shop"])
+        let options = LMTagOptions()
+        options.visibleRange = NSRange(location: 10, length: 10)
+        options.icon = LMIcon(image: UIImage(named: "icon_shop"))
+        options.icon.alpha = 1
+        options.icon.offset = CGPoint(x: 0, y: -0.5)
+        map.showTags(["shop"], with: options)
     }
     
     @IBAction func showBank() {
-        map.removeAllTags()
         map.showTags(["bank"])
     }
     
     @IBAction func showHotel() {
-        map.removeAllTags()
         map.showTags(["hotel"])
     }
     
@@ -153,6 +154,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             circle.lineWidth = 1
             return circle
         }
+        if overlay is MKPolyline {
+            let lineView = MKPolylineRenderer(overlay: overlay)
+            lineView.strokeColor = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
+            lineView.lineWidth = 3
+            return lineView
+        }
         //Developer customize here
         return overlayRenderer
     }
@@ -169,22 +176,43 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             let pin = view.annotation as! LMPinAnnotation
             activePin.title = pin.name
             activePin.subtitle = pin.address
-            print(pin.poiid)
+            print(pin.poiid ?? "")
+            let options = LMRouteOptions()
+            options.mode = .MINIMUM_DISTANCE
+            options.allowedFerry = false
+            options.allowedTollway = false
+            var start = map.centerCoordinate
+            if map.userLocation.coordinate.latitude != 0 && map.userLocation.coordinate.longitude != 0 {
+                start = map.userLocation.coordinate
+            }
+            map.route(from: start, to: pin.coordinate, with: options, result: {route, error in
+                DispatchQueue.main.async {
+                    for overlay in self.map.overlays {
+                        if overlay is MKPolyline {
+                            self.map.removeOverlay(overlay)
+                        }
+                    }
+                    for guide in route?.guide ?? [] {
+                        self.map.addOverlay(guide.path)
+                    }
+                }
+            })
+
         }
         else if view.annotation is LMTagAnnotation {
             let pin = view.annotation as! LMTagAnnotation
             activePin.title = pin.name
-            print(pin.poiid)
+            print(pin.poiid ?? "")
         }
         else if view.annotation is LMEventAnnotation {
             let pin = view.annotation as! LMEventAnnotation
             activePin.title = pin.eventTitle
-            print(pin.eventDescription)
+            print(pin.eventDescription ?? "")
         }
         else if view.annotation is LMCameraAnnotation {
             let pin = view.annotation as! LMCameraAnnotation
             activePin.title = pin.cameraTitle
-            print(pin.url)
+            print(pin.url ?? "")
         }
         else {
             return
@@ -224,19 +252,36 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
         }
     }
+    
     //MARK:- Search Delegate
-    func searchData(_ poi: [LMPinAnnotation]!) {
-        map.addAnnotations(poi)
-        loader.stopAnimating()
-    }
-    
-    func suggestData(_ keyword: [String]!) {
-        print(keyword)
-    }
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        map.search(withKeyword: searchBar.text, andCoordinate: map.centerCoordinate)
+        let options = LMSearchOptions()
+        options.location = map.centerCoordinate
+        options.span = "100km"
+        options.limit = 20
+        map.searchKeyword(searchBar.text, with: options, result: { poi, error in
+            if let pin = poi {
+                DispatchQueue.main.async {
+                    self.map.addAnnotations(pin)
+                    var maxLat = 0.0
+                    var maxLon = 0.0
+                    for i in pin {
+                        if fabs(self.map.centerCoordinate.latitude - i.coordinate.latitude) > maxLat {
+                            maxLat = fabs(self.map.centerCoordinate.latitude - i.coordinate.latitude)
+                        }
+                        if fabs(self.map.centerCoordinate.longitude - i.coordinate.longitude) > maxLon {
+                            maxLon = fabs(self.map.centerCoordinate.longitude - i.coordinate.longitude)
+                        }
+                        self.map.addAnnotation(i)
+                    }
+                    self.map.userTrackingMode = .none
+                    self.map.setRegion(MKCoordinateRegion(center: self.map.centerCoordinate, span: MKCoordinateSpan(latitudeDelta: min(maxLat * 2, 179), longitudeDelta: min(maxLon * 2, 359))), animated: true)
+                    self.loader.stopAnimating()
+                }
+            }
+        })
+
         loader.startAnimating()
     }
     
@@ -251,7 +296,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         else {
             searchBar.setShowsCancelButton(false, animated: true)
-            map.suggest(withKeyword: searchText)
+            let options = LMSuggestOptions()
+            options.limit = 20
+            map.suggestKeyword(searchText, with: options, result: { keyword, error in
+                print(keyword ?? [])
+            })
+
         }
     }
     

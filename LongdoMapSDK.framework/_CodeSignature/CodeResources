@@ -6,11 +6,11 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		R4FzF/MOwU8xXxJVcrINVcj6QcM=
+		JwDD7/A/L5fc4HWmkKzSLL0mL0E=
 		</data>
 		<key>Headers/Annotation.h</key>
 		<data>
-		pxIsfxVzGizzL0jybhJfoC1yy7s=
+		X6glgC6KSAKW4CS6dYp2fB2uECo=
 		</data>
 		<key>Headers/LocationController.h</key>
 		<data>
@@ -22,11 +22,15 @@
 		</data>
 		<key>Headers/MKMapView+Longdo.h</key>
 		<data>
-		qXeRxjqTdwW3eoekIIu4+Pgyom8=
+		8K1WcmKLjo7QOIiVGtesnpqtL4k=
+		</data>
+		<key>Headers/ServicesModel.h</key>
+		<data>
+		0WGxK5/IqAEDNUTeACEEChjUJ6A=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Y3vH6S5SN4e/3/ZWjtJn6KTFTEw=
+		BRp9bmvOMefJh1GSChkXAjpLE/k=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -39,22 +43,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			R4FzF/MOwU8xXxJVcrINVcj6QcM=
+			JwDD7/A/L5fc4HWmkKzSLL0mL0E=
 			</data>
 			<key>hash2</key>
 			<data>
-			lccBz6TOTcXEMnNhvuuACsN6wUJS8KRlBcKJQdhxGNs=
+			Usk5v6NwrnM9Gvih+gsaB337Iswfl8x+N8SXhyV+0zg=
 			</data>
 		</dict>
 		<key>Headers/Annotation.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			pxIsfxVzGizzL0jybhJfoC1yy7s=
+			X6glgC6KSAKW4CS6dYp2fB2uECo=
 			</data>
 			<key>hash2</key>
 			<data>
-			lsDEytdFE8V5pEIo3GDV4qXZTS7wE6HjE7bQYSjY+Us=
+			4yG1ZxJGivRcIItLaSZH0UY0CBPfMCSRPi7MxKe/hrk=
 			</data>
 		</dict>
 		<key>Headers/LocationController.h</key>
@@ -83,11 +87,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			qXeRxjqTdwW3eoekIIu4+Pgyom8=
+			8K1WcmKLjo7QOIiVGtesnpqtL4k=
 			</data>
 			<key>hash2</key>
 			<data>
-			uxLGC0WADXluyiubzdGyy9MAlf9lgh1YaNECSKs1eLI=
+			C8R+EAH0I5ZHUmaiLnvnZJCtdtZ03aV8ONgiPE1DfoI=
+			</data>
+		</dict>
+		<key>Headers/ServicesModel.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			0WGxK5/IqAEDNUTeACEEChjUJ6A=
+			</data>
+			<key>hash2</key>
+			<data>
+			HRKqSX4O2AOs9f4YBUM+WdXYuePEWBy4k8DPPVdsUKo=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

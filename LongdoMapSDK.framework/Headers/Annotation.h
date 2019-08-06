@@ -46,6 +46,19 @@ typedef NS_ENUM(NSInteger, LMCameraFormat) {
     M3U8
 };
 
+@interface LMIcon : NSObject
+
+/// Icon image.
+@property (nonatomic, strong) UIImage *image;
+/// Icon offset.
+@property (nonatomic, assign) CGPoint offset;
+/// Icon alpha value between 0.0 - 1.0.
+@property (nonatomic, assign) CGFloat alpha;
+
+- (id)initWithImage:(UIImage *)image;
+
+@end
+
 @interface LMPinAnnotation : NSObject <MKAnnotation>
 
 @property (nonatomic, strong) NSString *poiid;
@@ -62,8 +75,10 @@ typedef NS_ENUM(NSInteger, LMCameraFormat) {
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *poiid;
+@property (nonatomic, assign) NSInteger setId;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, assign) NSInteger zoom;
+@property (nonatomic, strong) LMIcon *customIcon;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
 @end
