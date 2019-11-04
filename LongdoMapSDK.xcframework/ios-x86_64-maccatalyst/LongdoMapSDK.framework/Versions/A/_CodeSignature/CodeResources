@@ -4,69 +4,26 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Assets.car</key>
+		<key>Resources/Assets.car</key>
 		<data>
-		JwDD7/A/L5fc4HWmkKzSLL0mL0E=
+		zTJR0D1c27bP6ktdFQi2HoNkjnA=
 		</data>
-		<key>Headers/Annotation.h</key>
+		<key>Resources/Info.plist</key>
 		<data>
-		X6glgC6KSAKW4CS6dYp2fB2uECo=
-		</data>
-		<key>Headers/LocationController.h</key>
-		<data>
-		hmKDRr+V4Tsao9QZb3uFIX40VpE=
-		</data>
-		<key>Headers/LongdoMapSDK.h</key>
-		<data>
-		ht9v8k0F90BOmMwetNZSRKfhpxM=
-		</data>
-		<key>Headers/MKMapView+Longdo.h</key>
-		<data>
-		8K1WcmKLjo7QOIiVGtesnpqtL4k=
-		</data>
-		<key>Headers/ServicesModel.h</key>
-		<data>
-		0WGxK5/IqAEDNUTeACEEChjUJ6A=
-		</data>
-		<key>Info.plist</key>
-		<data>
-		BRp9bmvOMefJh1GSChkXAjpLE/k=
-		</data>
-		<key>Modules/module.modulemap</key>
-		<data>
-		F/fIGjVNzLNuEE6jmY6dlznYzac=
+		npWQ5QRIFUwH/5rCIEc/sh9h4IQ=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Assets.car</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			JwDD7/A/L5fc4HWmkKzSLL0mL0E=
-			</data>
-			<key>hash2</key>
-			<data>
-			Usk5v6NwrnM9Gvih+gsaB337Iswfl8x+N8SXhyV+0zg=
-			</data>
-		</dict>
 		<key>Headers/Annotation.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			X6glgC6KSAKW4CS6dYp2fB2uECo=
-			</data>
 			<key>hash2</key>
 			<data>
-			4yG1ZxJGivRcIItLaSZH0UY0CBPfMCSRPi7MxKe/hrk=
+			oQ1j7aAgRpf4a4ThStzR/FPviOz3SHZRLAo9nQh3/W0=
 			</data>
 		</dict>
 		<key>Headers/LocationController.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			hmKDRr+V4Tsao9QZb3uFIX40VpE=
-			</data>
 			<key>hash2</key>
 			<data>
 			n0IOfVm5ovmfF7h0RcVPfKY25RY736sC71aZEYlXC9E=
@@ -74,10 +31,6 @@
 		</dict>
 		<key>Headers/LongdoMapSDK.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			ht9v8k0F90BOmMwetNZSRKfhpxM=
-			</data>
 			<key>hash2</key>
 			<data>
 			mzSAe/txbjpLIigJ11uRYnRJ2rxHKv5kx7e1r+dBgNE=
@@ -85,57 +38,59 @@
 		</dict>
 		<key>Headers/MKMapView+Longdo.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			8K1WcmKLjo7QOIiVGtesnpqtL4k=
-			</data>
 			<key>hash2</key>
 			<data>
-			C8R+EAH0I5ZHUmaiLnvnZJCtdtZ03aV8ONgiPE1DfoI=
+			wSx9Q1BVnefwAEwQR8E9mEJzPCuQdLIhHgALTCPo4+g=
 			</data>
 		</dict>
 		<key>Headers/ServicesModel.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			0WGxK5/IqAEDNUTeACEEChjUJ6A=
-			</data>
 			<key>hash2</key>
 			<data>
-			HRKqSX4O2AOs9f4YBUM+WdXYuePEWBy4k8DPPVdsUKo=
+			togo2S+HGbr0LRu5dYidcPG5425SK5lxP+nAGHN98Cc=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			F/fIGjVNzLNuEE6jmY6dlznYzac=
-			</data>
 			<key>hash2</key>
 			<data>
 			Jtobaw0Y2agWBCLXBbhJHrYjSbY1hX/6u7qvcJTJyug=
 			</data>
 		</dict>
+		<key>Resources/Assets.car</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			H5UJ0oMSdEzJz8zAH41eh+vZsl/FOq0fkt99P8FR/Jk=
+			</data>
+		</dict>
+		<key>Resources/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ga8esp0DBwdTedEpjF0cDrZ+F3KcmoAgzzpLxMvwBQc=
+			</data>
+		</dict>
 	</dict>
 	<key>rules</key>
 	<dict>
-		<key>^.*</key>
+		<key>^Resources/</key>
 		<true/>
-		<key>^.*\.lproj/</key>
+		<key>^Resources/.*\.lproj/</key>
 		<dict>
 			<key>optional</key>
 			<true/>
 			<key>weight</key>
 			<real>1000</real>
 		</dict>
-		<key>^.*\.lproj/locversion.plist$</key>
+		<key>^Resources/.*\.lproj/locversion.plist$</key>
 		<dict>
 			<key>omit</key>
 			<true/>
 			<key>weight</key>
 			<real>1100</real>
 		</dict>
-		<key>^Base\.lproj/</key>
+		<key>^Resources/Base\.lproj/</key>
 		<dict>
 			<key>weight</key>
 			<real>1010</real>
@@ -157,27 +112,15 @@
 			<key>weight</key>
 			<real>2000</real>
 		</dict>
+		<key>^(Frameworks|SharedFrameworks|PlugIns|Plug-ins|XPCServices|Helpers|MacOS|Library/(Automator|Spotlight|LoginItems))/</key>
+		<dict>
+			<key>nested</key>
+			<true/>
+			<key>weight</key>
+			<real>10</real>
+		</dict>
 		<key>^.*</key>
 		<true/>
-		<key>^.*\.lproj/</key>
-		<dict>
-			<key>optional</key>
-			<true/>
-			<key>weight</key>
-			<real>1000</real>
-		</dict>
-		<key>^.*\.lproj/locversion.plist$</key>
-		<dict>
-			<key>omit</key>
-			<true/>
-			<key>weight</key>
-			<real>1100</real>
-		</dict>
-		<key>^Base\.lproj/</key>
-		<dict>
-			<key>weight</key>
-			<real>1010</real>
-		</dict>
 		<key>^Info\.plist$</key>
 		<dict>
 			<key>omit</key>
@@ -191,6 +134,37 @@
 			<true/>
 			<key>weight</key>
 			<real>20</real>
+		</dict>
+		<key>^Resources/</key>
+		<dict>
+			<key>weight</key>
+			<real>20</real>
+		</dict>
+		<key>^Resources/.*\.lproj/</key>
+		<dict>
+			<key>optional</key>
+			<true/>
+			<key>weight</key>
+			<real>1000</real>
+		</dict>
+		<key>^Resources/.*\.lproj/locversion.plist$</key>
+		<dict>
+			<key>omit</key>
+			<true/>
+			<key>weight</key>
+			<real>1100</real>
+		</dict>
+		<key>^Resources/Base\.lproj/</key>
+		<dict>
+			<key>weight</key>
+			<real>1010</real>
+		</dict>
+		<key>^[^/]+$</key>
+		<dict>
+			<key>nested</key>
+			<true/>
+			<key>weight</key>
+			<real>10</real>
 		</dict>
 		<key>^embedded\.provisionprofile$</key>
 		<dict>

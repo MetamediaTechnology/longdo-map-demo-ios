@@ -93,6 +93,8 @@ typedef NS_ENUM(NSInteger, LMCameraFormat) {
 @property (strong, nonatomic) NSDate *start;
 @property (strong, nonatomic) NSDate *stop;
 @property (strong, nonatomic) NSString *contributor;
+@property (nonatomic, assign) NSInteger severity;
+@property (nonatomic, assign) NSInteger showlevel;
 @property (nonatomic, assign) LMEventType type;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
