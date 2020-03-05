@@ -172,7 +172,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
 @property (nonatomic, assign) LMMode mode;
 /// Tile format of overlay if use custom overlay.
 @property (nonatomic, assign) LMTileFormat tileFormat;
-/// URL of overlay layer if use `CUSTOM` overlay or name of layer if use `BY_NAME` overlay.
+/// URL of overlay layer if use `CUSTOM` overlay, name of layer if use `BY_NAME` overlay.
 @property (nonatomic, strong) NSString *sourceLayer;
 /// Referer URL of overlay layer if use custom overlay.
 @property (nonatomic, strong) NSString *referer;
