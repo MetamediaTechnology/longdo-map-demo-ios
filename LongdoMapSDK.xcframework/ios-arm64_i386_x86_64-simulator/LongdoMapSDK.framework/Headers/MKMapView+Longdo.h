@@ -76,6 +76,8 @@ typedef NS_ENUM(NSInteger, LMMode) {
     POLITICAL,
     ///Political base layer (No label).
     POLITICAL_NOLABEL,
+    ///Rain radar non-base layer with auto-refresh.
+    RAIN_RADAR,
     ///Bluemarble terrain base layer.
     TERRAIN,
     ///Thaichote satellite base layer.
