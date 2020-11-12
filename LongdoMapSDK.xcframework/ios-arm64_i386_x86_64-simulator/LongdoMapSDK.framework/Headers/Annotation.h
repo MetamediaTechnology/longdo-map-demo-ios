@@ -97,6 +97,7 @@ typedef NS_ENUM(NSInteger, LMCameraFormat) {
 @property (nonatomic, assign) NSInteger showlevel;
 @property (nonatomic, assign) LMEventType type;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
+@property (nonatomic, strong) NSArray<NSURL *> *imageURLs;
 
 @end
 

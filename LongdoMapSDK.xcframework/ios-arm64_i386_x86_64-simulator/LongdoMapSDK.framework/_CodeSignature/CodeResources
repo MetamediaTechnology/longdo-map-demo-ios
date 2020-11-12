@@ -6,11 +6,11 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		bxOSj59D+4Dz93JvmfyrM85gk+U=
+		Ix/QklTsdpVIMTKGeOMQZ5vNd2M=
 		</data>
 		<key>Headers/Annotation.h</key>
 		<data>
-		GydatQTNlMkBBkRG5wOJPIfIe6s=
+		h0I6eSc6a+P0SRyUogAvup71pcw=
 		</data>
 		<key>Headers/LocationController.h</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		UMR58Wo3zyVgy6O1sFJDpGVrdZQ=
+		Eb7ulqLB7z/xJpQOY9XCjkw5BtQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -43,22 +43,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			bxOSj59D+4Dz93JvmfyrM85gk+U=
+			Ix/QklTsdpVIMTKGeOMQZ5vNd2M=
 			</data>
 			<key>hash2</key>
 			<data>
-			Q5KHF1ID3b1i+rIJzzUZ8Gs1gwl2xfe0uELETHNYzXo=
+			ZxtZ06zvr4e+W2cpxPXQw1ZioIvIDnMt+m1LzaGPihI=
 			</data>
 		</dict>
 		<key>Headers/Annotation.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			GydatQTNlMkBBkRG5wOJPIfIe6s=
+			h0I6eSc6a+P0SRyUogAvup71pcw=
 			</data>
 			<key>hash2</key>
 			<data>
-			oQ1j7aAgRpf4a4ThStzR/FPviOz3SHZRLAo9nQh3/W0=
+			w0e+fffoSWNeg7uEieZYCmrUEdKseW4sWGVtKyw2AFY=
 			</data>
 		</dict>
 		<key>Headers/LocationController.h</key>
