@@ -9,7 +9,7 @@
 import UIKit
 import LongdoMapSDK
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, LMAQIDataDelegate {
     
     //MARK:- Initial
     let APIKEY = "16a3c9373e8911c2e4736d92431f7113"
@@ -25,6 +25,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         super.viewDidLoad()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        map.aqiDelegate = self
         map.setKey(APIKEY) //Don't need if use Longdo Box
 //        map.boxDomain = URL(string: "https://yourdomain.com")
         map.language = .THAI
@@ -32,6 +33,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.add(LMLayer(mode: .NORMAL))
         map.showsUserLocation = true
         map.showsScale = true
+        map.showsAQI = true
         map.userTrackingMode = .followWithHeading
         map.userAnnotationType = .LONGDO_PIN
         map.userLocationImage = UIImage(named: "ic_current_location")
@@ -71,6 +73,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.removeOverlays(map.overlays) //if don't need to remove line or any geometry, use removeLMOverlay: or removeSourceLayer: to remove specified layer instead.
         map.showsCameras = false
         map.showsEvents = false
+        map.showsAQI = true
         map.add(LMLayer(mode: .NORMAL))
         currentMode = .NORMAL
 //        map.addLMOverlay(LMMode.OFFLINE)
@@ -83,6 +86,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         currentMode = .TRAFFIC
         map.showsCameras = true
         map.showsEvents = true
+        map.showsAQI = false
     }
     
     @IBAction func setSatelliteMap() {
@@ -90,6 +94,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.removeOverlays(map.overlays)
         map.showsCameras = false
         map.showsEvents = false
+        map.showsAQI = false
         map.add(LMLayer(mode: .THAICHOTE))
         map.add(LMLayer(mode: .POI_TRANSPARENT))
         currentMode = .THAICHOTE
@@ -100,6 +105,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.removeOverlays(map.overlays)
         map.showsCameras = false
         map.showsEvents = false
+        map.showsAQI = false
         let layer = LMLayer(mode: .CUSTOM)
         layer?.sourceLayer = "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
         layer?.tileFormat = .WMS
@@ -251,6 +257,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 isRevert = false
             }
         }
+    }
+    
+    func aqiData(_ data: LMAQIInfo!) {
+        print(data ?? "")
     }
     
     //MARK:- Search Delegate
