@@ -38,7 +38,7 @@
 @protocol LMTileDataDelegate <NSObject>
 
 /**
- Callback from function suggestWithKeyword.
+ Callback from custom layer which use JSON format.
  @param data Result data for each map-tile retrieved from custom layer with JSON format.
  */
 - (void)dataFromTile:(NSData *)data;
@@ -56,7 +56,7 @@
 
 /**
  Callback when user tap AQI annotation.
- @param data AQI data for each map-tile retrieved from AQI layer.
+ @param data AQI data for each annotation that user tapped.
  */
 - (void)aqiData:(LMAQIInfo *)data;
 
