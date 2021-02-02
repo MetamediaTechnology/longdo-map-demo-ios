@@ -77,9 +77,8 @@ typedef NS_ENUM(NSInteger, LMCameraFormat) {
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *poiid;
-@property (nonatomic, assign) NSInteger setId;
 @property (nonatomic, strong) NSString *type;
-@property (nonatomic, assign) NSInteger zoom;
+@property (nonatomic, assign) NSInteger minZoom;
 @property (nonatomic, strong) LMIcon *customIcon;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
@@ -133,6 +132,7 @@ typedef NS_ENUM(NSInteger, LMCameraFormat) {
 @property (nonatomic, strong) NSString *statusText;
 @property (nonatomic, strong) NSURL *iconStatus;
 @property (nonatomic, strong) NSURL *iconMarker;
+@property (nonatomic, assign) NSInteger minZoom;
 
 @end
 

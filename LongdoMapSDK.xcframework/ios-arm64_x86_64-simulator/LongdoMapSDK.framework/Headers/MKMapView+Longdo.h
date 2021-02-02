@@ -50,6 +50,12 @@
  */
 - (void)aqiDataFromTile:(NSArray<LMAQIAnnotation *> *)poi;
 
+/**
+ List of tag data in current area.
+ @param poi Tag data for each map-tile.
+ */
+- (void)tagData:(NSArray<LMTagAnnotation *> *)poi;
+
 @end
 
 @protocol LMAQIDataDelegate <NSObject>
@@ -105,6 +111,14 @@ typedef NS_ENUM(NSInteger, LMMode) {
     POI_TRANSPARENT,
     ///Traffic non-base layer with auto-refresh.
     TRAFFIC,
+    ///Google roadmap base layer.
+    GOOGLE_ROADMAP,
+    ///Google traffic base layer.
+    GOOGLE_TRAFFIC,
+    ///Google satellite base layer.
+    GOOGLE_SATELLITE,
+    ///Google hybrid base layer.
+    GOOGLE_HYBRID,
     ///Offline layer. (Please contact company sales : sales@mm.co.th)
     OFFLINE,
     ///Blank layer.
@@ -195,6 +209,8 @@ typedef NS_ENUM(NSInteger, LMCache) {
 @property (nonatomic, assign) LMTileFormat tileFormat;
 /// URL of overlay layer if use `CUSTOM` overlay, name of layer if use `BY_NAME` overlay.
 @property (nonatomic, strong) NSString *sourceLayer;
+/// Google API extra query string if use `GOOGLE` overlay.
+@property (nonatomic, strong) NSString *googleQuery;
 /// Referer URL of overlay layer if use custom overlay.
 @property (nonatomic, strong) NSString *referer;
 /// Alpha value of overlay layer between 0.0 - 1.0.
@@ -225,10 +241,11 @@ typedef NS_ENUM(NSInteger, LMCache) {
 
 - (id)initWithMode:(NSArray<NSNumber *> *)mapMode key:(NSString *)key domain:(NSURL *)domain andLanguage:(LMLanguage)lang;
 - (void)setCustomUrl:(NSArray<NSString *> *)urlString withTileFormat:(NSArray<NSNumber *> *)format andReferer:(NSArray<NSString *> *)refer;
+- (void)setTag:(NSArray<NSString *> *)tagString;
 
 @end
 
-@interface LongdoMapView : MKMapView <LMTagDelegate, LMTileDataDelegate, MKMapViewDelegate, LocationControllerDelegate>
+@interface LongdoMapView : MKMapView <LMTileDataDelegate, MKMapViewDelegate, LocationControllerDelegate>
 
 @property (nonatomic, assign) id <LMSearchDelegate> searchDelegate;
 @property (nonatomic, assign) id <LMTileDataDelegate> dataDelegate;

@@ -14,10 +14,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     //MARK:- Initial
     let APIKEY = "16a3c9373e8911c2e4736d92431f7113"
     let locationManager = CLLocationManager()
+    let customSourceLayer = "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
     
     @IBOutlet weak var map: LongdoMapView!
     @IBOutlet weak var loader: UIActivityIndicatorView!
-    var eventTimer: Timer? = nil
     var currentMode: LMMode = .NORMAL
     var isRevert: Bool = false
     
@@ -30,6 +30,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 //        map.boxDomain = URL(string: "https://yourdomain.com")
         map.language = .THAI
         map.setRegion(MKCoordinateRegion.init(center: CLLocationCoordinate2DMake(13.756674, 100.501853), span: (map.coordinateSpan(withZoomLevel: 7))), animated: false)
+        map.add(LMLayer(mode: .BLANK))
         map.add(LMLayer(mode: .NORMAL))
         map.showsUserLocation = true
         map.showsScale = true
@@ -69,48 +70,44 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     @IBAction func setNormalMap() {
-        eventTimer?.invalidate()
-        map.removeOverlays(map.overlays) //if don't need to remove line or any geometry, use removeLMOverlay: or removeSourceLayer: to remove specified layer instead.
-        map.showsCameras = false
-        map.showsEvents = false
-        map.showsAQI = true
-        map.add(LMLayer(mode: .NORMAL))
+        removePreviousLayer()
+        if map.camera.heading >= 90 && map.camera.heading < 270 {
+            map.add(LMLayer(mode: .NORMALR))
+            isRevert = true
+        }
+        else {
+            map.add(LMLayer(mode: .NORMAL))
+            isRevert = false
+        }
         currentMode = .NORMAL
+        showMapItem()
 //        map.addLMOverlay(LMMode.OFFLINE)
     }
     
     @IBAction func setTrafficMap() {
-        map.removeOverlays(map.overlays)
+        removePreviousLayer()
         map.add(LMLayer(mode: .GRAY))
         map.add(LMLayer(mode: .TRAFFIC))
         currentMode = .TRAFFIC
-        map.showsCameras = true
-        map.showsEvents = true
-        map.showsAQI = false
+        showMapItem()
     }
     
     @IBAction func setSatelliteMap() {
-        eventTimer?.invalidate()
-        map.removeOverlays(map.overlays)
-        map.showsCameras = false
-        map.showsEvents = false
-        map.showsAQI = false
+        removePreviousLayer()
         map.add(LMLayer(mode: .THAICHOTE))
         map.add(LMLayer(mode: .POI_TRANSPARENT))
         currentMode = .THAICHOTE
+        showMapItem()
     }
     
     @IBAction func setOpenStreetMap() {
-        eventTimer?.invalidate()
-        map.removeOverlays(map.overlays)
-        map.showsCameras = false
-        map.showsEvents = false
-        map.showsAQI = false
+        removePreviousLayer()
         let layer = LMLayer(mode: .CUSTOM)
-        layer?.sourceLayer = "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        layer?.sourceLayer = customSourceLayer
         layer?.tileFormat = .WMS
         map.add(layer)
         currentMode = .CUSTOM
+        showMapItem()
     }
     
     @IBAction func showShop() {
@@ -141,6 +138,33 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         else {
             map.language = .THAI
         }
+    }
+    
+    func removePreviousLayer() {
+        switch currentMode {
+        case .NORMAL:
+            map.removeLMOverlay(.NORMAL)
+            map.removeLMOverlay(.NORMALR)
+        case .TRAFFIC:
+            map.removeLMOverlay(.GRAY)
+            map.removeLMOverlay(.TRAFFIC)
+            break
+        case .THAICHOTE:
+            map.removeLMOverlay(.THAICHOTE)
+            map.removeLMOverlay(.POI_TRANSPARENT)
+            break
+        case .CUSTOM:
+            map.removeSourceLayer(customSourceLayer)
+            break
+        default:
+            break
+        }
+    }
+    
+    func showMapItem() {
+        map.showsCameras = currentMode == .TRAFFIC
+        map.showsEvents = currentMode == .TRAFFIC
+        map.showsAQI = currentMode == .NORMAL
     }
     
     //MARK:- Map Delegate
@@ -247,12 +271,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         map.mapView(mapView, regionDidChangeAnimated: animated)
         if currentMode == .NORMAL {
             if !isRevert && mapView.camera.heading >= 90 && mapView.camera.heading < 270 {
-                map.removeOverlays(map.overlays)
+                map.removeLMOverlay(.NORMAL)
                 map.add(LMLayer(mode: .NORMALR))
                 isRevert = true
             }
             else if isRevert && (mapView.camera.heading < 90 || mapView.camera.heading >= 270) {
-                map.removeOverlays(map.overlays)
+                map.removeLMOverlay(.NORMALR)
                 map.add(LMLayer(mode: .NORMAL))
                 isRevert = false
             }
