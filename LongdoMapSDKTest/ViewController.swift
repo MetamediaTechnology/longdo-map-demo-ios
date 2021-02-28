@@ -103,8 +103,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBAction func setOpenStreetMap() {
         removePreviousLayer()
         let layer = LMLayer(mode: .CUSTOM)
-        layer?.sourceLayer = customSourceLayer
-        layer?.tileFormat = .WMS
+        layer.sourceLayer = customSourceLayer
+        layer.tileFormat = .WMS
         map.add(layer)
         currentMode = .CUSTOM
         showMapItem()
@@ -283,8 +283,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
     }
     
-    func aqiData(_ data: LMAQIInfo!) {
-        print(data ?? "")
+    func aqiData(_ data: LMAQIInfo) {
+        print(data)
     }
     
     //MARK:- Search Delegate
@@ -294,7 +294,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         options.location = map.centerCoordinate
         options.span = "100km"
         options.limit = 20
-        map.searchKeyword(searchBar.text, with: options, result: { poi, error in
+        map.searchKeyword(searchBar.text!, with: options, result: { poi, error in
             if let pin = poi {
                 DispatchQueue.main.async {
                     self.map.addAnnotations(pin)

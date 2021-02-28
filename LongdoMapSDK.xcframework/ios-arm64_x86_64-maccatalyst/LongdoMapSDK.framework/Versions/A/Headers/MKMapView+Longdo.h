@@ -14,7 +14,7 @@
 
 @protocol LMTagDelegate <NSObject>
 
-- (void)tagData:(NSArray<LMTagAnnotation *> *)poi;
+- (void)tagData:(NSArray<LMTagAnnotation *> *_Nonnull)poi;
 - (void)removeOldTagFromZoom:(NSInteger)zoom;
 
 @end
@@ -25,13 +25,13 @@
  Callback from function searchWithKeyword.
  @param poi Point of Interest results from search keyword.
  */
-- (void)searchData:(NSArray<LMPinAnnotation *> *)poi;
+- (void)searchData:(NSArray<LMPinAnnotation *> *_Nonnull)poi;
 
 /**
  Callback from function suggestWithKeyword.
  @param keyword Suggest name for each POI (Point of Interest) retrieved from search keyword.
  */
-- (void)suggestData:(NSArray<NSString *> *)keyword;
+- (void)suggestData:(NSArray<NSString *> *_Nonnull)keyword;
 
 @end
 
@@ -41,20 +41,20 @@
  Callback from custom layer which use JSON format.
  @param data Result data for each map-tile retrieved from custom layer with JSON format.
  */
-- (void)dataFromTile:(NSData *)data;
+- (void)dataFromTile:(NSData *_Nullable)data;
 
 @optional
 /**
  List of air quality data in current area.
  @param poi AQI data for each map-tile retrieved from AQI layer.
  */
-- (void)aqiDataFromTile:(NSArray<LMAQIAnnotation *> *)poi;
+- (void)aqiDataFromTile:(NSArray<LMAQIAnnotation *> *_Nonnull)poi;
 
 /**
  List of tag data in current area.
  @param poi Tag data for each map-tile.
  */
-- (void)tagData:(NSArray<LMTagAnnotation *> *)poi;
+- (void)tagData:(NSArray<LMTagAnnotation *> *_Nonnull)poi;
 
 @end
 
@@ -64,7 +64,7 @@
  Callback when user tap AQI annotation.
  @param data AQI data for each annotation that user tapped.
  */
-- (void)aqiData:(LMAQIInfo *)data;
+- (void)aqiData:(LMAQIInfo *_Nonnull)data;
 
 @end
 
@@ -190,15 +190,6 @@ typedef NS_ENUM(NSInteger, LMCache) {
 
 @interface LMTileOverlayRenderer : MKTileOverlayRenderer
 
-@property (nonatomic, strong) NSArray *tag;
-@property (nonatomic, strong) NSString *language;
-@property (nonatomic, strong) NSURL *boxDomain;
-@property (nonatomic, strong) NSString *apikey;
-@property (nonatomic, strong) LMIcon *tagIcon;
-@property (nonatomic, assign) NSRange visibleRange;
-@property (nonatomic, assign) NSInteger setId;
-@property (nonatomic, weak) id <LMTagDelegate> tagDelegate;
-
 @end
 
 @interface LMLayer : NSObject
@@ -208,11 +199,11 @@ typedef NS_ENUM(NSInteger, LMCache) {
 /// Tile format of overlay if use custom overlay.
 @property (nonatomic, assign) LMTileFormat tileFormat;
 /// URL of overlay layer if use `CUSTOM` overlay, name of layer if use `BY_NAME` overlay.
-@property (nonatomic, strong) NSString *sourceLayer;
+@property (nonatomic, strong) NSString * _Nonnull sourceLayer;
 /// Google API extra query string if use `GOOGLE` overlay.
-@property (nonatomic, strong) NSString *googleQuery;
+@property (nonatomic, strong) NSString * _Nonnull googleQuery;
 /// Referer URL of overlay layer if use custom overlay.
-@property (nonatomic, strong) NSString *referer;
+@property (nonatomic, strong) NSString * _Nullable referer;
 /// Alpha value of overlay layer between 0.0 - 1.0.
 @property (nonatomic, assign) CGFloat alpha;
 /// Minimum zoom level of map that layer will be appeared.
@@ -224,7 +215,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
  Initializes `LMLayer` with Longdo overlay type.
  @param mode Overlay layer type.
  */
-- (id)initWithMode:(LMMode)mode;
+- (id _Nonnull)initWithMode:(LMMode)mode;
 
 @end
 
@@ -233,23 +224,23 @@ typedef NS_ENUM(NSInteger, LMCache) {
 @property (nonatomic, assign) LMCache cache;
 @property (nonatomic, assign) LMLanguage language;
 @property (nonatomic, assign) CGFloat alpha;
-@property (nonatomic, strong) NSMutableArray<NSNumber *> *mode;
-@property (nonatomic, strong) NSMutableArray<NSNumber *> *tileFormat;
-@property (nonatomic, strong) NSMutableArray<NSString *> *urlLayer;
-@property (nonatomic, assign) id <LMTileDataDelegate> dataDelegate;
-@property (nonatomic, strong) NSMutableArray<NSString *> *referer;
+@property (nonatomic, strong) NSMutableArray<NSNumber *> * _Nonnull mode;
+@property (nonatomic, strong) NSMutableArray<NSNumber *> * _Nullable tileFormat;
+@property (nonatomic, strong) NSMutableArray<NSString *> * _Nullable urlLayer;
+@property (nonatomic, assign) id <LMTileDataDelegate> _Nonnull dataDelegate;
+@property (nonatomic, strong) NSMutableArray<NSString *> * _Nullable referer;
 
-- (id)initWithMode:(NSArray<NSNumber *> *)mapMode key:(NSString *)key domain:(NSURL *)domain andLanguage:(LMLanguage)lang;
-- (void)setCustomUrl:(NSArray<NSString *> *)urlString withTileFormat:(NSArray<NSNumber *> *)format andReferer:(NSArray<NSString *> *)refer;
-- (void)setTag:(NSArray<NSString *> *)tagString;
+- (id _Nullable)initWithMode:(NSArray<NSNumber *> *_Nonnull)mapMode key:(NSString *_Nullable)key domain:(NSURL *_Nullable)domain andLanguage:(LMLanguage)lang;
+- (void)setCustomUrl:(NSArray<NSString *> *_Nonnull)urlString withTileFormat:(NSArray<NSNumber *> *_Nullable)format andReferer:(NSArray<NSString *> *_Nullable)refer;
+- (void)setTag:(NSArray<NSString *> *_Nonnull)tagString;
 
 @end
 
 @interface LongdoMapView : MKMapView <LMTileDataDelegate, MKMapViewDelegate, LocationControllerDelegate>
 
-@property (nonatomic, assign) id <LMSearchDelegate> searchDelegate;
-@property (nonatomic, assign) id <LMTileDataDelegate> dataDelegate;
-@property (nonatomic, assign) id <LMAQIDataDelegate> aqiDelegate;
+@property (nonatomic, assign) id <LMSearchDelegate> _Nonnull searchDelegate;
+@property (nonatomic, assign) id <LMTileDataDelegate> _Nonnull dataDelegate;
+@property (nonatomic, assign) id <LMAQIDataDelegate> _Nonnull aqiDelegate;
 /// Language of map view.
 @property (nonatomic, assign) LMLanguage language;
 /// Zoom level of map view.
@@ -257,13 +248,13 @@ typedef NS_ENUM(NSInteger, LMCache) {
 /// An appearance of user location's annotation.
 @property (nonatomic, assign) LMUserAnnotationType userAnnotationType;
 /// URL Path of User's Longdo Box.
-@property (nonatomic, strong) NSURL* boxDomain;
+@property (nonatomic, strong) NSURL* _Nonnull boxDomain;
 /// Crosshairs on center of map.
-@property (nonatomic, strong) UIImageView* crosshair;
+@property (nonatomic, strong) UIImageView* _Nonnull crosshair;
 /// Custom user location image on map. (Recommended resolution is 32 x 40 px)
-@property (nonatomic, strong) IBInspectable UIImage* userLocationImage;
+@property (nonatomic, strong) IBInspectable UIImage* _Nullable userLocationImage;
 /// Custom user location arrow on map. (Recommended resolution is 70 x 70 px)
-@property (nonatomic, strong) IBInspectable UIImage* userLocationArrow;
+@property (nonatomic, strong) IBInspectable UIImage* _Nullable userLocationArrow;
 /// Flag to indicate whether the map shows traffic events.
 @property (nonatomic, assign) IBInspectable BOOL showsEvents;
 /// Flag to indicate whether the map shows traffic cameras.
@@ -276,7 +267,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
  Initializes a `LongdoMapView` object with Longdo Map API Key.
  @param key Longdo Map API Key.
  */
-- (void)setKey:(NSString *)key;
+- (void)setKey:(NSString * _Nonnull)key;
 
 /**
  Enable cache for map.
@@ -314,7 +305,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
  Add overlay layer to map view.
  @param layer Overlay layer prepared to add.
  */
-- (void)addLMLayer:(LMLayer *)layer;
+- (void)addLMLayer:(LMLayer *_Nonnull)layer;
 
 /**
  Add custom overlay layer to map view.
@@ -323,7 +314,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
  @param refer Tile referer (if no referer, send empty string).
  @deprecated This method has deprecated since version 3.10.
  */
-- (void)addCustomOverlayWithURL:(NSString *)urlString andFormat:(LMTileFormat)tileFormat withReferer:(NSString *)refer DEPRECATED_MSG_ATTRIBUTE("Use addLMLayer: instead.");
+- (void)addCustomOverlayWithURL:(NSString *_Nonnull)urlString andFormat:(LMTileFormat)tileFormat withReferer:(NSString *_Nonnull)refer DEPRECATED_MSG_ATTRIBUTE("Use addLMLayer: instead.");
 
 /**
  Add overlay layers to map view.
@@ -333,13 +324,13 @@ typedef NS_ENUM(NSInteger, LMCache) {
  @param refer Tile referer set (if no referer, send empty string).
  @deprecated This method has deprecated since version 3.10.
  */
-- (void)addLMOverlays:(NSArray<NSNumber *>*)overlayNames WithURL:(NSArray<NSString *>*)urlStrings andFormat:(NSArray<NSNumber *>*)tileFormats withReferer:(NSArray<NSString *>*)refer DEPRECATED_MSG_ATTRIBUTE("Use addLMLayers: instead.");
+- (void)addLMOverlays:(NSArray<NSNumber *>*_Nonnull)overlayNames WithURL:(NSArray<NSString *>*_Nonnull)urlStrings andFormat:(NSArray<NSNumber *>*_Nonnull)tileFormats withReferer:(NSArray<NSString *>*_Nonnull)refer DEPRECATED_MSG_ATTRIBUTE("Use addLMLayers: instead.");
 
 /**
  Add multiple overlay layers to map view.
  @param layers Array of overlay layers prepared to add with bottom-to-top orientation.
  */
-- (void)addLMLayers:(NSArray<LMLayer *>*)layers;
+- (void)addLMLayers:(NSArray<LMLayer *>*_Nonnull)layers;
 
 /**
  Remove overlay layer from map view.
@@ -351,20 +342,20 @@ typedef NS_ENUM(NSInteger, LMCache) {
  Remove overlay layer from map view.
  @param sourceLayer Layer from URL prepared to remove.
  */
-- (void)removeSourceLayer:(NSString *)sourceLayer;
+- (void)removeSourceLayer:(NSString *_Nonnull)sourceLayer;
 
 /**
  Show Longdo tags on the map.
- @param tag Array of tag name.
+ @param tagString Array of tag name.
  */
-- (void)showTags:(NSArray *)tag;
+- (void)showTags:(NSArray *_Nonnull)tagString;
 
 /**
  Show Longdo tags on the map.
- @param tag Array of tag names.
+ @param tagString Array of tag names.
  @param options Options for Longdo tags.
  */
-- (void)showTags:(NSArray *)tag withOptions:(LMTagOptions *)options;
+- (void)showTags:(NSArray *_Nonnull)tagString withOptions:(LMTagOptions *_Nullable)options;
 
 /**
  Remove Longdo tags from the map.
@@ -378,21 +369,21 @@ typedef NS_ENUM(NSInteger, LMCache) {
  @param hasZone Show UTM zone in return value.
  @return Value in UTM format.
  */
-- (NSString *)UTMFrom:(CLLocationCoordinate2D)coordinate withZone:(BOOL)hasZone;
+- (NSString *_Nullable)UTMFrom:(CLLocationCoordinate2D)coordinate withZone:(BOOL)hasZone;
 
 /**
  Convert UTM value to WGS 84 value.
  @param utmString Value in UTM format.
  @return Value in WGS 84 format.
  */
-- (CLLocationCoordinate2D)coordinateFromUTM:(NSString *)utmString;
+- (CLLocationCoordinate2D)coordinateFromUTM:(NSString *_Nonnull)utmString;
 
 /**
  Get area size in meters from `MKPolygon`.
  @param polygon Polygon for calculating area size.
  @return Size of polygon area.
  */
-- (double)areaOfPolygon:(MKPolygon *)polygon;
+- (double)areaOfPolygon:(MKPolygon *_Nonnull)polygon;
 
 #pragma mark - Search
 /**
@@ -400,7 +391,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
  @param keyword Word for searching with Longdo.
  @param location Center of location for searching with Longdo.
  */
-- (void)searchWithKeyword:(NSString *)keyword andCoordinate:(CLLocationCoordinate2D)location DEPRECATED_MSG_ATTRIBUTE("Use searchKeyword:withOptions:result: instead.");
+- (void)searchWithKeyword:(NSString *_Nonnull)keyword andCoordinate:(CLLocationCoordinate2D)location DEPRECATED_MSG_ATTRIBUTE("Use searchKeyword:withOptions:result: instead.");
 
 /**
  Search with Longdo Map POI.
@@ -410,13 +401,13 @@ typedef NS_ENUM(NSInteger, LMCache) {
  @param offset Offset of the first result returned.
  @param limit Number of results returned.
  */
-- (void)searchWithKeyword:(NSString *)keyword coordinate:(CLLocationCoordinate2D)location span:(NSString *)span offset:(NSInteger)offset andLimit:(NSInteger)limit DEPRECATED_MSG_ATTRIBUTE("Use searchKeyword:withOptions:result: instead.");
+- (void)searchWithKeyword:(NSString *_Nonnull)keyword coordinate:(CLLocationCoordinate2D)location span:(NSString *_Nullable)span offset:(NSInteger)offset andLimit:(NSInteger)limit DEPRECATED_MSG_ATTRIBUTE("Use searchKeyword:withOptions:result: instead.");
 
 /**
  Suggest with Longdo Map POI.
  @param keyword The word for suggestion with Longdo.
  */
-- (void)suggestWithKeyword:(NSString *)keyword DEPRECATED_MSG_ATTRIBUTE("Use suggestKeyword:withOptions:result: instead.");
+- (void)suggestWithKeyword:(NSString *_Nonnull)keyword DEPRECATED_MSG_ATTRIBUTE("Use suggestKeyword:withOptions:result: instead.");
 
 /**
  Search with Longdo Map POI.
@@ -424,7 +415,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
  @param options Options for searching with Longdo.
  @param result A completion block to call when Point of Interest (POI) result is available.
  */
-- (void)searchKeyword:(NSString *)keyword withOptions:(LMSearchOptions *)options result:(void (^)(NSArray<LMPinAnnotation *> *poi, NSError *err))result;
+- (void)searchKeyword:(NSString *_Nonnull)keyword withOptions:(LMSearchOptions *_Nullable)options result:(void (^_Nonnull)(NSArray<LMPinAnnotation *> *_Nullable poi, NSError *_Nullable err))result;
 
 /**
  Suggest with Longdo Map POI.
@@ -432,7 +423,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
  @param options Options for suggestion with Longdo.
  @param result A completion block to call when a suggested name for each POI is available.
  */
-- (void)suggestKeyword:(NSString *)keyword withOptions:(LMSuggestOptions *)options result:(void (^)(NSArray<NSString *> *keyword, NSError *err))result;
+- (void)suggestKeyword:(NSString *_Nonnull)keyword withOptions:(LMSuggestOptions *_Nullable)options result:(void (^_Nonnull)(NSArray<NSString *> *_Nullable keyword, NSError *_Nullable err))result;
 
 /**
  Route with Longdo Map.
@@ -441,7 +432,7 @@ typedef NS_ENUM(NSInteger, LMCache) {
  @param options Options for routing with Longdo.
  @param result A completion block to call when a routing result is available.
  */
-- (void)routeFrom:(CLLocationCoordinate2D)start To:(CLLocationCoordinate2D)destination withOptions:(LMRouteOptions *)options result:(void (^)(LMRouteResult *route, NSError *err))result;
+- (void)routeFrom:(CLLocationCoordinate2D)start To:(CLLocationCoordinate2D)destination withOptions:(LMRouteOptions *_Nullable)options result:(void (^_Nonnull)(LMRouteResult *_Nullable route, NSError *_Nullable err))result;
 
 #pragma mark - Traffic
 /**
@@ -467,6 +458,6 @@ typedef NS_ENUM(NSInteger, LMCache) {
 /**
  Get VDO view from camera annotation data.
  */
-- (UIView *)getVDOViewFromCameraData:(LMCameraAnnotation *)camera;
+- (UIView *_Nullable)getVDOViewFromCameraData:(LMCameraAnnotation *_Nonnull)camera;
 
 @end
