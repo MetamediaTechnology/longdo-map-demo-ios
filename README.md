@@ -4,7 +4,7 @@ Longdo Map SDK Demo for iOS is a sample project of how to develop geoinformatics
 
 ## Tutorials
 
-1. [การขอ API Key สำหรับการใช้งาน Longdo Map](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/การขอ-API-Key-สำหรับการใช้งาน-Longdo-Map)
+1. [การขอ API Key สำหรับการใช้งาน Longdo Map](https://map.longdo.com/docs/javascript/getapi)
 2. [การเริ่มต้นใช้งาน Longdo Map SDK บน iOS](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/การเริ่มต้นใช้งาน-Longdo-Map-SDK-3.x-บน-iOS)
 3. [การแสดง Layers ของแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การแสดง-Layers-ของแผนที่)
 4. [การแสดง Longdo Tags บนแผนที่](https://github.com/MetamediaTechnology/longdo-map-demo-ios/wiki/%5B3.x%5D-การแสดง-Longdo-Tags-บนแผนที่)
