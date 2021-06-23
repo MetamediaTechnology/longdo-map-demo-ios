@@ -335,7 +335,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             map.suggestKeyword(searchText, with: options, result: { keyword, error in
                 print(keyword ?? [])
             })
-
         }
     }
     

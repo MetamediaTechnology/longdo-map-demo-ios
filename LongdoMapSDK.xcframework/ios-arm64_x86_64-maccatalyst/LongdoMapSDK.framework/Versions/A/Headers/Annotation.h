@@ -8,6 +8,7 @@
 
 @import MapKit;
 @import CoreLocation;
+#import "ServicesModel.h"
 #import <Foundation/Foundation.h>
 
 /*!
@@ -48,18 +49,15 @@ typedef NS_ENUM(NSInteger, LMCameraFormat) {
     M3U8
 };
 
-@interface LMIcon : NSObject
-
-/// Icon image.
-@property (nonatomic, strong) UIImage *image;
-/// Icon offset.
-@property (nonatomic, assign) CGPoint offset;
-/// Icon alpha value between 0.0 - 1.0.
-@property (nonatomic, assign) CGFloat alpha;
-
-- (id)initWithImage:(UIImage *)image;
-
-@end
+/*!
+ @enum LMAQISource
+ 
+ @discussion The LMAQISource enum defines source of air quality data.
+ */
+typedef NS_ENUM(NSInteger, LMAQISource) {
+    AQICN = 1,
+    AIR4THAI
+};
 
 @interface LMPinAnnotation : NSObject <MKAnnotation>
 
@@ -133,6 +131,8 @@ typedef NS_ENUM(NSInteger, LMCameraFormat) {
 @property (nonatomic, strong) NSURL *iconStatus;
 @property (nonatomic, strong) NSURL *iconMarker;
 @property (nonatomic, assign) NSInteger minZoom;
+@property (nonatomic, assign) LMAQISource source;
+@property (nonatomic, strong) LMAQIInfo *info;
 
 @end
 

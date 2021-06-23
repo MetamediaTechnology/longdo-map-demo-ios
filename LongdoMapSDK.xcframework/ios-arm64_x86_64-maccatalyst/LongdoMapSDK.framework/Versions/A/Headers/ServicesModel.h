@@ -8,7 +8,6 @@
 
 @import MapKit;
 @import CoreLocation;
-#import "Annotation.h"
 #import <Foundation/Foundation.h>
 
 /*!
@@ -36,6 +35,19 @@ typedef NS_ENUM(NSInteger, LMRouteTurn) {
     ENTER_TOLLWAY,
     UNKNOWN
 };
+
+@interface LMIcon : NSObject
+
+/// Icon image.
+@property (nonatomic, strong) UIImage *image;
+/// Icon offset.
+@property (nonatomic, assign) CGPoint offset;
+/// Icon alpha value between 0.0 - 1.0.
+@property (nonatomic, assign) CGFloat alpha;
+
+- (id)initWithImage:(UIImage *)image;
+
+@end
 
 @interface LMSuggestOptions : NSObject
 

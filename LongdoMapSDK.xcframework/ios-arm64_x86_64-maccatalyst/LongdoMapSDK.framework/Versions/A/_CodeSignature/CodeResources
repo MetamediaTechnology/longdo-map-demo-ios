@@ -6,11 +6,11 @@
 	<dict>
 		<key>Resources/Assets.car</key>
 		<data>
-		zaHipXonUqyc9yE95LDrVlVgNUo=
+		sj1J+L5xZgET6fjnfO90hQwVqkk=
 		</data>
 		<key>Resources/Info.plist</key>
 		<data>
-		pOg7P8sBr15Lg62S4MDD+55l2w4=
+		kzh3SKPmk1hCxtBTLPhb2t8ZjXE=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -19,7 +19,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			2o1l4mce7gN4O8YhFObklUD8Mnqno+dndEq5APrE5fQ=
+			Ztr1ETXtTIKm3d8pVaVIwPWhx4e+kJ0qmz3GdXamFjc=
 			</data>
 		</dict>
 		<key>Headers/LocationController.h</key>
@@ -40,14 +40,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			pCr7putycgDiaHkb3p5+5aG2SPHssPqgS9g/7X5BHjg=
+			nuujsZ6wGuEYQWUB3KlZLetg5ehxzF7Bn5NuJQm6bA4=
 			</data>
 		</dict>
 		<key>Headers/ServicesModel.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			d5mo8ZE3VppzVglbpilAyQPFtimxcFjyxqOdlfYDKVo=
+			es3DdJHi3blvIFn9ScEgb4bAfKmuwKL2/Qb8P7VfEdk=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -61,14 +61,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			NBuQ7wncWOuVrRveLifFDPJl5M4ACATo7w1e40TORMg=
+			yCuownGUII9jFz5+47mMpTfywKp7vMQIier9UlsBUsc=
 			</data>
 		</dict>
 		<key>Resources/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			z6LackP71MeKbwcjg9IAF0gJaCqWkDA+xYehGNV98SM=
+			Kk+k9+/LJxc4kreAt/HNkf6PaIlt1oYvXs0lPqStjYg=
 			</data>
 		</dict>
 	</dict>

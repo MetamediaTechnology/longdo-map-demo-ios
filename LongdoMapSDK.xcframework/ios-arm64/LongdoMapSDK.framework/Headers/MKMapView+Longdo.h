@@ -9,7 +9,7 @@
 @import AVKit;
 @import AVFoundation;
 @import MapKit;
-#import "ServicesModel.h"
+#import "Annotation.h"
 #import "LocationController.h"
 
 @protocol LMTagDelegate <NSObject>
@@ -107,6 +107,8 @@ typedef NS_ENUM(NSInteger, LMMode) {
     THAICHOTE,
     ///Thaichote satellite base layer.
     THAICHOTE_HTTP,
+    ///Land parcel layer.
+    DOL_GRAY,
     ///Standard+POI non-base layer.
     POI_TRANSPARENT,
     ///Traffic non-base layer with auto-refresh.
@@ -261,6 +263,8 @@ typedef NS_ENUM(NSInteger, LMCache) {
 @property (nonatomic, assign) IBInspectable BOOL showsCameras;
 /// Flag to indicate whether the map shows air quality.
 @property (nonatomic, assign) IBInspectable BOOL showsAQI;
+/// Flag to indicate whether the map shows Air4Thai data.
+@property (nonatomic, assign) IBInspectable BOOL showsAir4Thai;
 
 #pragma mark - Set Map
 /**
