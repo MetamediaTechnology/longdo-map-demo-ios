@@ -9,14 +9,18 @@ import UIKit
 import LongdoMapFramework
 import CoreLocation
 
-class ViewController: UIViewController {
-    
+class ViewController: UIViewController, LongdoDelegate {
     @IBOutlet weak var map: LongdoMap!
     @IBOutlet weak var latitudeTextField: UITextField!
     @IBOutlet weak var longitudeTextField: UITextField!
+    let loc = [ "lon": 100.5, "lat": 13.7 ]
+    var home: LongdoMap.LDObject?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        map.delegate = self
+        map.apikey = "09eb29d30683b77b24ce7d26d96f70a1"
+        home = map.ldobject("Marker", with: [loc, ["detail": "Home"]])
         // Do any additional setup after loading the view.
     }
     
@@ -28,6 +32,34 @@ class ViewController: UIViewController {
         if let location = map.location() {
             latitudeTextField.text = String(format: "%.6f", location.latitude)
             longitudeTextField.text = String(format: "%.6f", location.longitude)
+        }
+    }
+    
+    @IBAction func onPressTest1() {
+        if let arg = home {
+            let _ = map.call(method: "Overlays.add", args: [arg])
+            let _ = map.objectCall(ldobject: arg, method: "pop", args: [true])
+        }
+        let _ = map.call(method: "location", args: [loc])
+    }
+    
+    @IBAction func onPressTest2() {
+        let zoom = map.call(method: "zoom", args: nil) as? Int
+        if let location = map.call(method: "location", args: nil) as? Dictionary<String, NSNumber> {
+            print("lon: \(location["lon"] ?? 0.0), lat: \(location["lat"] ?? 0.0), zoom: \(zoom ?? 0)")
+        }
+    }
+    
+    func recieve(on event: LongdoBind, with data: Any?) {
+        if event == .ready {
+            let _ = map.call(method: "Overlays.load", args: [map.ldobject("OverlaysObject", with: ["A00146852", "LONGDO"])])
+        }
+        else if event == .overlayClick {
+            if data as? LongdoMap.LDObject == home {
+                print("At Home")
+            }
+            let result = map.call(method: "Overlays.list", args: nil)
+            print(result ?? "")
         }
     }
 }
