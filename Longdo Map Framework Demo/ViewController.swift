@@ -19,9 +19,13 @@ class ViewController: UIViewController, LongdoDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         map.delegate = self
-        map.apikey = "09eb29d30683b77b24ce7d26d96f70a1"
+        map.apiKey = "09eb29d30683b77b24ce7d26d96f70a1"
+        map.options.layer = map.ldstatic("Layers", with: "NORMAL")
+        map.options.location = CLLocationCoordinate2D(latitude: 15, longitude: 102)
+        map.options.zoomRange = 7...18
+        map.options.zoom = 10
+        map.render()
         home = map.ldobject("Marker", with: [loc, ["detail": "Home"]])
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func setLocationClick() {
