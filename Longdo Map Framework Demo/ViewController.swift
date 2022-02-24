@@ -54,7 +54,7 @@ class ViewController: UIViewController, LongdoDelegate {
         }
     }
     
-    func recieve(on event: LongdoBind, with data: Any?) {
+    func receive(on event: LongdoBind, with data: Any?) {
         if event == .ready {
             let _ = map.call(method: "Overlays.load", args: [map.ldobject("OverlaysObject", with: ["A00146852", "LONGDO"])])
         }
