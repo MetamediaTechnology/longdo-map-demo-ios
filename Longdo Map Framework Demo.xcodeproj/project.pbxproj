@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		074B91002816A69E003B6508 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074B90FF2816A69E003B6508 /* MenuTableViewController.swift */; };
 		0774EBCB275A354E00D4BD1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0774EBCA275A354E00D4BD1A /* AppDelegate.swift */; };
 		0774EBCD275A354E00D4BD1A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0774EBCC275A354E00D4BD1A /* SceneDelegate.swift */; };
 		0774EBCF275A354E00D4BD1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0774EBCE275A354E00D4BD1A /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		074B90FF2816A69E003B6508 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		0774EBC7275A354E00D4BD1A /* Longdo Map Framework Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Longdo Map Framework Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0774EBCA275A354E00D4BD1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0774EBCC275A354E00D4BD1A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				0774EBCC275A354E00D4BD1A /* SceneDelegate.swift */,
 				0774EBCE275A354E00D4BD1A /* ViewController.swift */,
 				0774EBD0275A354E00D4BD1A /* Main.storyboard */,
+				074B90FF2816A69E003B6508 /* MenuTableViewController.swift */,
 				0774EBD3275A355100D4BD1A /* Assets.xcassets */,
 				0774EBD5275A355100D4BD1A /* LaunchScreen.storyboard */,
 				0774EBD8275A355100D4BD1A /* Info.plist */,
@@ -156,6 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				074B91002816A69E003B6508 /* MenuTableViewController.swift in Sources */,
 				0774EBCF275A354E00D4BD1A /* ViewController.swift in Sources */,
 				0774EBCB275A354E00D4BD1A /* AppDelegate.swift in Sources */,
 				0774EBCD275A354E00D4BD1A /* SceneDelegate.swift in Sources */,
@@ -310,9 +314,12 @@
 				DEVELOPMENT_TEAM = W4M3Z527M9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Longdo Map Framework Demo/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Longdo Map Framework";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "\"Show current user location in the map.\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -320,7 +327,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.longdo.map.sdk.demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longdo.map.ios.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -338,9 +345,12 @@
 				DEVELOPMENT_TEAM = W4M3Z527M9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Longdo Map Framework Demo/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Longdo Map Framework";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "\"Show current user location in the map.\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -348,7 +358,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.longdo.map.sdk.demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longdo.map.ios.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

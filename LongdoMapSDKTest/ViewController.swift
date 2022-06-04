@@ -12,7 +12,8 @@ import LongdoMapSDK
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, LMAQIDataDelegate {
     
     //MARK:- Initial
-    let APIKEY = "16a3c9373e8911c2e4736d92431f7113"
+#warning("Please insert your Longdo Map API key.")
+    let APIKEY = ""
     let locationManager = CLLocationManager()
     let customSourceLayer = "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
     
@@ -26,7 +27,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         map.aqiDelegate = self
-        map.setKey(APIKEY) //Don't need if use Longdo Box
+        map.setKey(APIKEY)
 //        map.boxDomain = URL(string: "https://yourdomain.com")
         map.language = .THAI
         map.setRegion(MKCoordinateRegion.init(center: CLLocationCoordinate2DMake(13.756674, 100.501853), span: (map.coordinateSpan(withZoomLevel: 7))), animated: false)
