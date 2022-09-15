@@ -9,6 +9,7 @@ import UIKit
 import LongdoMapFramework
 import CoreLocation
 
+// TODO: key input, unbind
 protocol MenuDelegate {
     func selectLanguage()
     func setBaseLayer()
@@ -146,7 +147,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
 #warning("Please insert your Longdo Map API key.")
-        map.apiKey = ""
+        map.apiKey = "***REMOVED***"
         map.options.layer = map.ldstatic("Layers", with: "NORMAL")
         map.options.location = CLLocationCoordinate2D(latitude: 15, longitude: 102)
         map.options.zoomRange = 7...18
@@ -186,7 +187,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         removeMenu()
     }
     
-    func alert(message: String) {
+    func alert(message: String, placeholder: String?, completionHandler: ((String) -> Void)?) {
         let alert = UIAlertController(
             title: NSLocalizedString("Longdo Map", comment: ""),
             message: message,
@@ -194,8 +195,18 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         )
         alert.addAction(UIAlertAction(
             title: NSLocalizedString("OK", comment: ""),
-            style: .default, handler: nil
-        ))
+            style: .default
+        ) { action -> Void in
+            if let c = completionHandler {
+                let firstTextField = alert.textFields!.first
+                c(firstTextField?.text ?? "")
+            }
+        })
+        if let p = placeholder {
+            alert.addTextField { (textField : UITextField!) -> Void in
+                textField.placeholder = p
+            }
+        }
         present(alert, animated: true, completion: nil)
     }
     
@@ -347,12 +358,12 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func markerList() {
         let result = map.call(method: "Overlays.list", args: nil)
-        alert(message: "\(result ?? "no result")")
+        alert(message: "\(result ?? "no result")", placeholder: nil, completionHandler: nil)
     }
     
     func markerCount() {
         let result = map.call(method: "Overlays.size", args: nil)
-        alert(message: "\(result ?? "no result")")
+        alert(message: "\(result ?? "no result")", placeholder: nil, completionHandler: nil)
     }
     
     func clearAllOverlays() {
@@ -685,7 +696,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     func geometryLocation() {
         if let g = geom {
             let location = map.objectCall(ldobject: g, method: "location", args: nil)
-            alert(message: "\(location ?? "N/A")")
+            alert(message: "\(location ?? "N/A")", placeholder: nil, completionHandler: nil)
         }
     }
     
@@ -817,34 +828,32 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func getRouteGuide() {
         clearRoute()
-        getRoute()
-        
-        guideTimer?.invalidate()
-        guideTimer = nil
-        getGuide()
-    }
-    
-    @objc func getGuide() {
-        let retry = guideTimer?.userInfo as? Int ?? 0
-        if retry == 10 {
-            alert(message: "No guide available.")
-            return
-        }
-        let guide = map.call(method: "Route.guide", args: nil) as? [[String: Any]]
-        if let g = guide, g.count > 0,
-            let turn = g[0]["guide"] as? [[String: Any?]],
-            let data = g[0]["data"] as? [String: Any] {
-            var str = ["ออกจาก จุดเริ่มต้น \(round(data["fdistance"] as? Double ?? 0) / 1000) กม."]
-            let turnText = ["เลี้ยวซ้ายสู่", "เลี้ยวขวาสู่", "เบี่ยงซ้ายสู่", "เบี่ยงขวาสู่", "ไปตาม", "ตรงไปตาม", "เข้าสู่", "", "", "ถึง", "", "", "", "", ""]
-            for i in turn {
-                str.append("\(turnText[(i["turn"] as? LongdoTurn ?? .Unknown).rawValue]) \(i["name"] as? String ?? "") \(round(i["distance"] as? Double ?? 0) / 1000) กม.")
+        unbind()
+        let _ = map.call(method: "Event.bind", args: [
+            "pathComplete",
+            {
+                (guide: Any?) -> Void in
+                print(guide ?? "no data")
             }
-            str.append("รวมระยะทาง \(round(data["distance"] as? Double ?? 0) / 1000) กม. เวลา \(Int(floor((data["interval"] as? Double ?? 0) / 3600))) ชม. \(Int(ceil(Double((data["interval"] as? Int ?? 0) % 3600) / 60))) น.")
-            alert(message: "\(str.joined(separator: "\n"))")
-        }
-        else {
-            guideTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.getGuide), userInfo: retry + 1, repeats: false)
-        }
+        ])
+        let _ = map.call(method: "Event.bind", args: [
+            "guideComplete",
+            {
+                (guide: Any?) -> Void in
+                if let g = guide as? [[String: Any]], g.count > 0,
+                    let turn = g[0]["guide"] as? [[String: Any?]],
+                    let data = g[0]["data"] as? [String: Any] {
+                    var str = ["ออกจาก จุดเริ่มต้น \(round(data["fdistance"] as? Double ?? 0) / 1000) กม."]
+                    let turnText = ["เลี้ยวซ้ายสู่", "เลี้ยวขวาสู่", "เบี่ยงซ้ายสู่", "เบี่ยงขวาสู่", "ไปตาม", "ตรงไปตาม", "เข้าสู่", "", "", "ถึง", "", "", "", "", ""]
+                    for i in turn {
+                        str.append("\(turnText[(i["turn"] as? LongdoTurn ?? .Unknown).rawValue]) \(i["name"] as? String ?? "") \(round(i["distance"] as? Double ?? 0) / 1000) กม.")
+                    }
+                    str.append("รวมระยะทาง \(round(data["distance"] as? Double ?? 0) / 1000) กม. เวลา \(Int(floor((data["interval"] as? Double ?? 0) / 3600))) ชม. \(Int(ceil(Double((data["interval"] as? Int ?? 0) % 3600) / 60))) น.")
+                    self.alert(message: "\(str.joined(separator: "\n"))", placeholder: nil, completionHandler: nil)
+                }
+            }
+        ])
+        getRoute()
     }
     
     func clearRoute() {
@@ -853,30 +862,6 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     // MARK: - Search
     func searchCentral() {
-        let _ = map.call(method: "Event.bind", args: [
-            "search",
-            {
-                (data: Any?) -> Void in
-                if let result = data as? [String: Any?], let poi = result["data"] as? [[String: Any?]] {
-                    self.searchPoi = []
-                    for i in poi {
-                        if let lat = i["lat"] as? Double, let lon = i["lon"] as? Double {
-                            let poiMarker = self.map.ldobject("Marker", with: [
-                                CLLocationCoordinate2D(latitude: lat, longitude: lon),
-                                [
-                                    "title": i["name"],
-                                    "detail": i["address"]
-                                ]
-                            ])
-                            self.searchPoi.append(poiMarker)
-                            if let newPoi = self.searchPoi.last {
-                                let _ = self.map.call(method: "Overlays.add", args: [newPoi])
-                            }
-                        }
-                    }
-                }
-            }
-        ])
         let _ = map.call(method: "Search.search", args: [
                     "central",
                     [
@@ -886,6 +871,27 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
                         "limit": 10
                     ]
                 ])
+        {
+            (data: Any?) -> Void in
+            if let result = data as? [String: Any?], let poi = result["data"] as? [[String: Any?]] {
+                self.searchPoi = []
+                for i in poi {
+                    if let lat = i["lat"] as? Double, let lon = i["lon"] as? Double {
+                        let poiMarker = self.map.ldobject("Marker", with: [
+                            CLLocationCoordinate2D(latitude: lat, longitude: lon),
+                            [
+                                "title": i["name"],
+                                "detail": i["address"]
+                            ]
+                        ])
+                        self.searchPoi.append(poiMarker)
+                        if let newPoi = self.searchPoi.last {
+                            let _ = self.map.call(method: "Overlays.add", args: [newPoi])
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func searchInEnglish() {
@@ -894,27 +900,24 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     }
     
     func suggestCentral() {
-        let _ = map.call(method: "Event.bind", args: [
-            "suggest",
-            {
-                (data: Any?) -> Void in
-                if let result = data as? [String: Any?], let poi = result["data"] as? [[String: Any?]] {
-                    var str: [String] = []
-                    for i in poi {
-                        if let word = i["w"] as? String {
-                            str.append("- \(word)")
-                        }
-                    }
-                    self.alert(message: str.joined(separator: "\n"))
-                }
-            }
-        ])
         let _ = map.call(method: "Search.suggest", args: [
             "central",
             [
                 "area": 10 //Bangkok geocode
             ]
         ])
+        {
+            (data: Any?) -> Void in
+            if let result = data as? [String: Any?], let poi = result["data"] as? [[String: Any?]] {
+                var str: [String] = []
+                for i in poi {
+                    if let word = i["w"] as? String {
+                        str.append("- \(word)")
+                    }
+                }
+                self.alert(message: str.joined(separator: "\n"), placeholder: nil, completionHandler: nil)
+            }
+        }
     }
     
     func clearSearch() {
@@ -925,21 +928,19 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     // MARK: - Conversion
     func getGeoCode() {
-        let _ = map.call(method: "Event.bind", args: [
-            "address",
-            {
-                (data: Any?) -> Void in
-                self.alert(message: "\(data ?? "no data")")
-            }
-        ])
         if let pos = map.call(method: "location", args: nil) {
             let _ = map.call(method: "Search.address", args: [pos])
+            {
+                (data: Any?) -> Void in
+                self.alert(message: "\(data ?? "no data")", placeholder: nil, completionHandler: nil)
+            }
         }
     }
     
     // MARK: - Events
     func locationEvent() {
         displayTextField.isHidden = false
+        unbind()
         let _ = map.call(method: "Event.bind", args: [
             "location",
             {
@@ -953,6 +954,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func zoomEvent() {
         displayTextField.isHidden = false
+        unbind()
         let _ = map.call(method: "Event.bind", args: [
             "zoom",
             {
@@ -966,6 +968,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func zoomRangeEvent() {
         displayTextField.isHidden = false
+        unbind()
         let _ = map.call(method: "Event.bind", args: [
             "zoomRange",
             {
@@ -979,21 +982,16 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     }
     
     func readyEvent() {
-        //Add before map.render()
+        //Call before map.render()
         map.options.onReady = {
             () -> Void in
-            let _ = self.map.call(method: "Event.bind", args: [
-                "resize",
-                {
-                    () -> Void in
-                    self.alert(message: "Map is resized.")
-                }
-            ])
+            self.alert(message: "Map is ready.", placeholder: nil, completionHandler: nil)
         }
     }
     
     func resizeEvent() {
         displayTextField.isHidden = false
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "resize",
             {
@@ -1006,6 +1004,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     }
     
     func clickEvent() {
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "click",
             {
@@ -1022,6 +1021,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func dragEvent() {
         displayTextField.isHidden = false
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "drag",
             {
@@ -1033,6 +1033,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func dropEvent() {
         displayTextField.isHidden = false
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "drop",
             {
@@ -1043,11 +1044,12 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     }
     
     func layerChangeEvent() {
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "layerChange",
             {
                 (result: Any?) -> Void in
-                self.alert(message: "\(result ?? "no data")")
+                self.alert(message: "\(result ?? "no data")", placeholder: nil, completionHandler: nil)
             }
         ])
         addLayer()
@@ -1062,22 +1064,24 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     }
     
     func overlayClickEvent() {
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "overlayClick",
             {
                 (result: Any?) -> Void in
-                self.alert(message: "\(result ?? "no data")")
+                self.alert(message: "\(result ?? "no data")", placeholder: nil, completionHandler: nil)
             }
         ])
         addURLMarker()
     }
     
     func overlayChangeEvent() {
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "overlayChange",
             {
                 (result: Any?) -> Void in
-                self.alert(message: "\(result ?? "no data")")
+                self.alert(message: "\(result ?? "no data")", placeholder: nil, completionHandler: nil)
             }
         ])
         addURLMarker()
@@ -1085,22 +1089,24 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func overlaySelectEvent() {
         //Not implemented now.
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "overlaySelect",
             {
                 (result: Any?) -> Void in
-                self.alert(message: "\(result ?? "no data")")
+                self.alert(message: "\(result ?? "no data")", placeholder: nil, completionHandler: nil)
             }
         ])
         addURLMarker()
     }
     
     func overlayLoadEvent() {
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "overlayLoad",
             {
                 (result: Any?) -> Void in
-                self.alert(message: "\(result ?? "no data")")
+                self.alert(message: "\(result ?? "no data")", placeholder: nil, completionHandler: nil)
             }
         ])
         addBangkok()
@@ -1108,25 +1114,35 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func overlayMoveEvent() {
         //Not implemented now.
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "overlayMove",
             {
                 (result: Any?) -> Void in
-                self.alert(message: "\(result ?? "no data")")
+                self.alert(message: "\(result ?? "no data")", placeholder: nil, completionHandler: nil)
             }
         ])
         addURLMarker()
     }
     
+    // FIXME: ??
     func overlayDropEvent() {
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "overlayDrop",
             {
                 (result: Any?) -> Void in
-                self.alert(message: "\(result ?? "no data")")
+                self.alert(message: "\(result ?? "no data")", placeholder: nil, completionHandler: nil)
             }
         ])
         addURLMarker()
+    }
+    
+    func unbind() {
+        let event = ["pathComplete", "guideComplete", "location", "zoom", "zoomRange", "resize", "click", "drag", "drop", "layerChange", "overlayClick", "overlayChange", "overlaySelect", "overlayLoad", "overlayMove", "overlayDrop"]
+        for i in event {
+            let _ = self.map.call(method: "Event.unbind", args: [i])
+        }
     }
     
     // MARK: - User Interface
@@ -1148,7 +1164,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func getLocation() {
         let location = map.call(method: "location", args: nil)
-        alert(message: "\(location ?? "no data")")
+        alert(message: "\(location ?? "no data")", placeholder: nil, completionHandler: nil)
     }
     
     func setZoom() {
@@ -1169,7 +1185,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func getZoomRange() {
         let zoomRange = map.call(method: "zoomRange", args: nil)
-        alert(message: "\(zoomRange ?? "no data")")
+        alert(message: "\(zoomRange ?? "no data")", placeholder: nil, completionHandler: nil)
     }
     
     func setBound() {
@@ -1183,7 +1199,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func getBound() {
         let bound = map.call(method: "bound", args: nil)
-        alert(message: "\(bound ?? "no data")")
+        alert(message: "\(bound ?? "no data")", placeholder: nil, completionHandler: nil)
     }
     
     func toggleDPad() {
@@ -1264,7 +1280,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
                 (from: [String: Any?]?, to: [String: Any?]?) in
                 let fromStr = from != nil ? (from!["value"] ?? "-") : "-"
                 let toStr = to != nil ? (to!["value"] ?? "-") : "-"
-                self.alert(message: "from: \(fromStr!) to: \(toStr!)")
+                self.alert(message: "from: \(fromStr!) to: \(toStr!)", placeholder: nil, completionHandler: nil)
             }
         ]])
         let _ = map.call(method: "Ui.add", args: [menu!])
@@ -1291,7 +1307,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
                 (from: [String: Any?]?, to: [String: Any?]?) in
                 let fromStr = from != nil ? (from!["value"] ?? "-") : "-"
                 let toStr = to != nil ? (to!["value"] ?? "-") : "-"
-                self.alert(message: "from: \(fromStr!) to: \(toStr!)")
+                self.alert(message: "from: \(fromStr!) to: \(toStr!)", placeholder: nil, completionHandler: nil)
             }
         ]])
         let _ = map.call(method: "Ui.add", args: [menu!])
@@ -1324,12 +1340,13 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     // MARK: - Etc.
     func getOverlayType() {
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "overlayClick",
             {
                 (result: Any?) -> Void in
                 if let overlay = result as? LongdoMap.LDObject {
-                    self.alert(message: "\(overlay.type)")
+                    self.alert(message: "\(overlay.type)", placeholder: nil, completionHandler: nil)
                 }
             }
         ])
@@ -1346,6 +1363,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         var markerCar2: LongdoMap.LDObject?
         var geom1: LongdoMap.LDObject?
         
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "overlayDrop",
             {
@@ -1362,7 +1380,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
                 ])
                 let _ = self.map.call(method: "Overlays.add", args: [geom1!])
                 if let distance = self.map.objectCall(ldobject: markerCar1!, method: "distance", args: [markerCar2!]) as? Double {
-                    self.alert(message: "ระยะกระจัด \(round(distance) / 1000.0) กิโลเมตร")
+                    self.alert(message: "ระยะกระจัด \(round(distance) / 1000.0) กิโลเมตร", placeholder: nil, completionHandler: nil)
                 }
             }
         ])
@@ -1392,7 +1410,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
             let _ = self.map.call(method: "Overlays.add", args: [markerCar2!])
             let _ = self.map.call(method: "Overlays.add", args: [geom1!])
             if let distance = self.map.objectCall(ldobject: markerCar1!, method: "distance", args: [markerCar2!]) as? Double {
-                self.alert(message: "ระยะกระจัด \(round(distance) / 1000.0) กิโลเมตร")
+                self.alert(message: "ระยะกระจัด \(round(distance) / 1000.0) กิโลเมตร", placeholder: nil, completionHandler: nil)
             }
         }
     }
@@ -1402,18 +1420,19 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         var geom1: LongdoMap.LDObject?
         var geom2: LongdoMap.LDObject?
         
+        unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             "overlayDrop",
             {
                 (result: Any?) -> Void in
                 if let c = self.map.objectCall(ldobject: geom1!, method: "contains", args: [dropMarker!]) as? Bool, c {
-                    self.alert(message: "อยู่บนพื้นที่สีเหลือง")
+                    self.alert(message: "อยู่บนพื้นที่สีเหลือง", placeholder: nil, completionHandler: nil)
                 }
                 else if let c = self.map.objectCall(ldobject: geom2!, method: "contains", args: [dropMarker!]) as? Bool, c {
-                    self.alert(message: "อยู่บนพื้นที่สีแดง")
+                    self.alert(message: "อยู่บนพื้นที่สีแดง", placeholder: nil, completionHandler: nil)
                 }
                 else {
-                    self.alert(message: "ไม่อยู่บนพื้นที่สีใดเลย")
+                    self.alert(message: "ไม่อยู่บนพื้นที่สีใดเลย", placeholder: nil, completionHandler: nil)
                 }
             }
         ])
@@ -1468,8 +1487,8 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     }
     
     func nearPOI() {
-        let _ = map.call(method: "Event.bind", args: [
-            "nearPoi",
+        if let loc = map.call(method: "location", args: nil) {
+            let _ = map.call(method: "Search.nearPoi", args: [loc])
             {
                 (data: Any?) -> Void in
                 if let result = data as? [String: Any?], let poi = result["data"] as? [[String: Any?]] {
@@ -1492,9 +1511,6 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
                     self.locationBound()
                 }
             }
-        ])
-        if let loc = map.call(method: "location", args: nil) {
-            let _ = map.call(method: "Search.nearPoi", args: [loc])
         }
     }
     

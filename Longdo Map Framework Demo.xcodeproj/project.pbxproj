@@ -14,8 +14,23 @@
 		0774EBD2275A354E00D4BD1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0774EBD0275A354E00D4BD1A /* Main.storyboard */; };
 		0774EBD4275A355100D4BD1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0774EBD3275A355100D4BD1A /* Assets.xcassets */; };
 		0774EBD7275A355100D4BD1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0774EBD5275A355100D4BD1A /* LaunchScreen.storyboard */; };
-		078EFCF4275AB22C00AEAE9F /* LongdoMapFramework in Frameworks */ = {isa = PBXBuildFile; productRef = 078EFCF3275AB22C00AEAE9F /* LongdoMapFramework */; };
+		07D98D9628537CF900C5A8A0 /* LongdoMapFramework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D98D9528537CF900C5A8A0 /* LongdoMapFramework.xcframework */; };
+		07D98D9728537CF900C5A8A0 /* LongdoMapFramework.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07D98D9528537CF900C5A8A0 /* LongdoMapFramework.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		07D98D9828537CF900C5A8A0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				07D98D9728537CF900C5A8A0 /* LongdoMapFramework.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		074B90FF2816A69E003B6508 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
@@ -28,6 +43,8 @@
 		0774EBD6275A355100D4BD1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0774EBD8275A355100D4BD1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		078EFCBC275A63AB00AEAE9F /* LongdoMapFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LongdoMapFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		07D98D9428537CBE00C5A8A0 /* LongdoMapFramework */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LongdoMapFramework; path = "../longdo-map-ios-sdk-v4/LongdoMapFramework"; sourceTree = "<group>"; };
+		07D98D9528537CF900C5A8A0 /* LongdoMapFramework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = LongdoMapFramework.xcframework; path = "../longdo-map-ios-sdk-v4/LongdoMapFramework/LongdoMapFramework.xcframework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				078EFCF4275AB22C00AEAE9F /* LongdoMapFramework in Frameworks */,
+				07D98D9628537CF900C5A8A0 /* LongdoMapFramework.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +62,7 @@
 		0774EBBE275A354E00D4BD1A = {
 			isa = PBXGroup;
 			children = (
+				07D98D9328537CBE00C5A8A0 /* Packages */,
 				0774EBC9275A354E00D4BD1A /* Longdo Map Framework Demo */,
 				0774EBC8275A354E00D4BD1A /* Products */,
 				078EFCBB275A63AB00AEAE9F /* Frameworks */,
@@ -77,9 +95,18 @@
 		078EFCBB275A63AB00AEAE9F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				07D98D9528537CF900C5A8A0 /* LongdoMapFramework.xcframework */,
 				078EFCBC275A63AB00AEAE9F /* LongdoMapFramework.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		07D98D9328537CBE00C5A8A0 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				07D98D9428537CBE00C5A8A0 /* LongdoMapFramework */,
+			);
+			name = Packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -92,6 +119,7 @@
 				0774EBC3275A354E00D4BD1A /* Sources */,
 				0774EBC4275A354E00D4BD1A /* Frameworks */,
 				0774EBC5275A354E00D4BD1A /* Resources */,
+				07D98D9828537CF900C5A8A0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -99,7 +127,6 @@
 			);
 			name = "Longdo Map Framework Demo";
 			packageProductDependencies = (
-				078EFCF3275AB22C00AEAE9F /* LongdoMapFramework */,
 			);
 			productName = "Longdo Map Test";
 			productReference = 0774EBC7275A354E00D4BD1A /* Longdo Map Framework Demo.app */;
@@ -130,7 +157,6 @@
 			);
 			mainGroup = 0774EBBE275A354E00D4BD1A;
 			packageReferences = (
-				078EFCF0275AB1BA00AEAE9F /* XCRemoteSwiftPackageReference "longdo-map-ios-framework" */,
 			);
 			productRefGroup = 0774EBC8275A354E00D4BD1A /* Products */;
 			projectDirPath = "";
@@ -388,25 +414,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		078EFCF0275AB1BA00AEAE9F /* XCRemoteSwiftPackageReference "longdo-map-ios-framework" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/MetamediaTechnology/longdo-map-ios-framework";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		078EFCF3275AB22C00AEAE9F /* LongdoMapFramework */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 078EFCF0275AB1BA00AEAE9F /* XCRemoteSwiftPackageReference "longdo-map-ios-framework" */;
-			productName = LongdoMapFramework;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0774EBBF275A354E00D4BD1A /* Project object */;
 }
