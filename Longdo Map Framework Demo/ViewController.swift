@@ -147,7 +147,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
 #warning("Please insert your Longdo Map API key.")
-        map.apiKey = "thisisreallymagiciossdk4"
+        map.apiKey = ""
         map.options.layer = map.ldstatic("Layers", with: "NORMAL")
         map.options.location = CLLocationCoordinate2D(latitude: 15, longitude: 102)
         map.options.zoomRange = 7...18
