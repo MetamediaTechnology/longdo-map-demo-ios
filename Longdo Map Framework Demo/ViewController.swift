@@ -243,10 +243,10 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func addWMSLayer() {
         layer = map.ldobject("Layer", with: [
-            "roadnet2:Road_FGDS",
+            "bluemarble_terrain",
             [
                 "type": map.ldstatic("LayerType", with: "WMS"),
-                "url": "https://apix.longdo.com/vector/test-tile.php",
+                "url": "https://ms.longdo.com/mapproxy/service",
                 "zoomRange": 1...9,
                 "refresh": 180,
                 "opacity": 0.5,
@@ -264,11 +264,16 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func addTMSLayer() {
         layer = map.ldobject("Layer", with: [
-            "roadnet2:Road_FGDS@EPSG:900913@png",
+            "",
             [
                 "type": map.ldstatic("LayerType", with: "TMS"),
-                "url": "https://apix.longdo.com/vector/test-tile.php?tms=",
-                "zoomOffset": 0
+                "url": "https://ms.longdo.com/mapproxy/tms/1.0.0/bluemarble_terrain/EPSG3857",
+                "bound": [
+                    "minLon": 100.122195,
+                    "minLat": 14.249463,
+                    "maxLon": 100.533496,
+                    "maxLat": 14.480279
+                ]
             ]
         ])
         let _ = map.call(method: "Layers.add", args: [layer!])
@@ -276,12 +281,11 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     
     func addWTMSLayer() {
         layer = map.ldobject("Layer", with: [
-            "roadnet2:Road_FGDS",
+            "bluemarble_terrain",
             [
-                "type": map.ldstatic("LayerType", with: "WMTS"),
-                "url": "https://apix.longdo.com/vector/test-tile.php",
-                "srs": "EPSG:900913",
-                "tileMatrix": map.ldfunction("z => 'EPSG:900913:' + z")
+                "type": map.ldstatic("LayerType", with: "WMTS_REST"),
+                "url": "https://ms.longdo.com/mapproxy/wmts",
+                "srs": "GLOBAL_WEBMERCATOR",
             ]
         ])
         let _ = map.call(method: "Layers.add", args: [layer!])
