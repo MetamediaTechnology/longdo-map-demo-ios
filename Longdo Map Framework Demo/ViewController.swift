@@ -501,7 +501,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
                   "filter": ["has", "point_count"],
                   "layout": [
                     "text-field": "{point_count_abbreviated}",
-                    "text-font": ["noto"],
+                    "text-font": ["OCJ"],
                     "text-size": 12,
                   ],
                 ],
