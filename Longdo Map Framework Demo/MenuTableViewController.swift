@@ -40,7 +40,7 @@ class MenuTableViewController: UITableViewController {
             "Stop Bounce Marker",
             "Move Marker",
             "Add HeatMap",
-            "Add ClusterMap"
+            "Add Cluster Marker"
         ],
         [
             "Add Local Tags",
@@ -263,7 +263,7 @@ class MenuTableViewController: UITableViewController {
                 delegate?.addHeatMap()
                 break
             case 15:
-                delegate?.addClusterMap()
+                delegate?.addClusterMarker()
                 break
             default:
                 break

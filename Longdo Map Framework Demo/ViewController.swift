@@ -125,7 +125,7 @@ protocol MenuDelegate {
     func nearPOI()
 //    func locationBound()
     func addHeatMap()
-    func addClusterMap()
+    func addClusterMarker()
     
 }
 
@@ -465,7 +465,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         let _ = map.call(method: "Layers.add", args: [layer!])
     }
     
-    func addClusterMap(){
+    func addClusterMarker(){
         layer = map.ldobject("Layer", with:[
             [
               "sources": [
