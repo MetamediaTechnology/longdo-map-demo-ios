@@ -38,9 +38,7 @@ class MenuTableViewController: UITableViewController {
             "Remove Last Popup",
             "Start Bounce Marker",
             "Stop Bounce Marker",
-            "Move Marker",
-            "Add HeatMap",
-            "Add Cluster Marker"
+            "Move Marker"
         ],
         [
             "Add Local Tags",
@@ -131,7 +129,9 @@ class MenuTableViewController: UITableViewController {
             "Get Overlay Type",
             "Get Distance",
             "Get Contain",
-            "Get Near POI"
+            "Get Near POI",
+            "Add HeatMap",
+            "Add Cluster Marker"
         ]
     ]
     let sectionTitle = [
@@ -258,12 +258,6 @@ class MenuTableViewController: UITableViewController {
                 break
             case 13:
                 delegate?.moveMarker()
-                break
-            case 14:
-                delegate?.addHeatMap()
-                break
-            case 15:
-                delegate?.addClusterMarker()
                 break
             default:
                 break
@@ -525,6 +519,12 @@ class MenuTableViewController: UITableViewController {
                 break
             case 3:
                 delegate?.nearPOI()
+                break
+            case 4:
+                delegate?.addHeatMap()
+                break
+            case 5:
+                delegate?.addClusterMarker()
                 break
             default:
                 break
