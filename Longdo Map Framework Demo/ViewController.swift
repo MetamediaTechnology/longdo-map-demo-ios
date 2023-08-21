@@ -126,6 +126,7 @@ protocol MenuDelegate {
 //    func locationBound()
     func addHeatMap()
     func addClusterMarker()
+    func addObj3D()
     
 }
 
