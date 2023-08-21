@@ -1696,6 +1696,34 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         bound["maxLon"] = bound["maxLon"]! + difLon
         let _ = self.map.call(method: "bound", args: [bound])
     }
+
+    func addObj3D(){
+        let layer = map.call(method: "Layers.setBase", args: [map.createSphereStatic("Layers", with: "STREETS")]) as? Sphere.SphereObject
+            let scale = 100
+            let data = """
+            [{
+                coordinates: [100.5, 13.7, 0],
+                color: [255, 0, 0, 255],
+                scale: [\(scale), \(scale), \(scale)],
+                translation: [0, 0, \(scale)/ 2]
+            }]
+            """
+            let _ = map.objectCall(sphereObject: layer!, method: "insert", args: ["", map.createSphereFunction("""
+            new deck.MapboxLayer({
+                id: 'scenegraph-layer',
+                type: deck.ScenegraphLayer,
+                data: \(data),
+                scenegraph: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF-Binary/Box.glb',
+                getPosition: d => d.coordinates,
+                getColor: d => d.color,
+                getScale: d => d.scale,
+                getTranslation: d => d.translation,
+                opacity: 0.5,
+                _lighting: 'pbr',
+                parameters: { depthTest: false }
+            })
+            """)])
+    }
     
     //Not Available or use map.isUserInteractionEnabled instead.
     func lockMap() {

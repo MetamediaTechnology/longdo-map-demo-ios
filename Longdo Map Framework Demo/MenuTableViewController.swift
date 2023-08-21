@@ -132,6 +132,7 @@ class MenuTableViewController: UITableViewController {
             "Get Near POI",
             "Add HeatMap",
             "Add Cluster Marker"
+            "Add Object 3D"
         ]
     ]
     let sectionTitle = [
@@ -525,6 +526,9 @@ class MenuTableViewController: UITableViewController {
                 break
             case 5:
                 delegate?.addClusterMarker()
+                break
+            case 6:
+                delegate?.addObj3D()
                 break
             default:
                 break
