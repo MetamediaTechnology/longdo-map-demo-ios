@@ -1,6 +1,0 @@
-framework module LongdoMapSDK {
-  umbrella header "LongdoMapSDK.h"
-
-  export *
-  module * { export * }
-}
