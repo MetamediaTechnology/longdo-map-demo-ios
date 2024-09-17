@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0713BE0228D34AA600F5FEAA /* LongdoMapFramework in Frameworks */ = {isa = PBXBuildFile; productRef = 0713BE0128D34AA600F5FEAA /* LongdoMapFramework */; };
 		074B91002816A69E003B6508 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074B90FF2816A69E003B6508 /* MenuTableViewController.swift */; };
+		0756FBB22C636452009F444D /* LongdoMapFramework in Frameworks */ = {isa = PBXBuildFile; productRef = 0756FBB12C636452009F444D /* LongdoMapFramework */; };
 		0774EBCB275A354E00D4BD1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0774EBCA275A354E00D4BD1A /* AppDelegate.swift */; };
 		0774EBCD275A354E00D4BD1A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0774EBCC275A354E00D4BD1A /* SceneDelegate.swift */; };
 		0774EBCF275A354E00D4BD1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0774EBCE275A354E00D4BD1A /* ViewController.swift */; };
@@ -36,7 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0713BE0228D34AA600F5FEAA /* LongdoMapFramework in Frameworks */,
+				0756FBB22C636452009F444D /* LongdoMapFramework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +109,7 @@
 			);
 			name = "Longdo Map Framework Demo";
 			packageProductDependencies = (
-				0713BE0128D34AA600F5FEAA /* LongdoMapFramework */,
+				0756FBB12C636452009F444D /* LongdoMapFramework */,
 			);
 			productName = "Longdo Map Test";
 			productReference = 0774EBC7275A354E00D4BD1A /* Longdo Map Framework Demo.app */;
@@ -140,7 +140,7 @@
 			);
 			mainGroup = 0774EBBE275A354E00D4BD1A;
 			packageReferences = (
-				0713BE0028D34AA600F5FEAA /* XCRemoteSwiftPackageReference "longdo-map-ios-framework" */,
+				0756FBB02C636452009F444D /* XCRemoteSwiftPackageReference "longdo-map-ios-framework" */,
 			);
 			productRefGroup = 0774EBC8275A354E00D4BD1A /* Products */;
 			projectDirPath = "";
@@ -400,20 +400,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0713BE0028D34AA600F5FEAA /* XCRemoteSwiftPackageReference "longdo-map-ios-framework" */ = {
+		0756FBB02C636452009F444D /* XCRemoteSwiftPackageReference "longdo-map-ios-framework" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MetamediaTechnology/longdo-map-ios-framework";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				minimumVersion = 4.1.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0713BE0128D34AA600F5FEAA /* LongdoMapFramework */ = {
+		0756FBB12C636452009F444D /* LongdoMapFramework */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0713BE0028D34AA600F5FEAA /* XCRemoteSwiftPackageReference "longdo-map-ios-framework" */;
+			package = 0756FBB02C636452009F444D /* XCRemoteSwiftPackageReference "longdo-map-ios-framework" */;
 			productName = LongdoMapFramework;
 		};
 /* End XCSwiftPackageProductDependency section */

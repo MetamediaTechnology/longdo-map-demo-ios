@@ -1,133 +1,20 @@
 //
-//  ViewController.swift
-//  Longdo Map Test
+//  Map.swift
+//  Longdo Map Demo
 //
-//  Created by กมลภพ จารุจิตต์ on 3/12/2564 BE.
+//  Created by กมลภพ จารุจิตต์ on 4/8/2567 BE.
 //
 
-import UIKit
+import Foundation
+import SwiftUI
 import LongdoMapFramework
 import CoreLocation
-import SystemConfiguration
+import Network
 
-protocol MenuDelegate {
-    func selectLanguage()
-    func setBaseLayer()
-    func addLayer()
-    func removeTrafficLayer()
-    func removeLayer()
-    func clearAllLayer()
-    func addEventsAndCameras()
-    func removeEventsAndCameras()
-    func addWMSLayer()
-    func addTMSLayer()
-    func addWTMSLayer()
-    func enableFilter()
-    func addURLMarker()
-    func addHTMLMarker()
-    func addRotateMarker()
-    func removeMarker()
-    func markerList()
-    func markerCount()
-    func clearAllOverlays()
-    func addPopup()
-    func addCustomPopup()
-    func addHTMLPopup()
-    func removePopup()
-    func dropMarker()
-    func startBounceMarker()
-    func stopBounceMarker()
-    func moveMarker()
-    func rotateMarker()
-    func followPathMarker()
-    func addLocalTag()
-    func addLongdoTag()
-    func addTagWithOption()
-    func addTagWithGeocode()
-    func removeTag()
-    func clearAllTag()
-    func addLine()
-    func removeLine()
-    func addLineWithOption()
-    func addDashLine()
-    func addPolygon()
-    func addCircle()
-    func addDot()
-    func addDonut()
-    func addRectangle()
-    func addImageAsLayer()
-    func geometryLocation()
-    func addBangkok()
-    func addEastRegion()
-    func addBangkokDistrict()
-    func addMultipleSubdistrict()
-    func addProvinceWithOption()
-    func addSubdistrictByName()
-    func addLongdoPlace()
-    func removeGeometryObject()
-    func getRoute()
-    func autoReroute()
-    func getRouteByCost()
-    func getRouteByDistance()
-    func getRouteWithoutTollway()
-    func getRouteWithMotorcycle()
-    func getRouteGuide()
-    func clearRoute()
-    func searchCentral()
-    func searchInEnglish()
-    func suggestCentral()
-    func clearSearch()
-    func getGeoCode()
-    func getLatitudeLength()
-    func locationEvent()
-    func zoomEvent()
-    func zoomRangeEvent()
-//    func readyEvent()
-    func resizeEvent()
-    func clickEvent()
-    func longTapEvent()
-    func dragEvent()
-    func dropEvent()
-    func layerChangeEvent()
-    func overlayClickEvent()
-    func overlayChangeEvent()
-    func overlayLoadEvent()
-    func overlayDropEvent()
-    func setCustomLocation()
-    func setGeoLocation()
-    func getLocation()
-    func setZoom()
-    func setLocationAndZoom()
-    func setRotate()
-    func setPitch()
-    func zoomIn()
-    func zoomOut()
-    func setZoomRange()
-    func getZoomRange()
-    func setBound()
-    func getBound()
-    func toggleDPad()
-    func toggleZoombar()
-    func toggleLayerSelector()
-    func toggleCrosshair()
-    func toggleScale()
-    func toggleTerrain()
-    func toggleTouchAndDrag()
-    func toggleDrag()
-    func getOverlayType()
-    func getDistance()
-    func getContain()
-    func nearPOI()
-    func addHeatMap()
-    func addClusterMarker()
-    func add3DObject()
-}
-
-class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate {
-    @IBOutlet weak var map: LongdoMap!
-    @IBOutlet weak var displayTextField: UITextField!
+class MapController: NSObject, ObservableObject, CLLocationManagerDelegate {
+    var map = LongdoMap()
     let locationManager = CLLocationManager()
-    var loc = CLLocationCoordinate2D(latitude: 13.7, longitude: 100.5)
+    let loc = CLLocationCoordinate2D(latitude: 13.7, longitude: 100.5)
     var trackLocation = false
     var currentLocationMarker: LongdoMap.LDObject?
     var home: LongdoMap.LDObject?
@@ -142,19 +29,28 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     var followPathTimer: Timer?
     var guideTimer: Timer?
     var currentMethod: String?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    let monitor = NWPathMonitor()
+    let queue = DispatchQueue.global(qos: .background)
+    var networkStatus: NWPath.Status?
+    
+    func create(option: LongdoMap.Option) -> LongdoMap {
 #warning("Please insert your Longdo Map API key.")
         map.apiKey = ""
-        map.server = "api.longdo.com/map3/"
-        map.options.layer = map.ldstatic("Layers", with: "NORMAL")
-        map.options.location = loc
-        map.options.zoomRange = 1...18
-        map.options.zoom = 10
-        locationManager.delegate = self
-        readyEvent()
+        map.options = option
         map.render()
+        monitor.pathUpdateHandler = { path in
+            self.networkStatus = path.status
+        }
+        monitor.start(queue: queue)
+        locationManager.delegate = self
+        return map
+    }
+    
+    func isConnectedToNetwork() -> Bool {
+        if networkStatus != .satisfied {
+            print("Internet connection is required for this feature.")
+        }
+        return networkStatus == .satisfied
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -203,11 +99,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         print(error)
     }
     
-    @IBAction func selectMenu() {
-        performSegue(withIdentifier: "menu", sender: nil)
-    }
-    
-    @IBAction func clearAll() {
+    func clearAll() {
         let _ = map.call(method: "Layers.setBase", args: [map.ldstatic("Layers", with: "NORMAL")])
         let _ = map.call(method: "language", args: [LongdoLocale.Thai])
         let _ = map.call(method: "Ui.Mouse.enableDrag", args: [true])
@@ -218,9 +110,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
             map.ldstatic("Filter", with: "None")
         ])
         map.isUserInteractionEnabled = true
-        displayTextField.isHidden = true
-        displayTextField.text = ""
-        clearAllLayer()
+//        clearAllLayer()
         clearAllOverlays()
         clearAllTag()
         removeEventsAndCameras()
@@ -233,27 +123,17 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         currentLocationMarker = nil
     }
     
-    func alert(message: String, placeholder: String?, completionHandler: ((String) -> Void)?) {
-        let alert = UIAlertController(
-            title: NSLocalizedString("Longdo Map", comment: ""),
-            message: message,
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(
-            title: NSLocalizedString("OK", comment: ""),
-            style: .default
-        ) { action -> Void in
-            if let c = completionHandler {
-                let firstTextField = alert.textFields!.first
-                c(firstTextField?.text ?? "")
-            }
-        })
-        if let p = placeholder {
-            alert.addTextField { (textField : UITextField!) -> Void in
-                textField.placeholder = p
-            }
+    ///Note:
+    ///> The `handler` parameter is not available. All handlers for the selected event name will be unbound.
+    func unbind() {
+        let event = ["GuideComplete", "Location", "Zoom", "ZoomRange", "Resize", "Click", "Drag", "Drop", "LayerChange", "OverlayClick", "OverlayChange", "OverlayLoad", "OverlayDrop", "BeforeContextmenu"]
+        for i in event {
+            let _ = self.map.call(method: "Event.unbind", args: [map.ldstatic("EventName", with: i)])
         }
-        present(alert, animated: true, completion: nil)
+    }
+    
+    func getNormalLayer(layerName: String) -> LongdoMap.LDStatic {
+        return map.ldstatic("Layers", with: layerName)
     }
     
     // MARK: - Map Layers
@@ -467,14 +347,12 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         }
     }
     
-    func markerList() {
-        let result = map.call(method: "Overlays.list", args: nil)
-        alert(message: "\(result ?? "no result")", placeholder: nil, completionHandler: nil)
+    func markerList() -> Any {
+        return map.call(method: "Overlays.list", args: nil) ?? "no result"
     }
     
-    func markerCount() {
-        let result = map.call(method: "Overlays.size", args: nil)
-        alert(message: "\(result ?? "no result")", placeholder: nil, completionHandler: nil)
+    func markerCount() -> Any {
+        return map.call(method: "Overlays.size", args: nil) ?? "no result"
     }
     
     func clearAllOverlays() {
@@ -482,164 +360,6 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         rotateTimer?.invalidate()
         followPathTimer?.invalidate()
         let _ = map.call(method: "Overlays.clear", args: nil)
-    }
-    
-    func addHeatMap(){
-        if isConnectedToNetwork() {
-            layer = map.ldobject("Layer", with:[
-                [
-                    "sources": [
-                        "earthquakes": [
-                            "type": "geojson",
-                            "data": "https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson",
-                        ],
-                    ],
-                    "layers": [
-                        [
-                            "id": "earthquakes-heat",
-                            "type": "heatmap",
-                            "source": "earthquakes",
-                            "maxzoom": 9,
-                            "paint": [
-                                // Increase the heatmap weight based on frequency and property magnitude
-                                "heatmap-weight": [
-                                    "interpolate",
-                                    ["linear"],
-                                    ["get", "mag"],
-                                    0,
-                                    0,
-                                    6,
-                                    1,
-                                ],
-                                // Increase the heatmap color weight weight by zoom level
-                                // heatmap-intensity is a multiplier on top of heatmap-weight
-                                "heatmap-intensity": [
-                                    "interpolate",
-                                    ["linear"],
-                                    ["zoom"],
-                                    0,
-                                    1,
-                                    9,
-                                    3,
-                                ],
-                                // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
-                                // Begin color ramp at 0-stop with a 0-transparancy color
-                                // to create a blur-like effect.
-                                "heatmap-color": [
-                                    "interpolate",
-                                    ["linear"],
-                                    ["heatmap-density"],
-                                    0,
-                                    "rgba(33,102,172,0)",
-                                    0.2,
-                                    "rgb(103,169,207)",
-                                    0.4,
-                                    "rgb(209,229,240)",
-                                    0.6,
-                                    "rgb(253,219,199)",
-                                    0.8,
-                                    "rgb(239,138,98)",
-                                    1,
-                                    "rgb(178,24,43)",
-                                ],
-                                // Adjust the heatmap radius by zoom level
-                                "heatmap-radius": [
-                                    "interpolate",
-                                    ["linear"],
-                                    ["zoom"],
-                                    0,
-                                    2,
-                                    9,
-                                    20,
-                                ],
-                                // Transition from heatmap to circle layer by zoom level
-                                "heatmap-opacity": [
-                                    "interpolate",
-                                    ["linear"],
-                                    ["zoom"],
-                                    7,
-                                    1,
-                                    9,
-                                    0,
-                                ],
-                            ],
-                        ],
-                        "waterway-label",
-                    ],
-                ]
-            ])
-            let _ = map.call(method: "Layers.add", args: [layer!])
-            
-            let _ = self.map.call(method: "goTo", args: [[
-                "center": CLLocationCoordinate2D(latitude: 35.5, longitude: -135.2),
-                "zoom": 2
-            ]])
-        }
-    }
-    
-    func addClusterMarker() {
-        if isConnectedToNetwork() {
-            layer = map.ldobject("Layer", with:[
-                [
-                    "sources": [
-                        "earthquakes": [
-                            "type": "geojson",
-                            "data": "https://maplibre.org/maplibre-gl-js/docs/assets/earthquakes.geojson",
-                            "cluster": true,
-                            "clusterMaxZoom": 14, // Max zoom to cluster points on
-                            "clusterRadius": 50, // Radius of each cluster when clustering points (defaults to 50)
-                        ]
-                    ],
-                    "layers": [
-                        [
-                            "id": "clusters",
-                            "type": "circle",
-                            "source": "earthquakes",
-                            "filter": ["has", "point_count"],
-                            "paint": [
-                                "circle-color": [
-                                    "step",
-                                    ["get", "point_count"],
-                                    "#51bbd6", 100,
-                                    "#f1f075", 750,
-                                    "#f28cb1",
-                                ],
-                                "circle-radius": ["step", ["get", "point_count"], 20, 100, 30, 750, 40],
-                            ],
-                        ],
-                        [
-                            "id": "cluster-count",
-                            "type": "symbol",
-                            "source": "earthquakes",
-                            "filter": ["has", "point_count"],
-                            "layout": [
-                                "text-field": "{point_count_abbreviated}",
-                                "text-font": ["OCJ"],
-                                "text-size": 12,
-                            ],
-                        ],
-                        [
-                            "id": "unclustered-point",
-                            "type": "circle",
-                            "source": "earthquakes",
-                            "filter": ["!", ["has", "point_count"]],
-                            "paint": [
-                                "circle-color": "#11b4da",
-                                "circle-radius": 4,
-                                "circle-stroke-width": 1,
-                                "circle-stroke-color": "#fff",
-                            ],
-                        ],
-                    ]
-                ]
-            ])
-            let _ = map.call(method: "Layers.add", args: [layer!])
-            
-            let _ = self.map.call(method: "goTo", args: [[
-                "center": CLLocationCoordinate2D(latitude: 45.58, longitude: 94.65),
-                "zoom": 1
-            ]])
-        }
     }
     
     func addPopup() {
@@ -899,7 +619,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         ]])
     }
     
-    func removeLine() {
+    func removeOverlay() {
         if let g = geom {
             let _ = map.call(method: "Overlays.remove", args: [g])
         }
@@ -1088,11 +808,11 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         }
     }
     
-    func geometryLocation() {
+    func geometryLocation() -> Any {
         if let g = geom {
-            let location = map.objectCall(ldobject: g, method: "location", args: nil)
-            alert(message: "\(location ?? "N/A")", placeholder: nil, completionHandler: nil)
+            return map.objectCall(ldobject: g, method: "location", args: nil) ?? "N/A"
         }
+        return "N/A"
     }
     
     // MARK: - Administration
@@ -1277,7 +997,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         getRoute()
     }
     
-    func getRouteGuide() {
+    func getRouteGuide(completion: @escaping (_ message: String) -> Void) {
         clearRoute()
         unbind()
         let _ = map.call(method: "Event.bind", args: [
@@ -1294,7 +1014,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
                         str.append("\(turnText[(i["turn"] as? LongdoTurn ?? .Unknown).rawValue]) \(i["name"] as? String ?? "") \(round(i["distance"] as? Double ?? 0) / 1000) กม.")
                     }
                     str.append("รวมระยะทาง \(round(data["distance"] as? Double ?? 0) / 1000) กม. เวลา \(Int(floor((data["interval"] as? Double ?? 0) / 3600))) ชม. \(Int(ceil(Double((data["interval"] as? Int ?? 0) % 3600) / 60))) น.")
-                    self.alert(message: "\(str.joined(separator: "\n"))", placeholder: nil, completionHandler: nil)
+                    completion("\(str.joined(separator: "\n"))")
                 }
             }
         ])
@@ -1352,7 +1072,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         searchCentral()
     }
     
-    func suggestCentral() {
+    func suggestCentral(completion: @escaping (_ message: String) -> Void) {
         if isConnectedToNetwork() {
             let _ = map.call(method: "Search.suggest", args: [
                 "central",
@@ -1369,7 +1089,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
                             str.append("- \(word)")
                         }
                     }
-                    self.alert(message: str.joined(separator: "\n"), placeholder: nil, completionHandler: nil)
+                    completion(str.joined(separator: "\n"))
                 }
             }
         }
@@ -1382,96 +1102,84 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     }
     
     // MARK: - Conversion
-    func getGeoCode() {
+    func getGeoCode(completion: @escaping (_ message: String) -> Void) {
         if isConnectedToNetwork() {
             if let pos = map.call(method: "location", args: nil) {
                 let _ = map.call(method: "Search.address", args: [pos])
                 {
                     (data: Any?) -> Void in
-                    self.alert(message: "\(data ?? "no data")", placeholder: nil, completionHandler: nil)
+                    completion("\(data ?? "no data")")
                 }
             }
             else {
-                self.alert(message: "no location", placeholder: nil, completionHandler: nil)
+                completion("no location")
             }
         }
     }
     
-    func getLatitudeLength() {
+    func getLatitudeLength(completion: @escaping (_ message: String) -> Void) {
         if let pos = map.call(method: "location", args: nil) as? CLLocationCoordinate2D {
             if let radian = map.call(method: "Util.latitudeLength", args: [pos.latitude]) {
-                self.alert(message: "Distance for 1 radian at latitude \(pos.latitude) = \(radian) metres.", placeholder: nil, completionHandler: nil)
+                completion("Distance for 1 radian at latitude \(pos.latitude) = \(radian) metres.")
             }
             else {
-                self.alert(message: "no data", placeholder: nil, completionHandler: nil)
+                completion("no data")
             }
         }
         else {
-            self.alert(message: "no location", placeholder: nil, completionHandler: nil)
+            completion("no location")
         }
     }
     
     // MARK: - Events
-    func locationEvent() {
-        displayTextField.isHidden = false
+    func locationEvent(completion: @escaping (_ message: String) -> Void) {
         unbind()
         let _ = map.call(method: "Event.bind", args: [
             map.ldstatic("EventName", with: "Location"),
             {
                 () -> Void in
                 if let pos = self.map.call(method: "location", args: nil) {
-                    self.displayTextField.text = "\(pos)"
+                    completion("\(pos)")
                 }
             }
         ])
     }
     
-    func zoomEvent() {
-        displayTextField.isHidden = false
+    func zoomEvent(completion: @escaping (_ message: String) -> Void) {
         unbind()
         let _ = map.call(method: "Event.bind", args: [
             map.ldstatic("EventName", with: "Zoom"),
             {
                 () -> Void in
                 if let zoom = self.map.call(method: "zoom", args: nil) {
-                    self.displayTextField.text = "\(zoom)"
+                    completion("\(zoom)")
                 }
             }
         ])
     }
     
-    func zoomRangeEvent() {
-        displayTextField.isHidden = false
+    func zoomRangeEvent(completion: @escaping (_ message: String) -> Void) {
         unbind()
         let _ = map.call(method: "Event.bind", args: [
             map.ldstatic("EventName", with: "ZoomRange"),
             {
                 () -> Void in
                 if let zr = self.map.call(method: "zoomRange", args: nil) {
-                    self.displayTextField.text = "\(zr)"
+                    completion("\(zr)")
                 }
             }
         ])
         let _ = map.call(method: "zoomRange", args: [1...10])
     }
     
-    func readyEvent() {
-        //Call before map.render()
-        map.options.onReady = {
-            () -> Void in
-            self.alert(message: "Map is ready.", placeholder: nil, completionHandler: nil)
-        }
-    }
-    
-    func resizeEvent() {
-        displayTextField.isHidden = false
+    func resizeEvent(completion: @escaping (_ message: String) -> Void) {
         unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             map.ldstatic("EventName", with: "Resize"),
             {
                 () -> Void in
                 if let bound = self.map.call(method: "bound", args: nil) {
-                    self.displayTextField.text = "\(bound)"
+                    completion("\(bound)")
                 }
             }
         ])
@@ -1510,97 +1218,86 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         ])
     }
     
-    func dragEvent() {
-        displayTextField.isHidden = false
+    func dragEvent(completion: @escaping (_ message: String) -> Void) {
         unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             map.ldstatic("EventName", with: "Drag"),
             {
                 (result: Any?) -> Void in
-                self.displayTextField.text = "Drag event triggered."
+                completion("Drag event triggered.")
             }
         ])
     }
     
-    func dropEvent() {
-        displayTextField.isHidden = false
+    func dropEvent(completion: @escaping (_ message: String) -> Void) {
         unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             map.ldstatic("EventName", with: "Drop"),
             {
                 (result: Any?) -> Void in
-                self.displayTextField.text = "Drop event triggered."
+                completion("Drop event triggered.")
             }
         ])
     }
     
-    func layerChangeEvent() {
+    func layerChangeEvent(completion: @escaping (_ message: String) -> Void) {
         unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             map.ldstatic("EventName", with: "LayerChange"),
             {
                 (result: Any?) -> Void in
-                self.alert(message: "\(result ?? "no data")", placeholder: nil, completionHandler: nil)
+                completion("\(result ?? "no data")")
             }
         ])
         addLayer()
     }
     
-    func overlayClickEvent() {
+    func overlayClickEvent(completion: @escaping (_ message: String) -> Void) {
         unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             map.ldstatic("EventName", with: "OverlayClick"),
             {
                 (result: Any?) -> Void in
-                self.alert(message: "\(result ?? "no data")", placeholder: nil, completionHandler: nil)
+                completion("\(result ?? "no data")")
             }
         ])
         addURLMarker()
     }
     
-    func overlayChangeEvent() {
+    func overlayChangeEvent(completion: @escaping (_ message: String) -> Void) {
         unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             map.ldstatic("EventName", with: "OverlayChange"),
             {
                 (result: Any?) -> Void in
-                self.alert(message: "\(result ?? "no data")", placeholder: nil, completionHandler: nil)
+                completion("\(result ?? "no data")")
             }
         ])
         addURLMarker()
     }
     
-    func overlayLoadEvent() {
+    func overlayLoadEvent(completion: @escaping (_ message: String) -> Void) {
         unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             map.ldstatic("EventName", with: "OverlayLoad"),
             {
                 (result: Any?) -> Void in
-                self.alert(message: "\(result ?? "no data")", placeholder: nil, completionHandler: nil)
+                completion("\(result ?? "no data")")
             }
         ])
         addBangkok()
     }
     
-    func overlayDropEvent() {
+    func overlayDropEvent(completion: @escaping (_ message: String) -> Void) {
         unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             map.ldstatic("EventName", with: "OverlayDrop"),
             {
                 (result: Any?) -> Void in
-                self.alert(message: "\(result ?? "no data")", placeholder: nil, completionHandler: nil)
+                completion("\(result ?? "no data")")
             }
         ])
         addURLMarker()
-    }
-    
-    ///Note:
-    ///> The `handler` parameter is not available. All handlers for the selected event name will be unbound.
-    func unbind() {
-        let event = ["GuideComplete", "Location", "Zoom", "ZoomRange", "Resize", "Click", "Drag", "Drop", "LayerChange", "OverlayClick", "OverlayChange", "OverlayLoad", "OverlayDrop"]
-        for i in event {
-            let _ = self.map.call(method: "Event.unbind", args: [map.ldstatic("EventName", with: i)])
-        }
     }
     
     // MARK: - User Interface
@@ -1620,9 +1317,8 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         //see func locationManager
     }
     
-    func getLocation() {
-        let location = map.call(method: "location", args: nil)
-        alert(message: "\(location ?? "no data")", placeholder: nil, completionHandler: nil)
+    func getLocation() -> Any {
+        return map.call(method: "location", args: nil) ?? "no result"
     }
     
     func setZoom() {
@@ -1656,9 +1352,8 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         let _ = map.call(method: "zoomRange", args: [1...5])
     }
     
-    func getZoomRange() {
-        let zoomRange = map.call(method: "zoomRange", args: nil)
-        alert(message: "\(zoomRange ?? "no data")", placeholder: nil, completionHandler: nil)
+    func getZoomRange() -> Any {
+        return map.call(method: "zoomRange", args: nil) ?? "no data"
     }
     
     func setBound() {
@@ -1670,9 +1365,8 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         ]])
     }
     
-    func getBound() {
-        let bound = map.call(method: "bound", args: nil)
-        alert(message: "\(bound ?? "no data")", placeholder: nil, completionHandler: nil)
+    func getBound() -> Any {
+        return map.call(method: "bound", args: nil) ?? "no data"
     }
     
     func toggleDPad() {
@@ -1722,14 +1416,14 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
     }
     
     // MARK: - Etc.
-    func getOverlayType() {
+    func getOverlayType(completion: @escaping (_ message: String) -> Void) {
         unbind()
         let _ = self.map.call(method: "Event.bind", args: [
             map.ldstatic("EventName", with: "OverlayClick"),
             {
                 (result: Any?) -> Void in
                 if let overlay = result as? LongdoMap.LDObject {
-                    self.alert(message: "\(overlay.type)", placeholder: nil, completionHandler: nil)
+                    completion("\(overlay.type)")
                 }
             }
         ])
@@ -1746,7 +1440,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         ]])
     }
     
-    func getDistance() {
+    func getDistance(completion: @escaping (_ message: String) -> Void) {
         var markerCar1: LongdoMap.LDObject?
         var markerCar2: LongdoMap.LDObject?
         var geom1: LongdoMap.LDObject?
@@ -1768,7 +1462,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
                 ])
                 let _ = self.map.call(method: "Overlays.add", args: [geom1!])
                 if let distance = self.map.objectCall(ldobject: markerCar1!, method: "distance", args: [markerCar2!]) as? Double {
-                    self.alert(message: "ระยะกระจัด \(round(distance) / 1000.0) กิโลเมตร", placeholder: nil, completionHandler: nil)
+                    completion("ระยะกระจัด \(round(distance) / 1000.0) กิโลเมตร")
                 }
             }
         ])
@@ -1798,7 +1492,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
             let _ = self.map.call(method: "Overlays.add", args: [markerCar2!])
             let _ = self.map.call(method: "Overlays.add", args: [geom1!])
             if let distance = self.map.objectCall(ldobject: markerCar1!, method: "distance", args: [markerCar2!]) as? Double {
-                self.alert(message: "ระยะกระจัด \(round(distance) / 1000.0) กิโลเมตร", placeholder: nil, completionHandler: nil)
+                completion("ระยะกระจัด \(round(distance) / 1000.0) กิโลเมตร")
             }
         }
         
@@ -1808,7 +1502,7 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         ]])
     }
     
-    func getContain() {
+    func getContain(completion: @escaping (_ message: String) -> Void) {
         var dropMarker: LongdoMap.LDObject?
         var geom1: LongdoMap.LDObject?
         var geom2: LongdoMap.LDObject?
@@ -1819,13 +1513,13 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
             {
                 (result: Any?) -> Void in
                 if let c = self.map.objectCall(ldobject: geom1!, method: "contains", args: [dropMarker!]) as? Bool, c {
-                    self.alert(message: "In yellow area.", placeholder: nil, completionHandler: nil)
+                    completion("In yellow area.")
                 }
                 else if let c = self.map.objectCall(ldobject: geom2!, method: "contains", args: [dropMarker!]) as? Bool, c {
-                    self.alert(message: "In red area.", placeholder: nil, completionHandler: nil)
+                    completion("In red area.")
                 }
                 else {
-                    self.alert(message: "Outside selected area.", placeholder: nil, completionHandler: nil)
+                    completion("Outside selected area.")
                 }
             }
         ])
@@ -1941,6 +1635,164 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
         let _ = self.map.call(method: "bound", args: [bound])
     }
     
+    func addHeatMap() {
+        if isConnectedToNetwork() {
+            layer = map.ldobject("Layer", with:[
+                [
+                    "sources": [
+                        "earthquakes": [
+                            "type": "geojson",
+                            "data": "https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson",
+                        ],
+                    ],
+                    "layers": [
+                        [
+                            "id": "earthquakes-heat",
+                            "type": "heatmap",
+                            "source": "earthquakes",
+                            "maxzoom": 9,
+                            "paint": [
+                                // Increase the heatmap weight based on frequency and property magnitude
+                                "heatmap-weight": [
+                                    "interpolate",
+                                    ["linear"],
+                                    ["get", "mag"],
+                                    0,
+                                    0,
+                                    6,
+                                    1,
+                                ],
+                                // Increase the heatmap color weight weight by zoom level
+                                // heatmap-intensity is a multiplier on top of heatmap-weight
+                                "heatmap-intensity": [
+                                    "interpolate",
+                                    ["linear"],
+                                    ["zoom"],
+                                    0,
+                                    1,
+                                    9,
+                                    3,
+                                ],
+                                // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
+                                // Begin color ramp at 0-stop with a 0-transparancy color
+                                // to create a blur-like effect.
+                                "heatmap-color": [
+                                    "interpolate",
+                                    ["linear"],
+                                    ["heatmap-density"],
+                                    0,
+                                    "rgba(33,102,172,0)",
+                                    0.2,
+                                    "rgb(103,169,207)",
+                                    0.4,
+                                    "rgb(209,229,240)",
+                                    0.6,
+                                    "rgb(253,219,199)",
+                                    0.8,
+                                    "rgb(239,138,98)",
+                                    1,
+                                    "rgb(178,24,43)",
+                                ],
+                                // Adjust the heatmap radius by zoom level
+                                "heatmap-radius": [
+                                    "interpolate",
+                                    ["linear"],
+                                    ["zoom"],
+                                    0,
+                                    2,
+                                    9,
+                                    20,
+                                ],
+                                // Transition from heatmap to circle layer by zoom level
+                                "heatmap-opacity": [
+                                    "interpolate",
+                                    ["linear"],
+                                    ["zoom"],
+                                    7,
+                                    1,
+                                    9,
+                                    0,
+                                ],
+                            ],
+                        ],
+                        "waterway-label",
+                    ],
+                ]
+            ])
+            let _ = map.call(method: "Layers.add", args: [layer!])
+            
+            let _ = self.map.call(method: "goTo", args: [[
+                "center": CLLocationCoordinate2D(latitude: 35.5, longitude: -135.2),
+                "zoom": 2
+            ]])
+        }
+    }
+    
+    func addClusterMarker(){
+        if isConnectedToNetwork() {
+            layer = map.ldobject("Layer", with:[
+                [
+                    "sources": [
+                        "earthquakes": [
+                            "type": "geojson",
+                            "data": "https://maplibre.org/maplibre-gl-js/docs/assets/earthquakes.geojson",
+                            "cluster": true,
+                            "clusterMaxZoom": 14, // Max zoom to cluster points on
+                            "clusterRadius": 50, // Radius of each cluster when clustering points (defaults to 50)
+                        ]
+                    ],
+                    "layers": [
+                        [
+                            "id": "clusters",
+                            "type": "circle",
+                            "source": "earthquakes",
+                            "filter": ["has", "point_count"],
+                            "paint": [
+                                "circle-color": [
+                                    "step",
+                                    ["get", "point_count"],
+                                    "#51bbd6", 100,
+                                    "#f1f075", 750,
+                                    "#f28cb1",
+                                ],
+                                "circle-radius": ["step", ["get", "point_count"], 20, 100, 30, 750, 40],
+                            ],
+                        ],
+                        [
+                            "id": "cluster-count",
+                            "type": "symbol",
+                            "source": "earthquakes",
+                            "filter": ["has", "point_count"],
+                            "layout": [
+                                "text-field": "{point_count_abbreviated}",
+                                "text-font": ["OCJ"],
+                                "text-size": 12,
+                            ],
+                        ],
+                        [
+                            "id": "unclustered-point",
+                            "type": "circle",
+                            "source": "earthquakes",
+                            "filter": ["!", ["has", "point_count"]],
+                            "paint": [
+                                "circle-color": "#11b4da",
+                                "circle-radius": 4,
+                                "circle-stroke-width": 1,
+                                "circle-stroke-color": "#fff",
+                            ],
+                        ],
+                    ]
+                ]
+            ])
+            let _ = map.call(method: "Layers.add", args: [layer!])
+            
+            let _ = self.map.call(method: "goTo", args: [[
+                "center": CLLocationCoordinate2D(latitude: 45.58, longitude: 94.65),
+                "zoom": 1
+            ]])
+        }
+    }
+    
     func add3DObject() {
         if isConnectedToNetwork() {
             let layer = map.call(method: "Layers.setBase", args: [map.ldstatic("Layers", with: "NORMAL")]) as? LongdoMap.LDObject
@@ -1976,34 +1828,4 @@ class ViewController: UIViewController, MenuDelegate, CLLocationManagerDelegate 
             ]])
         }
     }
-    
-    func isConnectedToNetwork() -> Bool {
-        var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
-        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
-        zeroAddress.sin_family = sa_family_t(AF_INET)
-        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
-            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
-                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
-            }
-        }
-        var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags(rawValue: 0)
-        if SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) == false {
-            return false
-        }
-        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
-        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
-        let ret = (isReachable && !needsConnection)
-        if !ret {
-            print("Internet connection is required for this feature.")
-        }
-        return ret
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "menu" {
-            guard let vc = segue.destination as? MenuTableViewController else { return }
-            vc.delegate = self
-        }
-    }
 }
-
